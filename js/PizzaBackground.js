@@ -51,7 +51,7 @@ PizzaBackground.prototype.update = function() {
 		var pizza = this.pizzas[i];
 		pizza.y += dt * pizza.velocity;
 		if(pizza.y > this.height) {
-			this.pizzas[i] = new Pizza(Math.random()*this.width, 0, Math.random()*50+1, 
+			this.pizzas[i] = new Pizza(Math.random()*this.width, 0, Math.random()*80+1, 
 		 	(Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity);
 		}
 	}
@@ -64,7 +64,7 @@ PizzaBackground.prototype.draw = function() {
  	ctx.fillStyle = '#000000';
 	ctx.fillRect(0, 0, this.width, this.height);
 
-	var photos = ['images/pizzas/half_pizza.png', 'images/pizzas/pizza_slice.png', 'images/pizzas/pizza_slice_2.png', 'images/pizzas/pizza_slice_3.png'];
+	var photos = ['images/pizzas/pizza_slice.png', 'images/pizzas/pizza_slice_2.png', 'images/pizzas/pizza_slice_2.png', 'images/pizzas/pizza_slice_3.png', 'images/pizzas/pizza_slice_4.png', 'images/pizzas/pizza_slice_5.png'];
 	for(var i=0; i<this.pizzas.length;i++) {
 		var photo = new Image();
 		photo.src = photos[i % 4];

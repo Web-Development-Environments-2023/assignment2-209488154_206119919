@@ -22,7 +22,7 @@
 .menu-item::before {
     content: '';
     display: block;
-    position: absolute;
+    position: fixed;
     top: 49%;
     left: -10%;
     right: -10%;
@@ -34,6 +34,8 @@
     transition: transform 0.8s cubic-bezier(0.16, 1.08, 0.38, 0.98);
     z-index: 1;
 }
+
+
 
 .Mask {
     display: block;

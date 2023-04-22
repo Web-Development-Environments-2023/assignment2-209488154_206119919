@@ -39,7 +39,7 @@ PlayState.prototype.enter = function(game) {
     this.playerBulletMaxFireRate = this.config.playerBulletMaxFireRate + 0.4 * limitLevel;
 
     var invaders = [];
-    var invaderPhotos = ['images/clients/character_1.png', 'images/clients/character_2.png', 'images/clients/character_3.png', 'images/clients/character_4.png'];
+    var invaderPhotos = ['images/clients/character_1.png', 'images/clients/character_2.png', 'images/clients/character_3.png', 'images/clients/character_5.png'];
     var invaderWidth = game.width * 0.08;
     var invaderHeight = game.height * 0.11;
 
