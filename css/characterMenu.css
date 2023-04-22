@@ -16,7 +16,6 @@
 .character-option {
 	width: 15vw;
 	height: 55vh;
-	background: red;
 	background-size: auto 100%;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
@@ -26,6 +25,26 @@
 	transition: 0.5s;
 	transform: skewY(-10deg);
 	z-index: -1;
+}
+
+#rosetta{
+    background: rgba(249, 120, 55, 0.884);
+}
+
+#alfredo{
+    background: rgba(20, 188, 255, 0.836);
+}
+
+#gina{
+    background: rgba(246, 75, 166, 0.868);
+}
+
+#billie{
+    background: rgba(255, 39, 39, 0.808);
+}
+
+#luna{
+    background: rgba(100, 245, 81, 0.826);
 }
 
 .character-option img {

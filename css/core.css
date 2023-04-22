@@ -34,6 +34,11 @@ body, html {
   overflow: hidden;
 }
 
+.logo{
+  position: relative;
+  right: -5%;
+}
+
 #header {
   display: flex;
   flex-direction: column;
@@ -85,3 +90,69 @@ body, html {
 #signup {
   display: none;
 }
+
+#text,
+    #shadow {
+        position: absolute;
+        margin: 0;
+        top: 50%;
+        left: 60%;
+        transform: translate(-50%, -50%);
+        font-size: 2em;
+        font-weight: bolder;
+        letter-spacing: 20px;
+        /* font-family: "Segoe Script"; */
+        color: #fdbd95;
+    }
+
+    #text {
+        color: #333
+    }
+
+    #shadow {
+        text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+    }
+
+   #glow {
+        animation: neon1 linear infinite 2s;
+        will-change: opacity;
+    }
+
+    #blink {
+        animation: blink linear infinite 2s;
+    }
+
+
+    @keyframes neon1 {
+        20% {
+            opacity: 1;
+        }
+        80% {
+            opacity: 0.6;
+        }
+    }
+
+
+    @keyframes blink {
+        70% {
+            opacity: 1;
+        }
+        79% {
+            opacity: 0;
+        }
+        81% {
+            opacity: 1;
+        }
+        82% {
+            opacity: 0;
+        }
+        83% {
+            opacity: 1;
+        }
+        92% {
+            opacity: 0;
+        }
+        92.5% {
+            opacity: 1;
+        }
+    }
