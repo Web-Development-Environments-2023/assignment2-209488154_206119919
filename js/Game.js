@@ -25,6 +25,7 @@ function Game() {
     this.intervalId = 0;
     this.score = 0;
     this.level = 1;
+    this.scoreRecords = [];
     this.characters = {
         'rosetta': {
             characterWidth: 76,

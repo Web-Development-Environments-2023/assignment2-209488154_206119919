@@ -1,0 +1,178 @@
+html {
+  --black: #000000;
+  --white: #ffffff;
+  --darkest: #101010;
+  --darker: #16171A;
+  --dark: #A3AFBF;
+  --medium: #DFE7EF;
+  --yellow: #FDCB6E;
+  --orange: #E17055;
+  --teal: #00CEC9;
+}
+  
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+  
+body {
+  background: var(--darkest);
+  color: var(--white);
+  font-size: 1.6rem;
+  font-family: "Overpass Mono", system-ui;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  font-family: "Oswald", system-ui;
+}
+  
+#scoreboard-container {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#scoreboard {
+  border-radius: 0.8rem;
+  background: var(--darker);
+  width: 100%;
+  margin-bottom: 1.6rem;
+  box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.12);
+}
+
+.scoreboard-body, .scoreboard-header {
+  padding: 2.4rem;
+}
+
+.scoreboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0;
+}
+
+.scores {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.score-list-item {
+  padding: 1.6rem 0;
+}
+
+.score-list-item .flag {
+  margin-top: 0.8rem;
+}
+
+.record {
+  display: grid;
+  grid-template-columns: 4.8rem 3fr 1fr;
+  grid-column-gap: 2.4rem;
+}  
+
+.scoreboard-username {
+  display: inline-flex;
+  align-items: center;
+}
+
+.scoreboard-username-title {
+  margin-bottom: 0.4rem;
+}
+
+.flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  background: var(--white);
+  color: var(--dark);
+  border-radius: 0.4rem;
+}
+
+.left-text {
+  text-align: left;
+}
+
+.right-text {
+  text-align: right;
+}
+
+.dark-text {
+  color: var(--darkest) !important;
+}
+
+.transparent-background {
+  background: transparent !important;
+}
+
+.medium-text {
+  color: var(--medium) !important;
+}
+
+.yellow-background {
+  background: var(--yellow) !important;
+}
+
+.yellow-text {
+  color: var(--yellow) !important;
+}
+
+.orange-background {
+  background: var(--orange) !important;
+}
+
+.orange-text {
+  color: var(--orange) !important;
+}
+
+.teal-background {
+  background: var(--teal) !important;
+}
+
+.teal-text {
+  color: var(--teal) !important;
+}
+
+.small-text {
+  font-size: 1.4rem;
+}
+
+.margin-top-8 {
+  margin-top: 0.8rem;
+}
+
+.neon {
+  display: none;
+  font-family: "Monoton", cursive;
+  font-size: 30px;
+  color: #ffd5ff;
+  transform: translate(-50%, -50%);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-shadow: 1px 0px 4px #ffd5ff, 2px 0px 4px #ffd5ff, 3px 0px 4px #ffd5ff, 2px 0px 3px #d42cca, 2px 3px 15px #d42cca, 2px 0px 15px, 5px 0px 125px, 20px 0vw 200px #d42cca, 40px 0vw 200px #d42cca;
+}
+
+.flicker-slow {
+  animation: flicker 3s linear infinite;
+}
+
+.flicker-fast {
+  animation: flicker 1s linear infinite;
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.99;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+  }
+}

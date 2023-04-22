@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/about.css">
     <link rel="stylesheet" type="text/css" href="css/signup.css">
     <link rel="stylesheet" type="text/css" href="css/characterMenu.css">
+    <link rel="stylesheet" type="text/css" href="css/scoreboard.css">
     <link rel="stylesheet" type="text/css" href="css/typeography.css">
     <link rel="icon" type="image/x-icon" href="/images/pizza_slice.ico" sizes="32x32">
   </head>
@@ -229,7 +230,33 @@
 
       <canvas id="gameCanvas"></canvas>
       <img src="images/background.png" id="playing-background">
+      <div id="scoreboard-container">
+        <div id="game-status">
+          <h1 class="neon" data-text="U">WI<span class="flicker-slow">N</span>N<span class="flicker-fast">E</span>R!</h1>
+          <h1 class="neon" data-text="U">YO<span class="flicker-slow">U L</span>O<span class="flicker-fast">ST</span></h1>
+          <h1 class="neon" data-text="U">YO<span class="flicker-slow">U C</span>AN D<span class="flicker-fast">O BET</span>TER</h1>
+          <h1 class="neon" data-text="U">CH<span class="flicker-slow">A</span>MP<span class="flicker-fast">IO</span>N!</h1>
+        </div>
+        <br/>
+        <div id="scoreboard">
+          <div class="scoreboard-header">
+            <h3>Scoreboard</h3>
+          </div>
+          <div class="scoreboard-body">
+            <ul class="scores" id="scoreboard-list">
+                <li class="score-list-item">
+                    <div class="record">
+                        <span class="left-text small-text medium-text">Rank</span>
+                        <span class="left-text small-text medium-text">Username</span>
+                        <span class="right-text small-text medium-text">Score</span>
+                    </div>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+      
     <div id="pizza-background"></div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -246,6 +273,7 @@
   <script src="js/Login.js"></script>
   <script src="js/About.js"></script>
   <script src="js/Menu.js"></script>
+  <script src="js/Scoreboard.js"></script>
   <script src="js/CharacterMenu.js"></script>
   <script>
       function setVisibility(divId, display) {
