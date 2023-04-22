@@ -1,0 +1,87 @@
+a:hover,
+a:focus {
+  color: #005580;
+  text-decoration: underline;
+}
+
+body {
+  font-family: "Gilroy ExtraBold", system-ui, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-kerning: normal;
+  -webkit-text-size-adjust: 100%;
+}
+html, body {
+  width: 100vw;
+  height: 100vh;
+}
+body {
+  background: linear-gradient(45deg, #02001f, #1f1b4e);
+  transform-style: preserve-3d;
+  transform: perspective(60rem);
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body, html { 
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.flex-column {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#playing-background {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  z-index: -5;
+  position: fixed;
+  top: 0;
+  left: 0; 
+}
+
+#pizza-background {
+  width:100vw;
+  height:100vh;
+  z-index: -2;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+#gameCanvas { 
+  display: none;
+  z-index: 2;
+}
+
+#login {
+  display: none;
+}
+
+#signup {
+  display: none;
+}

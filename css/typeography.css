@@ -1,0 +1,11 @@
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+	color: #333333;
+}
+
+@font-face {
+  font-family: 'DeliciousHandrawn';
+  src: url('Delicious_Handrawn/DeliciousHandrawn-Regular.ttf');
+}

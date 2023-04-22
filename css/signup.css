@@ -1,0 +1,21 @@
+.container {
+  padding: 115px;
+}
+
+select {
+  padding: 5px;
+}
+
+input.date {
+  width:50px;
+  padding: 5px;
+}
+
+#month, #year, #day {
+    width:min-content;
+}
+
+.sign-up-button {
+    width: 280px;
+    height: 42px;
+}
