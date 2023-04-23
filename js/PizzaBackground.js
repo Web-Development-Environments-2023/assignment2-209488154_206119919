@@ -117,6 +117,5 @@ PizzaBackground.prototype.resizePizzaBackground = function() {
 function clearCanvas() {
 	var ctx = this.canvas.getContext("2d");
 	ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-	console.log('cleared');
 	clearInterval(this.intervalId);
 }

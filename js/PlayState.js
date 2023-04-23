@@ -19,10 +19,6 @@ PlayState.prototype.enter = function(game) {
     var playerImage = new Image();
     playerImage.src = game.selectedCharacterImage;
  
-    console.log("bottom:" , game.gameBounds.bottom)
-    console.log("top:" , game.gameBounds.top)
-    console.log("left:" , game.gameBounds.left)
-    console.log("right:" , game.gameBounds.right)
     this.player = new Player(game.width / 2, game.gameBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
 
     this.invaderCurrentVelocity =  10;
@@ -226,18 +222,32 @@ PlayState.prototype.update = function(game, dt) {
         }
     }
 
-    if(game.lives <= 0) {
-        game.sounds.playSound('lose', 1.5);
-
-        game.moveToState(new GameOverState());
-    }
-
-    if(this.invaders.length === 0) {
-        game.score += this.level * 50;
-        game.level += 1;
-        game.moveToState(new LevelIntroState(game.level));
-    }
+    if(game.lives <= 0)
+        loseGame(game);
+    
+    if(this.invaders.length === 0)
+        winGame();
 };
+
+function loseGame(game) {
+    game.sounds.playSound('lose', 1.5);
+    game.didLose = true;
+    game.didWin = false;
+    finishGame(game);
+}
+
+function winGame() {
+    game.didWin = true;
+    game.didLose = false;
+    finishGame(game);
+}
+
+function finishGame(game) {
+    saveRecord(game);
+    clearInterval(game.intervalId)
+    setVisibility('gameCanvas', 'none');
+    showScoreboard(game);
+}
 
 PlayState.prototype.draw = function(game, dt, ctx) {
 
@@ -249,7 +259,6 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     ctx.fillStyle = '#006600';
     for(var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
-        console.log(invader)
         ctx.drawImage(invader.photo, invader.x, invader.y, invader.width, invader.height);
     }
 
@@ -298,3 +307,11 @@ PlayState.prototype.firePlayerBullet = function() {
         game.sounds.playSound('shoot', 0.5);
     }
 };
+
+function saveRecord(game) {
+    var record = {
+        username: 'bar',
+        points: game.score,
+    }
+    game.scoreRecords.push(record);
+}
