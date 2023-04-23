@@ -1,3 +1,4 @@
+
 function setVisibility(divId, display) {
     const element = document.getElementById(divId);
     element.style.display = display;
@@ -140,6 +141,7 @@ function initialisePizzaBackground() {
     pizzaBackground.initialise(container);
     pizzaBackground.start();
 }
+
 initialisePizzaBackground();
 // initialiseCanvas();
 initialiseGame();

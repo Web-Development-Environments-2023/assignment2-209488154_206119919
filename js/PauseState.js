@@ -2,6 +2,8 @@ function PauseState() {
 
 }
 
+
+
 PauseState.prototype.keyDown = function(game, keyCode) {
 
     if(keyCode == KEY_P) {

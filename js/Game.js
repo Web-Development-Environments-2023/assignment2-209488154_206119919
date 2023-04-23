@@ -7,7 +7,6 @@ function Game() {
         invaderInitialVelocity: 20,
         // invaderAcceleration: 0,
         invaderDropDistance:10,
-        invaderRiseDistance:-10,
         playerBulletVelocity: 120,
         playerBulletMaxFireRate: 2,
         fps: 50,
