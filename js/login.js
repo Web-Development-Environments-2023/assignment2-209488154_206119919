@@ -3,7 +3,7 @@ var loginButton = document.getElementById("login-btn");
 loginButton.addEventListener("click", onLogin);
 
 function onLogin() {
-    if (!validate()) {
+    if (validate()) {
         alert("Wrong username or password.");
         return;
     }
