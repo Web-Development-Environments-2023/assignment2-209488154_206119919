@@ -1,17 +1,17 @@
 INVADERS_SPEED = 10;
 LIMIT_SPEED_UP = 0;
+GO_DOWN = true;
 
 function PlayState(config, level) {
     this.config = config;
     this.level = level;
     this.currentInvaderBullet = null;
-    this.goDown = true;
-    this.goLeft = true;
 
-    // this.invaderCurrentVelocity =  25;
     this.invaderCurrentVelocity = this.config.invaderInitialVelocity;
     this.invaderCurrentDropDistance =  0;
+    this.invaderCurrentRiseDistance =  0;
     this.invadersAreDropping =  false;
+    this.invadersAreRising =  false;
     this.lastPlayerBulletTime = null;
 
     this.player = null;
@@ -35,9 +35,6 @@ PlayState.prototype.enter = function(game) {
     playerImage.src = game.selectedCharacterImage;
  
     this.player = new Player(game.width / 2, game.gameBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
-
-    this.invaderCurrentDropDistance =  0;
-    this.invadersAreDropping =  false;
 
     var levelMultiplier = this.level * this.config.levelDifficultyMultiplier;
     var limitLevel = (this.level < this.config.limitLevelIncrease ? this.level : this.config.limitLevelIncrease);
@@ -120,132 +117,120 @@ PlayState.prototype.update = function(game, dt) {
     }
 
     var hitLeft = false, hitRight = false, hitBottom = false, hitTop = false;
-    if(this.goDown)
-    {   
-        for(i=0; i<this.invaders.length; i++) 
+    if (GO_DOWN) {
+        for (i=0; i<this.invaders.length; i++) 
         {
             var invader = this.invaders[i];
             var newx = invader.x + (this.invaderVelocity.x * dt * INVADERS_SPEED);
             var newy = invader.y + (this.invaderVelocity.y * dt * INVADERS_SPEED);
-            if(hitLeft == false && newx < game.gameBounds.left) {
+            if (hitLeft == false && newx < game.gameBounds.left) {
                 hitLeft = true;
-                this.goLeft = false;
+                console.log("a");
             }
-            else if(hitRight == false && newx > game.gameBounds.right) {
+            else if (hitRight == false && newx > game.gameBounds.right) {
                 hitRight = true;
-                this.goLeft = true;
+                console.log("b");
             }
-            if(newy > game.gameBounds.bottom - 250) {
-                this.goDown = false;
+            else if (hitBottom == false && newy > game.gameBounds.bottom) {
                 hitBottom = true;
-                console.log('PING');
+                console.log("c");
             }
 
-            if(!hitLeft && !hitRight && !hitBottom) {
+            if (!hitLeft && !hitRight && !hitBottom) {
                 invader.x = newx;
                 invader.y = newy;
+                console.log("d");
             }
         }
 
-        if(this.invadersAreDropping) {
+        if (this.invadersAreDropping) {
             this.invaderCurrentDropDistance += this.invaderVelocity.y * dt;
-            if(this.invaderCurrentDropDistance >= this.config.invaderDropDistance) {
+            if (this.invaderCurrentDropDistance >= this.config.invaderDropDistance) {
                 this.invadersAreDropping = false;
                 this.invaderVelocity = this.invaderNextVelocity;
                 this.invaderCurrentDropDistance = 0;
+                console.log("e");
             }
         }
-        if(hitLeft) {
-            this.invaderCurrentVelocity += this.config.invaderAcceleration;
+        if (hitLeft) {
             this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
             this.invadersAreDropping = true;
             this.invaderNextVelocity = {x: this.invaderCurrentVelocity , y:0};
+            console.log("f");
         }
-        if(hitRight) {
-            this.invaderCurrentVelocity += this.config.invaderAcceleration;
+        if (hitRight) {
             this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
             this.invadersAreDropping = true;
             this.invaderNextVelocity = {x: -this.invaderCurrentVelocity , y:0};
+            console.log("g");
         }
-        if(hitBottom) {
-            this.invaderCurrentVelocity += this.config.invaderAcceleration;
-            if(this.goLeft){
-                this.invaderVelocity = {x: -this.invaderCurrentVelocity , y:0};
-                this.invadersAreDropping = true;
-                this.invaderNextVelocity = {x: 0, y:this.invaderCurrentVelocity};
-            }
-            else{this.invaderVelocity = {x: this.invaderCurrentVelocity , y:0};
-            this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: 0, y:this.invaderCurrentVelocity}; 
-            }
-        }
-    }
-    else{
-        for(i=0; i<this.invaders.length; i++) {
-            var invader = this.invaders[i];
-            var newx = invader.x + (this.invaderVelocity.x * dt * INVADERS_SPEED);
-            var newy = invader.y - (this.invaderVelocity.y * dt * INVADERS_SPEED);
-            if(hitLeft == false && newx < game.gameBounds.left) {
-                hitLeft = true;
-                this.goLeft = false;
-            }
-            else if(hitRight == false && newx > game.gameBounds.right) {
-                hitRight = true;
-                this.goLeft = true;
-            }
-            if(newy <= game.gameBounds.top) {
-                this.goDown = true;
-                hitTop = true;
-                console.log('PONG');
-            }
-
-            if(!hitLeft && !hitRight && !hitTop) {
-                invader.x = newx;
-                invader.y = newy;
-            }
-        }
-
-        if(this.invadersAreDropping) {
-            this.invaderCurrentDropDistance -= this.invaderVelocity.y * dt;
-            if(this.invaderCurrentDropDistance <= 0) {
-                this.invadersAreDropping = false;
-                this.invaderVelocity = this.invaderNextVelocity;
-                this.invaderCurrentDropDistance = this.config.invaderDropDistance;
-            }
-        }
-        if(hitLeft) {
-            this.invaderCurrentVelocity += this.config.invaderAcceleration;
-            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
-            this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: this.invaderCurrentVelocity , y:0};
-        }
-        if(hitRight) {
-            this.invaderCurrentVelocity += this.config.invaderAcceleration;
-            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
-            this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: -this.invaderCurrentVelocity , y:0};
-        }
-        if(hitTop) {
-            if(this.goLeft){
-                this.invaderVelocity = {x: -this.invaderCurrentVelocity , y:0};
-                this.invadersAreDropping = true;
-                this.invaderNextVelocity = {x: 0, y:this.invaderCurrentVelocity};
-            }
-            else{this.invaderVelocity = {x: this.invaderCurrentVelocity , y:0};
-            this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: 0, y:this.invaderCurrentVelocity};
-        } 
+        if (hitBottom) {
+            GO_DOWN = false;
+            console.log("h");
         }
     }
     
-    for(i=0; i<this.invaders.length; i++) {
+    else {
+        for (i=0; i<this.invaders.length; i++) 
+        {
+            var invader = this.invaders[i];
+            var newx = invader.x + (this.invaderVelocity.x * dt * INVADERS_SPEED);
+            var newy = invader.y - (this.invaderVelocity.y * dt * INVADERS_SPEED);
+            if (hitLeft == false && newx < game.gameBounds.left) {
+                hitLeft = true;
+                console.log("1");
+            }
+            else if (hitRight == false && newx > game.gameBounds.right) {
+                hitRight = true;
+                console.log("2");
+            }
+            else if (hitTop == false && newy < game.gameBounds.top) {
+                hitTop = true;
+                console.log("3");
+            }
+    
+            if (!hitLeft && !hitRight && !hitTop) {
+                invader.x = newx;
+                invader.y = newy;
+                console.log("4");
+            }
+        }
+    
+        if (this.invadersAreRising) {
+            this.invaderCurrentRiseDistance -= this.invaderVelocity.y * dt;
+            if (this.invaderCurrentRiseDistance <= this.config.invaderRiseDistance) {
+                this.invadersAreRising = false;
+                this.invaderVelocity = this.invaderNextVelocity;
+                this.invaderCurrentRiseDistance = 0;
+                console.log("5");
+            }
+        }
+        if (hitLeft) {
+            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            this.invadersAreRising = true;
+            this.invaderNextVelocity = {x: this.invaderCurrentVelocity , y:0};
+            console.log("6");
+        }
+        if (hitRight) {
+            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            this.invadersAreRising = true;
+            this.invaderNextVelocity = {x: -this.invaderCurrentVelocity , y:0};
+            console.log("7");
+        }
+        if (hitTop) {
+            GO_DOWN = true;
+            console.log("8");
+        }
+    }
+    
+    for (i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         var bang = false;
 
-        for(var j=0; j<this.playerBullets.length; j++){
+        for (var j=0; j<this.playerBullets.length; j++){
             var playerBullet = this.playerBullets[j];
 
-            if(playerBullet.x >= (invader.x - invader.width/2) && playerBullet.x <= (invader.x + invader.width/2) &&
+            if (playerBullet.x >= (invader.x - invader.width/2) && playerBullet.x <= (invader.x + invader.width/2) &&
                 playerBullet.y >= (invader.y - invader.height/2) && playerBullet.y <= (invader.y + invader.height/2)) {
 
                 this.playerBullets.splice(j--, 1);
@@ -254,26 +239,26 @@ PlayState.prototype.update = function(game, dt) {
                 break;
             }
         }
-        if(bang) {
+        if (bang) {
             this.invaders.splice(i--, 1);
             game.sounds.playSound('bang', 0.5);
         }
     }
 
     var frontRankInvaders = {};
-    for(var i=0; i<this.invaders.length; i++) {
+    for (var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
 
-        if(!frontRankInvaders[invader.file] || frontRankInvaders[invader.file].rank < invader.rank) {
+        if (!frontRankInvaders[invader.file] || frontRankInvaders[invader.file].rank < invader.rank) {
             frontRankInvaders[invader.file] = invader;
         }
     }
 
-    for(var i=0; i<this.config.invaderFiles; i++) {
+    for (var i=0; i<this.config.invaderFiles; i++) {
         var invader = frontRankInvaders[i];
-        if(!invader) continue;
+        if (!invader) continue;
         var chance = this.invaderBulletRate * dt;
-        if(chance > Math.random()) {
+        if (chance > Math.random()) {
             if (!this.currentInvaderBullet || this.currentInvaderBullet.y >= game.height * 0.75) {
                 this.currentInvaderBullet = new InvaderBullet(invader.x, invader.y + invader.height / 2, 
                 this.invaderBulletMinVelocity + Math.random()*(this.invaderBulletMaxVelocity - this.invaderBulletMinVelocity))
@@ -304,15 +289,15 @@ PlayState.prototype.update = function(game, dt) {
                 
     }
 
-    for(var i=0; i<this.invaders.length; i++) {
-        var invader = this.invaders[i];
-        if((invader.x + invader.width/2) > (this.player.x - this.player.width/2) && 
-            (invader.x - invader.width/2) < (this.player.x + this.player.width/2) &&
-            (invader.y + invader.height/2) > (this.player.y - this.player.height/2) &&
-            (invader.y - invader.height/2) < (this.player.y + this.player.height/2)) {
-            game.lives = 0;
-        }
-    }
+    // for(var i=0; i<this.invaders.length; i++) {
+    //     var invader = this.invaders[i];
+    //     if((invader.x + invader.width/2) > (this.player.x - this.player.width/2) && 
+    //         (invader.x - invader.width/2) < (this.player.x + this.player.width/2) &&
+    //         (invader.y + invader.height/2) > (this.player.y - this.player.height/2) &&
+    //         (invader.y - invader.height/2) < (this.player.y + this.player.height/2)) {
+    //         game.lives = 0;
+    //     }
+    // }
 
     if(game.lives <= 0)
         loseGame(game);
