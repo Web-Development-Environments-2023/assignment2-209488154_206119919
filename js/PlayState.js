@@ -5,8 +5,11 @@ function PlayState(config, level) {
     this.config = config;
     this.level = level;
     this.currentInvaderBullet = null;
+    this.goDown = true;
+    this.goLeft = true;
 
     this.invaderInitialVelocity = this.config.invaderInitialVelocity;
+    this.invaderCurrentVelocity = this.config.invaderInitialVelocity;
     this.invaderCurrentDropDistance =  0;
     this.invadersAreDropping =  false;
     this.lastPlayerBulletTime = null;
@@ -25,6 +28,15 @@ function speedUp(){
         game.config.invaderBulletVelocity *= 1.2;
         game.config.invadersSpeed += 3;
         game.config.limitSpeedUp += 1;
+    }
+
+}
+
+function speedUp(){
+    if(LIMIT_SPEED_UP < 4){
+        document.getElementById("game-audio-player").playbackRate *= 1.05;
+        INVADERS_SPEED += 1.2;
+        LIMIT_SPEED_UP += 1;
     }
 
 }
@@ -123,17 +135,22 @@ PlayState.prototype.update = async function(game, dt) {
     if (GO_DOWN) {
         for (i=0; i<this.invaders.length; i++) 
         {
+        {
             var invader = this.invaders[i];
             var newx = invader.x + (this.invaderVelocity.x * dt * this.config.invadersSpeed);
             var newy = invader.y + (this.invaderVelocity.y * dt * this.config.invadersSpeed);
             if (hitLeft == false && newx < game.invaderBounds.left) {
                 hitLeft = true;
+                this.goLeft = false;
             }
             else if (hitRight == false && newx > game.invaderBounds.right) {
                 hitRight = true;
+                this.goLeft = true;
             }
             else if (hitBottom == false && newy > game.invaderBounds.bottom) {
+                this.goDown = false;
                 hitBottom = true;
+                console.log('PING');
             }
 
             if (!hitLeft && !hitRight && !hitBottom) {
@@ -216,6 +233,21 @@ PlayState.prototype.update = async function(game, dt) {
             this.invadersAreDropping = false;
             this.invaderVelocity = this.invaderNextVelocity;
             this.invaderCurrentDropDistance = 0;
+        }
+            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            this.invadersAreDropping = true;
+            this.invaderNextVelocity = {x: -this.invaderCurrentVelocity , y:0};
+        }
+        if(hitTop) {
+            if(this.goLeft){
+                this.invaderVelocity = {x: -this.invaderCurrentVelocity , y:0};
+                this.invadersAreDropping = true;
+                this.invaderNextVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            }
+            else{this.invaderVelocity = {x: this.invaderCurrentVelocity , y:0};
+            this.invadersAreDropping = true;
+            this.invaderNextVelocity = {x: 0, y:this.invaderCurrentVelocity};
+        } 
         }
     }
 
