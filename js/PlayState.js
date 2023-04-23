@@ -363,6 +363,7 @@ PlayState.prototype.keyDown = function(game, keyCode) {
         this.firePlayerBullet();
     }
     if(keyCode == KEY_P) {
+        game.state = "pause";
         var gameAudioPlayer = document.getElementById('game-audio-player');
         gameAudioPlayer.pause();
         game.sounds.playSound('pause', 2.3);

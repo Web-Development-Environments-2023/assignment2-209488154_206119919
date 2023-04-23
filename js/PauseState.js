@@ -2,6 +2,8 @@ function PauseState() {
 
 }
 
+
+
 PauseState.prototype.keyDown = function(game, keyCode) {
 
     if(keyCode == KEY_P) {
@@ -18,6 +20,7 @@ PauseState.prototype.draw = function(game, dt, ctx) {
     var photo = new Image();
     photo.src = 'images/puase.png';
     ctx.drawImage(photo, game.width / 5, game.height / 7, 500, 500);
+    setVisibility('return', 'block');
 
     return;
 };

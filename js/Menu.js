@@ -9,12 +9,16 @@ function hideMenu() {
 
 function onSignupMenuOption() {
     hideMenu();
+    game.state = "signup";
     setVisibility('signup', 'block');
+    setVisibility('return', 'block');
 };
 
 function onLoginMenuOption() {
     hideMenu();
+    game.state = "login";
     setVisibility('login', 'block');
+    setVisibility('return', 'block');
 };
 
 function onAboutMenuOption() {

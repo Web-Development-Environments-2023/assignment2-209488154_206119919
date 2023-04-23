@@ -56,6 +56,7 @@ function Game() {
     }
     
     this.players = {"p": "testuser"};
+    this.states = null;
 
     this.stateStack = [];
 
