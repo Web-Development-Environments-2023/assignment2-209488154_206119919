@@ -23,4 +23,5 @@ var onCharacterClick = function(event) {
     setVisibility('pizza-background', 'none');
     setVisibility('playing-background', 'inline-block');
     setVisibility('gameCanvas', 'block');
+    setVisibility('health-bar', 'inline-block')
 };
