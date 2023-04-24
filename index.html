@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/signup.css">
     <link rel="stylesheet" type="text/css" href="css/characterMenu.css">
     <link rel="stylesheet" type="text/css" href="css/scoreboard.css">
+    <link rel="stylesheet" type="text/css" href="css/health.css">
     <link rel="stylesheet" type="text/css" href="css/typeography.css">
     <link rel="icon" type="image/x-icon" href="/images/pizza_slice.ico" sizes="32x32">
   </head>
@@ -230,6 +231,17 @@
 
       <canvas id="gameCanvas"></canvas>
       <img src="images/background.png" id="playing-background">
+      
+      <div id="health-bar" class="health-bar">
+        <svg width="100" height="100" viewBox="0 0 200 200">
+          <g id="healthBarInner" transform="translate(100,100)">
+          </g>
+          <circle cx="100" cy="100" r="90" fill="#222222" />
+        </svg>
+      
+        <p id="healthBarText"></p>
+      </div>
+
       <div id="scoreboard-container">
         <div id="game-status">
           <h1 class="neon" data-text="U">WI<span class="flicker-slow">N</span>N<span class="flicker-fast">E</span>R!</h1>
@@ -275,7 +287,8 @@
   <script src="js/Menu.js"></script>
   <script src="js/Scoreboard.js"></script>
   <script src="js/CharacterMenu.js"></script>
-  <script>
+  <script src="js/Health.js"></script>
+<script>
       function setVisibility(divId, display) {
           const element = document.getElementById(divId);
           element.style.display = display;

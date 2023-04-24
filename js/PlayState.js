@@ -208,6 +208,8 @@ PlayState.prototype.update = function(game, dt) {
             if (invaderBullet = this.currentInvaderBullet && this.currentInvaderBullet.y <= game.height * 0.75) {
                 this.currentInvaderBullet = null;
             }
+            healthBarState.currentHealth--;
+            renderHealthBar();
         }
                 
     }
