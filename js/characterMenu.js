@@ -22,7 +22,7 @@ var onCharacterClick = function(event) {
     game.moveToState(new LevelIntroState(game.level));
     pizzaBackground.onCharacterSelect();
     setVisibility('character-menu', 'none');
-    setVisibility('return', 'none');
+    setVisibility('pizza-background', 'none');
     setVisibility('return', 'none');
     setVisibility('playing-background', 'inline-block');
     setVisibility('gameCanvas', 'block');
