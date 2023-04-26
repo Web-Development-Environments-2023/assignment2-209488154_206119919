@@ -16,7 +16,9 @@ function Game() {
         playerSpeed: 120,
         levelDifficultyMultiplier: 0.2,
         pointsPerInvader: 5,
-        limitLevelIncrease: 25
+        limitLevelIncrease: 25,
+        invadersSpeed: 10,
+        limitSpeedUp: 0
     };
 
     this.lives = 3;

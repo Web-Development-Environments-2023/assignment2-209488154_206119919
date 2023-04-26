@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/menu.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <link rel="stylesheet" type="text/css" href="css/about.css">
+    <link rel="stylesheet" type="text/css" href="css/score.css">
     <link rel="stylesheet" type="text/css" href="css/signup.css">
     <link rel="stylesheet" type="text/css" href="css/characterMenu.css">
     <link rel="stylesheet" type="text/css" href="css/scoreboard.css">
@@ -22,7 +23,7 @@
       <img class="logo" src="images/logo.png" alt="Image" height="250" width="250">
       <p id="text">PAZZA!</p>
       <p id="shadow">
-        <span id="glow">PA</span><span id="blink">ZZ</span><span id="glow">A</span><span id="blink">!</span>
+        <span id="blink">P</span><span id="glow">AZ</span><span id="blink">Z</span><span id="glow">A</span><span id="blink">!</span>
       </p>
       </header>
 
@@ -249,6 +250,29 @@
         <p id="healthBarText"></p>
       </div>
 
+      <div id="game-score-container">
+        <div id="scoreContainer"></div>
+        <div id="score-title">
+          SCORE:
+        </div>
+        <div id="score-tags">
+          <div id="five-tag">
+            +5  
+          </div>
+          <div id="ten-tag">
+            +10  
+          </div>
+          <div id="fifteen-tag">
+            +15  
+          </div>
+          <div id="twenty-tag">
+            +20  
+          </div>
+        </div>
+        <div id="score">
+          0
+        </div>
+      </div>
       <div id="scoreboard-container">
         <div id="game-status">
           <h1 class="neon" data-text="U">WI<span class="flicker-slow">N</span>N<span class="flicker-fast">E</span>R!</h1>
@@ -273,6 +297,9 @@
             </ul>
           </div>
         </div>
+        <div onclick="restartGame(event)" style="cursor: pointer">
+          <h1 class="neon start-over" data-text="U"><span class="flicker-slow">PRE</span>SS H<span class="flicker-fast">ER</span>E TO R<span class="flicker-slow">ESTA</span><span class="flicker-fast">RT</span></h1>
+        </div>
       </div>
     </div>
       
@@ -280,6 +307,7 @@
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="js/Sounds.js"></script>
+  <script src="js/Score.js"></script>
   <script src="js/Game.js"></script>
   <script src="js/PizzaBackground.js"></script>
   <script src="js/GameOverState.js"></script>

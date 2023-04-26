@@ -160,6 +160,10 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 1px 0px 4px #ffd5ff, 2px 0px 4px #ffd5ff, 3px 0px 4px #ffd5ff, 2px 0px 3px #d42cca, 2px 3px 15px #d42cca, 2px 0px 15px, 5px 0px 125px, 20px 0vw 200px #d42cca, 40px 0vw 200px #d42cca;
 }
 
+.start-over {
+  display: inline;
+}
+
 .flicker-slow {
   animation: flicker 3s linear infinite;
 }

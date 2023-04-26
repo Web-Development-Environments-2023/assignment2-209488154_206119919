@@ -11,25 +11,49 @@ var pizzaBackground;
 var canvas;
 var game;
 
+
+function startMenuMusic() {
+	menuAudioPlayer.play();
+    gameAudioPlayer.pause();
+	gameAudioPlayer.currentTime = 0;
+    gameAudioPlayer.playbackRate = 1;
+}
+
+function startGameMusic() {
+    gameAudioPlayer.play();
+    menuAudioPlayer.pause();
+	menuAudioPlayer.currentTime = 0;
+}
+
 function initialiseCanvas() {
     canvas = document.getElementById("gameCanvas");
     canvas.width = 0.7 * window.innerWidth;
     canvas.height = 0.85 * window.innerHeight;
+    
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-// function initialiseGame() {
-//     game = new Game();
-//     game.initialise(canvas);
-//     game.start();
-// }
-
-function initialiseGame() {
-    game = new Game();
+function initialiseGame(currentGame = null) {
+    if (!currentGame) game = new Game();
     initialiseCanvas();
     game.initialise(canvas);
     game.start();
 }
 
+function destroyGame() {
+    //todo: destroyGameCanvas
+    var gameCanvas = document.getElementById("gameCanvas");
+    var content = document.getElementById("content");
+    content.removeChild(gameCanvas);
+}
+
+
+function restartGame(event) {
+    event.preventDefault();
+    game.popState();
+    initialiseGame(game);
+}   
 // function returnHome(){
 //     console.log(game.stateStack);
 //     var state = game.state;
@@ -65,15 +89,17 @@ function returnHome() {
     console.log("game state stack before pop: ", game.stateStack);
     var state = game.state;
     setVisibility("playing-background", 'none');
-    if(state == "pause"){
-        console.log("pause");
-        // var container = document.getElementById("pizza-background-canvas");
-        // console.log("", container);
-        // if(container){
-        //     container.parentElement.removeChild(container);
-        // }
-        game.popState();
-        game.popState();
+    if(state == "pause" || state == "gameover"){
+        if(state == "gameover"){
+            game.popState();
+            setVisibility('scoreboard-container', 'none');
+        }
+        else{
+            game.popState();
+            game.popState();
+        }
+        startMenuMusic();
+        
         game.moveToState(new WelcomeState());
         console.log("game state stack after pop and move to welcome: ", game.stateStack);
         var canvas = document.getElementById("gameCanvas");
@@ -86,9 +112,10 @@ function returnHome() {
     initialisePizzaBackground();
     setVisibility('pizza-background', 'block');
     setVisibility('gameCanvas', 'none');
-    setVisibility('menu', 'flex');
+    setVisibility('menu', 'block');
     setVisibility('header', "block");
     setVisibility('return', 'none');
+    setVisibility('game-score-container', 'none');
 }
 
 function initialisePizzaBackground() {

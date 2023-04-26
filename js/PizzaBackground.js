@@ -1,3 +1,6 @@
+var gameAudioPlayer = document.getElementById('game-audio-player');
+var menuAudioPlayer = document.getElementById('menu-audio-player');
+
 function PizzaBackground() {
 	console.log("hello from pizza background constructor");
 	this.fps = 30;
@@ -77,10 +80,6 @@ PizzaBackground.prototype.draw = function() {
 	}
 };
 
-PizzaBackground.prototype.drawPlayingBackground = function() {
-	var ctx = this.canvas.getContext("2d");
-}
-
 PizzaBackground.prototype.clear = function() {
 	var ctx = this.canvas.getContext("2d");
 	ctx.clearRect(0, 0, this.width, this.height);
@@ -89,15 +88,12 @@ PizzaBackground.prototype.clear = function() {
 PizzaBackground.prototype.onCharacterSelect = function() {
 	this.stop();
 	this.clear();
-	this.drawPlayingBackground();
-	switchMusic();
+	this.deletePizzaBackground()
+	startGameMusic();
 }
 
-var switchMusic = function() {
-	var menuAudioPlayer = document.getElementById('menu-audio-player');
-	menuAudioPlayer.pause();
-	var gameAudioPlayer = document.getElementById('game-audio-player');
-	gameAudioPlayer.play();
+PizzaBackground.prototype.deletePizzaBackground = function() {
+	this.containerDiv.removeChild(this.canvas);
 }
 
 function Pizza(x, y, size, velocity) {

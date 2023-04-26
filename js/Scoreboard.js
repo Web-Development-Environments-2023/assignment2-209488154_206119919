@@ -1,8 +1,12 @@
 function showScoreboard(game) {
     generateScoreHtml(game);
     showStatus(game);
+    game.state = "gameover";
+    clearInterval(speedUpIntervalId);
     setVisibility('scoreboard-container', 'flex');
-}
+    setVisibility('game-score-container', 'none');
+    setVisibility('return', 'block');
+};
 
 function generateScoreHtml(game) {
     var scoreboardList = document.getElementById("scoreboard-list");

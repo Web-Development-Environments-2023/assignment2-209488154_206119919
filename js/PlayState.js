@@ -1,6 +1,5 @@
-INVADERS_SPEED = 10;
-LIMIT_SPEED_UP = 0;
 GO_DOWN = true;
+var speedUpIntervalId;
 
 function PlayState(config, level) {
     this.config = config;
@@ -18,13 +17,15 @@ function PlayState(config, level) {
     this.invaders = [];
     this.playerBullets = [];
     this.invaderBullets = [];
+    this.canShoot = true;
+    this.shootDelay = 0;
 }
 
 function speedUp(){
-    if(LIMIT_SPEED_UP < 4){
+    if(game.config.limitSpeedUp < 4){
         document.getElementById("game-audio-player").playbackRate *= 1.05;
-        INVADERS_SPEED += 1.2;
-        LIMIT_SPEED_UP += 1;
+        this.config.invadersSpeed += 1.2;
+        this.config.limitSpeedUp += 1;
     }
 
 }
@@ -60,12 +61,12 @@ PlayState.prototype.enter = function(game) {
     this.invaderVelocity = {x: -this.config.invaderInitialVelocity, y:0};
     this.invaderNextVelocity = null;
 
-    window.setInterval(speedUp, 5000);
+    speedUpIntervalId = window.setInterval(speedUp, 5000);
 };
 
 
 
-PlayState.prototype.update = function(game, dt) {
+PlayState.prototype.update = async function(game, dt) {
 
     if(game.pressedKeys[KEY_LEFT]) {
         this.player.x -= this.playerSpeed * dt;
@@ -79,10 +80,15 @@ PlayState.prototype.update = function(game, dt) {
     if(game.pressedKeys[KEY_DOWN]) {
         this.player.y += this.playerSpeed * dt;
     }
-    if(game.pressedKeys[KEY_SPACE]) {
-        this.firePlayerBullet();
-    }
 
+    if (game.pressedKeys[KEY_SPACE] && this.canShoot) {
+        this.firePlayerBullet();
+        this.canShoot = false;
+        console.log("piu");
+        setTimeout(function() {
+            this.canShoot = true;
+        }, this.shootDelay);
+    }
     if(this.player.x < game.gameBounds.left + 20) {
         this.player.x = game.gameBounds.left + 20;
     }
@@ -121,8 +127,8 @@ PlayState.prototype.update = function(game, dt) {
         for (i=0; i<this.invaders.length; i++) 
         {
             var invader = this.invaders[i];
-            var newx = invader.x + (this.invaderVelocity.x * dt * INVADERS_SPEED);
-            var newy = invader.y + (this.invaderVelocity.y * dt * INVADERS_SPEED);
+            var newx = invader.x + (this.invaderVelocity.x * dt * game.config.invadersSpeed);
+            var newy = invader.y + (this.invaderVelocity.y * dt * game.config.invadersSpeed);
             if (hitLeft == false && newx < game.gameBounds.left) {
                 hitLeft = true;
                 console.log("a");
@@ -174,8 +180,8 @@ PlayState.prototype.update = function(game, dt) {
         for (i=0; i<this.invaders.length; i++) 
         {
             var invader = this.invaders[i];
-            var newx = invader.x + (this.invaderVelocity.x * dt * INVADERS_SPEED);
-            var newy = invader.y - (this.invaderVelocity.y * dt * INVADERS_SPEED);
+            var newx = invader.x + (this.invaderVelocity.x * dt * game.config.invadersSpeed);
+            var newy = invader.y - (this.invaderVelocity.y * dt * game.config.invadersSpeed);
             if (hitLeft == false && newx < game.gameBounds.left) {
                 hitLeft = true;
                 console.log("1");
@@ -235,7 +241,8 @@ PlayState.prototype.update = function(game, dt) {
 
                 this.playerBullets.splice(j--, 1);
                 bang = true;
-                game.score += this.config.pointsPerInvader;
+                game.score = go(invader.rank, game.score);
+                
                 break;
             }
         }
@@ -375,15 +382,30 @@ PlayState.prototype.keyUp = function(game, keyCode) {
 
 };
 
+// PlayState.prototype.firePlayerBullet = function() {
+
+//     console.log("PIU");
+//     if(this.lastPlayerBulletTime === null || ((new Date()).valueOf() - this.lastPlayerBulletTime) > (1000 / this.playerBulletMaxFireRate))
+//     {   
+//         this.playerBullets.push(new PlayerBullet(this.player.x, this.player.y - 12, this.config.playerBulletVelocity));
+//         this.lastPlayerBulletTime = (new Date()).valueOf();
+
+//         game.sounds.playSound('shoot', 0.5);
+//     }
+// };
+
 PlayState.prototype.firePlayerBullet = function() {
-
-    if(this.lastPlayerBulletTime === null || ((new Date()).valueOf() - this.lastPlayerBulletTime) > (1000 / this.playerBulletMaxFireRate))
-    {   
-        this.playerBullets.push(new PlayerBullet(this.player.x, this.player.y - 12, this.config.playerBulletVelocity));
-        this.lastPlayerBulletTime = (new Date()).valueOf();
-
-        game.sounds.playSound('shoot', 0.5);
+    const now = new Date().getTime();
+    if (now - this.lastPlayerBulletTime < this.shootDelay) {
+        console.log("holdup");
+        // If the delay time has not passed since the last bullet was fired, return early
+        return;
     }
+
+    this.playerBullets.push(new PlayerBullet(this.player.x, this.player.y - 12, this.config.playerBulletVelocity));
+    this.lastPlayerBulletTime = now;
+
+    game.sounds.playSound('shoot', 0.5);
 };
 
 function saveRecord(game) {
