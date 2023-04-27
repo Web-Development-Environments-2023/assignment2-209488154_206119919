@@ -12,6 +12,8 @@ function PlayState(config, level) {
     this.lastPlayerBulletTime = null;
 
     this.player = null;
+    this.extraLife = null;
+    this.giveLife = false;
     this.invaders = [];
     this.playerBullets = [];
     this.invaderBullets = [];
@@ -101,6 +103,21 @@ PlayState.prototype.update = async function(game, dt) {
         this.player.y = game.height * 0.6;
     }
 
+    if (this.extraLife) {
+        if (this.extraLife.x >= (this.player.x - this.player.width/2) && this.extraLife.x <= (this.player.x + this.player.width/2) && 
+        this.extraLife.y >= (this.player.y - this.player.height/2) && this.extraLife.y <= (this.player.y + this.player.height/2)) {
+            this.extraLife = null;
+            if (healthBarState.currentHealth < healthBarState.maxHealth) {
+                healthBarState.currentHealth++;
+                renderHealthBar();
+            }
+        }
+
+        if(this.extraLife.y > game.gameBounds.bottom) {
+            this.extraLife = null;
+        }
+    }
+
     for(var i=0; i<this.invaderBullets.length; i++) {
         var invaderBullet = this.invaderBullets[i];
         invaderBullet.y += dt * invaderBullet.velocity;
@@ -119,6 +136,13 @@ PlayState.prototype.update = async function(game, dt) {
         }
     }
 
+    if (this.extraLife) {
+        var extraLife = this.extraLife;
+        extraLife.y -= dt * extraLife.velocity;
+
+        if(extraLife.y < 0) {
+            this.extraLife = null;
+        }
     var hitLeft = false, hitRight = false, hitBottom = false, hitTop = false;
     if (GO_DOWN) {
         for (i=0; i<this.invaders.length; i++) 
@@ -239,6 +263,7 @@ PlayState.prototype.update = async function(game, dt) {
         if (bang) {
             this.invaders.splice(i--, 1);
             game.sounds.playSound('bang', 0.5);
+            this.giveLife = !!this.extraLife;
         }
     }
 
@@ -344,6 +369,14 @@ function finishGame(game) {
 PlayState.prototype.draw = function(game, dt, ctx) {
 
     ctx.clearRect(0, 0, game.width, game.height);
+    
+    ctx.fillStyle = '#ff5555';
+    if (this.giveLife) {
+        var photo = new Image();
+        photo.src = 'images/bullets/coin.png';
+        var extraLife = this.extraLife;
+        ctx.drawImage(photo, extraLife.x - 2, extraLife.y - 2, 20, 20);
+    }
     
     ctx.fillStyle = '#006600';
     ctx.drawImage(this.player.photo, this.player.x, this.player.y, this.player.height, this.player.width);
