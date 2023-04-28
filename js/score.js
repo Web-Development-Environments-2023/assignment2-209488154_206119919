@@ -12,7 +12,6 @@ function go(rank, score) {
     scoreEl.classList.add('score-animation');
     document.body.appendChild(scoreEl);
 
-    console.log("game scor is: ",score);
     $({ score }).animate({ score: score + rank }, {
         duration,
         easing: "linear",

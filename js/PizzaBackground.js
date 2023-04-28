@@ -2,7 +2,6 @@ var gameAudioPlayer = document.getElementById('game-audio-player');
 var menuAudioPlayer = document.getElementById('menu-audio-player');
 
 function PizzaBackground() {
-	console.log("hello from pizza background constructor");
 	this.fps = 30;
 	this.canvas = null;
 	this.width = 0;
@@ -20,7 +19,6 @@ PizzaBackground.prototype.initialise = function(div) {
 	this.containerDiv = div;
 	self.width = window.innerWidth;
 	self.height = window.innerHeight;
-	console.log("initialise funcion reached");
 	var canvas = document.createElement('canvas');
 	// canvas.setAttribute("id", "pizza-background-canvas");
 	div.appendChild(canvas);
@@ -38,7 +36,6 @@ PizzaBackground.prototype.start = function() {
 	}
 	this.pizzas = pizzas;
 
-	console.log("pizza background start funcion reached");
 	var self = this;
 	this.intervalId = setInterval(function() {
 		self.update();

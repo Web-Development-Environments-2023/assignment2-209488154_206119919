@@ -6,8 +6,7 @@ function Game() {
         invaderBulletMaxVelocity: 50,
         invaderBulletVelocity: 50,
         invaderInitialVelocity: 20,
-        invaderDropDistance:10,
-        invaderRiseDistance:10,
+        invaderDropDistance:5,
         playerBulletVelocity: 120,
         playerBulletMaxFireRate: 2,
         fps: 50,
@@ -113,7 +112,6 @@ Game.prototype.moveToState = function(state) {
  };
 
 Game.prototype.start = function() {
-
     this.moveToState(new WelcomeState());
 
     this.lives = 3;
@@ -143,7 +141,6 @@ Game.prototype.mute = function(mute) {
 function GameLoop(game) {
     var currentState = game.currentState();
     if(currentState) {
-
         var dt = 1 / game.config.fps;
 
         var ctx = this.gameCanvas.getContext("2d");

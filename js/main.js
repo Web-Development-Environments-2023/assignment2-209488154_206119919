@@ -1,9 +1,6 @@
 function setVisibility(divId, display) {
     const element = document.getElementById(divId);
     element.style.display = display;
-    var what = element.style.display;
-    console.log( divId,".display -> ", what);
-    // console.log("pizzaBackground.canvas -> ", pizzaBackground.canvas);
 }
 
 var pizzaBackground;
@@ -48,21 +45,25 @@ function initialiseGame(currentGame = null) {
     
 }
 
-function destroyGame() {
-    //todo: destroyGameCanvas
-    
+function destroyGame() {    
     var gameCanvas = document.getElementById("gameCanvas");
     var gameCanvasContainer = document.getElementById("game-canvas-container");
     gameCanvasContainer.removeChild(gameCanvas);
     var score = document.getElementById("score");
     score.innerHTML = '0';
-    game = null;
+    // game = null;
 }
 
 function restartGame(event) {
-    event.preventDefault();
     game.popState();
+    setVisibility('scoreboard-container', 'none');
+    destroyGame();
     initialiseGame(game);
+    game.start();
+    // game.moveToState(new WelcomeState());
+    game.moveToState(new LevelIntroState(1));
+    setVisibility('return', 'none');
+    setVisibility('gameCanvas', 'block');
 }
 
 var restart = document.querySelector(".start-over");
@@ -102,7 +103,6 @@ restart.addEventListener("click", function(event) {restartGame(event)} );
 function returnHome() {
     currentPlayer = {username: '', records: []};
     game.stop();
-    console.log("game state stack before pop: ", game.stateStack);
     var state = game.state;
     setVisibility("playing-background", 'none');
     if(state == "gameover"){
@@ -118,11 +118,11 @@ function returnHome() {
     startMenuMusic();
     
     game.moveToState(new WelcomeState());
-    console.log("game state stack after pop and move to welcome: ", game.stateStack);
     // var canvas = document.getElementById("gameCanvas");
     // var ctx = canvas.getContext("2d");
     // ctx.clearRect(0, 0, game.width, game.height);
     destroyGame();
+    game = null;
 
     setVisibility('pizza-background', 'block');
     // setVisibility('gameCanvas', 'none');
@@ -137,15 +137,12 @@ function returnHome() {
 function initialisePizzaBackground() {
     var container = document.getElementById('pizza-background');
     pizzaBackground = new PizzaBackground();
-    console.log("hello from  initialisePizzaBackground");
     pizzaBackground.initialise(container);
     pizzaBackground.start();
 }
-
 initialisePizzaBackground();
 // initialiseCanvas();
 initialiseGame();
-console.log(this.canvas);
 
 
 window.addEventListener('resize', () => pizzaBackground?.resizePizzaBackground());

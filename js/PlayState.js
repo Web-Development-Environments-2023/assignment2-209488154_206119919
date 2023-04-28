@@ -8,9 +8,7 @@ function PlayState(config, level) {
 
     this.invaderInitialVelocity = this.config.invaderInitialVelocity;
     this.invaderCurrentDropDistance =  0;
-    this.invaderCurrentRiseDistance =  0;
     this.invadersAreDropping =  false;
-    this.invadersAreRising =  false;
     this.lastPlayerBulletTime = null;
 
     this.player = null;
@@ -35,10 +33,9 @@ PlayState.prototype.enter = function(game) {
 
     var playerImage = new Image();
     playerImage.src = game.selectedCharacterImage;
- 
     this.player = new Player(game.width / 2, game.playerBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
 
-    var levelMultiplier = this.level * this.config.levelDifficultyMultiplier;
+    // var levelMultiplier = this.level * this.config.levelDifficultyMultiplier;
     // var limitLevel = (this.level < this.config.limitLevelIncrease ? this.level : this.config.limitLevelIncrease);
     this.playerSpeed = this.config.playerSpeed;
     // this.invaderBulletRate = this.config.invaderBulletRate + (levelMultiplier * this.config.invaderBulletRate);
@@ -55,7 +52,7 @@ PlayState.prototype.enter = function(game) {
         for (var col = 0; col < 5; col++){
             var photo = new Image();
             photo.src = invaderPhotos[row];
-            invaders.push(new Invader((0.25 * game.width) + (col * 0.1 * game.width), (0.1 * game.height * row), row, col, invaderWidth, invaderHeight, 'Invader', photo));
+            invaders.push(new Invader((0.25 * game.width) + (col * 0.1 * game.width), (0.1 * game.height * row), row, invaderWidth, invaderHeight, 'Invader', photo));
         }
     }
     this.invaders = invaders;
@@ -85,7 +82,6 @@ PlayState.prototype.update = async function(game, dt) {
     if (game.pressedKeys[KEY_SPACE] && this.canShoot) {
         this.firePlayerBullet();
         this.canShoot = false;
-        console.log("piu");
         setTimeout(function() {
             this.canShoot = true;
         }, this.shootDelay);
@@ -123,16 +119,13 @@ PlayState.prototype.update = async function(game, dt) {
         }
     }
 
-    // ---------------------------------------------------------------------------------------
-    
-
     var hitLeft = false, hitRight = false, hitBottom = false, hitTop = false;
     if (GO_DOWN) {
         for (i=0; i<this.invaders.length; i++) 
         {
             var invader = this.invaders[i];
-            var newx = invader.x + (this.invaderVelocity.x * dt * game.config.invadersSpeed);
-            var newy = invader.y + (this.invaderVelocity.y * dt * game.config.invadersSpeed);
+            var newx = invader.x + (this.invaderVelocity.x * dt * this.config.invadersSpeed);
+            var newy = invader.y + (this.invaderVelocity.y * dt * this.config.invadersSpeed);
             if (hitLeft == false && newx < game.invaderBounds.left) {
                 hitLeft = true;
             }
@@ -145,8 +138,9 @@ PlayState.prototype.update = async function(game, dt) {
 
             if (!hitLeft && !hitRight && !hitBottom) {
                 invader.x = newx;
-                if(!(game.invaderBounds.bottom - newy < 0.1 * game.height * (3-invader.row)))
+                if (newy <= game.invaderBounds.bottom - 0.1 * game.height * (3-invader.row)) {
                     invader.y = newy;
+                }
             }
         }
 
@@ -181,8 +175,8 @@ PlayState.prototype.update = async function(game, dt) {
         for (i=0; i<this.invaders.length; i++) 
         {
             var invader = this.invaders[i];
-            var newx = invader.x + (this.invaderVelocity.x * dt * game.config.invadersSpeed);
-            var newy = invader.y + (this.invaderVelocity.y * dt * game.config.invadersSpeed);
+            var newx = invader.x + (this.invaderVelocity.x * dt * this.config.invadersSpeed);
+            var newy = invader.y + (this.invaderVelocity.y * dt * this.config.invadersSpeed);
             if (hitLeft == false && newx < game.invaderBounds.left) {
                 hitLeft = true;
             }
@@ -199,35 +193,32 @@ PlayState.prototype.update = async function(game, dt) {
             }
         }
     
-        if (this.invadersAreRising) {
-            this.invaderCurrentRiseDistance += this.invaderVelocity.y * dt;
-            if (this.invaderCurrentRiseDistance >= game.config.invaderRiseDistance) {
-                this.invadersAreRising = false;
+        if (this.invadersAreDropping) {
+            this.invaderCurrentDropDistance += this.invaderVelocity.y * dt;
+            if (this.invaderCurrentDropDistance >= this.config.invaderDropDistance) {
+                this.invadersAreDropping = false;
                 this.invaderVelocity = this.invaderNextVelocity;
-                this.invaderCurrentRiseDistance = 0;
+                this.invaderCurrentDropDistance = 0;
             }
         }
         if (hitLeft) {
             this.invaderVelocity = {x: 0, y:-this.invaderInitialVelocity};
-            this.invadersAreRising = true;
+            this.invadersAreDropping = true;
             this.invaderNextVelocity = {x: this.invaderInitialVelocity , y:0};
         }
         if (hitRight) {
             this.invaderVelocity = {x: 0, y:-this.invaderInitialVelocity};
-            this.invadersAreRising = true;
+            this.invadersAreDropping = true;
             this.invaderNextVelocity = {x: -this.invaderInitialVelocity , y:0};
         }
         if (hitTop) {
             GO_DOWN = true;
-            this.invadersAreRising = false;
+            this.invadersAreDropping = false;
             this.invaderVelocity = this.invaderNextVelocity;
-            this.invaderCurrentRiseDistance = 0;
+            this.invaderCurrentDropDistance = 0;
         }
     }
 
-
-    // ---------------------------------------------------------------------------------------
-    
     for (i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         var bang = false;
@@ -356,7 +347,7 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     
     ctx.fillStyle = '#006600';
     ctx.drawImage(this.player.photo, this.player.x, this.player.y, this.player.height, this.player.width);
-
+    console.log("draw " + this.player.photo.src);
     ctx.fillStyle = '#006600';
     for(var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
@@ -414,7 +405,6 @@ PlayState.prototype.keyUp = function(game, keyCode) {
 PlayState.prototype.firePlayerBullet = function() {
     const now = new Date().getTime();
     if (now - this.lastPlayerBulletTime < this.shootDelay) {
-        console.log("holdup");
         // If the delay time has not passed since the last bullet was fired, return early
         return;
     }
