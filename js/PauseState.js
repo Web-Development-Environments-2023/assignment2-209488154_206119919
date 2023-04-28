@@ -12,9 +12,7 @@ PauseState.prototype.keyDown = function(game, keyCode) {
         var gameAudioPlayer = document.getElementById('game-audio-player');
         gameAudioPlayer.play();
         setVisibility('pause-restart-container',  'none');
-        setVisibility('healthBarText',  'inline-block');
-        setVisibility('healthBarInner',  'inline-block');
-        setVisibility('health-bar',  'inline-block');
+        showHealthBar();
     }
 };
 
@@ -31,5 +29,5 @@ PauseState.prototype.draw = function(game, dt, ctx) {
 };
 
 function onPauseRestart(game){
-    game.initialise(game.gameCanvas);
+    restartGame()
 }

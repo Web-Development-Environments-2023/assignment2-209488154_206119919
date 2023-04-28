@@ -5,20 +5,20 @@ var aboutMenuOption = document.getElementById("about-menu-option")
 function hideMenu() {
     setVisibility('menu', 'none');
     setVisibility('header', 'none');
+    setVisibility('pazza-footer', 'none');
+    setVisibility('return', 'inline-block');
 };
 
 function onSignupMenuOption() {
     hideMenu();
     game.state = "signup";
-    setVisibility('signup', 'block');
-    setVisibility('return', 'block');
+    setVisibility('signup', 'inline-block');
 };
 
 function onLoginMenuOption() {
     hideMenu();
     game.state = "login";
     setVisibility('login', 'block');
-    setVisibility('return', 'block');
 };
 
 function onAboutMenuOption() {

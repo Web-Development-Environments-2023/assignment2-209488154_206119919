@@ -67,7 +67,7 @@ PlayState.prototype.enter = function(game) {
 
 
 PlayState.prototype.update = async function(game, dt) {
-
+    
     if(game.pressedKeys[KEY_LEFT]) {
         this.player.x -= this.playerSpeed * dt;
     }
@@ -223,8 +223,6 @@ PlayState.prototype.update = async function(game, dt) {
                 invader.x = newx;
                 invader.y = newy;
             }
-                console.log("4");
-            }
         }
     
         if (this.invadersAreRising) {
@@ -236,6 +234,7 @@ PlayState.prototype.update = async function(game, dt) {
                 console.log("5");
             }
         }
+
         if (hitLeft) {
             this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
             this.invadersAreRising = true;
@@ -252,8 +251,7 @@ PlayState.prototype.update = async function(game, dt) {
             GO_DOWN = true;
             console.log("8");
         }
-        }
-    
+
         if (this.invadersAreDropping) {
             this.invaderCurrentDropDistance += this.invaderVelocity.y * dt;
             if (this.invaderCurrentDropDistance >= this.config.invaderDropDistance) {
@@ -362,8 +360,7 @@ PlayState.prototype.update = async function(game, dt) {
             }
             healthBarState.currentHealth--;
             renderHealthBar();
-        }
-                
+        }        
     }
 
     // for(var i=0; i<this.invaders.length; i++) {
@@ -454,10 +451,8 @@ PlayState.prototype.keyDown = function(game, keyCode) {
         game.sounds.playSound('pause', 2.3);
         game.pushState(new PauseState());
         setVisibility('pause-restart-container',  'flex');
-        setVisibility('return',  'flex');
-        setVisibility('healthBarText',  'none');
-        setVisibility('healthBarInner',  'none');
-        setVisibility('health-bar',  'none');
+        setVisibility('return',  'inline-block');
+        hideHealthBar();
     }
 };
 

@@ -88,11 +88,11 @@ function change_month(select) {
 var signupButton = document.getElementById("signup-btn");
 
 signupButton.addEventListener("click", function() {
-    if (!verify()) {
-        return;
-    }
     var u = document.getElementById("susername").value;
     var p = document.getElementById("password").value;
+    if (!verify(u)) {
+        return;
+    }
     players[u] = p;
 
     currentPlayer.username = u;
@@ -101,7 +101,7 @@ signupButton.addEventListener("click", function() {
     setVisibility('character-menu', 'flex');
 });
 
-function verify() {
+function verify(username) {
     if (!verifyAllFields()) {
         alert("All fields must be filled.");
         return false;
@@ -126,6 +126,11 @@ function verify() {
         alert("Passwords are not identical.");
         return false;
     }
+    if (!varifyUsernameAvailable(username)){
+        alert("Username already taken, please choose another one.");
+        return false;
+    }
+
     return true;
 }
 
@@ -161,7 +166,7 @@ function verifyPassword() {
 
 function verifyFirstName() {
     var fn = document.getElementById("firstName").value;
-
+    
     if (/^\d+$/.test(fn)) {
         return false;
     }
@@ -194,3 +199,15 @@ function verifyIdenticalPasswords() {
     }
     return true;
 };
+
+function varifyUsernameAvailable(username){
+    if (username in players){
+        return false;
+    }
+    return true;
+}
+
+function signupClearForm() {
+    var signupForm = document.getElementById('signup-form');
+    signupForm.reset();
+}

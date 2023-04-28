@@ -23,3 +23,8 @@ function validate() {
     }
     return false;
 }
+
+function loginClearForm() {
+    var loginForm = document.getElementById('login-form');
+    loginForm.reset();
+}
