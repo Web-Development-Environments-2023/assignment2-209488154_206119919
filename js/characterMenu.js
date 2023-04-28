@@ -28,4 +28,5 @@ var onCharacterClick = function(event) {
     setVisibility('gameCanvas', 'block');
     setVisibility('game-score-container', 'flex');
     setVisibility('health-bar', 'inline-block')
+    setVisibility('game-score-container', 'flex');
 };

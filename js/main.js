@@ -42,7 +42,6 @@ function initialiseGame(currentGame = null) {
     if (!currentGame) game = new Game();
     initialiseCanvas();
     game.initialise(canvas);
-    
 }
 
 function destroyGame() {    

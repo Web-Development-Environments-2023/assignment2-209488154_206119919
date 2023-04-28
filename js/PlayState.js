@@ -143,6 +143,7 @@ PlayState.prototype.update = async function(game, dt) {
         if(extraLife.y < 0) {
             this.extraLife = null;
         }
+    }
     var hitLeft = false, hitRight = false, hitBottom = false, hitTop = false;
     if (GO_DOWN) {
         for (i=0; i<this.invaders.length; i++) 
@@ -152,18 +153,22 @@ PlayState.prototype.update = async function(game, dt) {
             var newy = invader.y + (this.invaderVelocity.y * dt * this.config.invadersSpeed);
             if (hitLeft == false && newx < game.invaderBounds.left) {
                 hitLeft = true;
+                console.log("a");
             }
             else if (hitRight == false && newx > game.invaderBounds.right) {
                 hitRight = true;
+                console.log("b");
             }
             else if (hitBottom == false && newy > game.invaderBounds.bottom) {
                 hitBottom = true;
+                console.log("c");
             }
 
             if (!hitLeft && !hitRight && !hitBottom) {
                 invader.x = newx;
                 if (newy <= game.invaderBounds.bottom - 0.1 * game.height * (3-invader.row)) {
                     invader.y = newy;
+                console.log("d");
                 }
             }
         }
@@ -174,6 +179,7 @@ PlayState.prototype.update = async function(game, dt) {
                 this.invadersAreDropping = false;
                 this.invaderVelocity = this.invaderNextVelocity;
                 this.invaderCurrentDropDistance = 0;
+                console.log("e");
             }
         }
 
@@ -181,11 +187,13 @@ PlayState.prototype.update = async function(game, dt) {
             this.invaderVelocity = {x: 0, y:this.invaderInitialVelocity};
             this.invadersAreDropping = true;
             this.invaderNextVelocity = {x: this.invaderInitialVelocity , y:0};
+            console.log("f");
         }
         if (hitRight) {
             this.invaderVelocity = {x: 0, y:this.invaderInitialVelocity};
             this.invadersAreDropping = true;
             this.invaderNextVelocity = {x: -this.invaderInitialVelocity , y:0};
+            console.log("g");
         }
         if (hitBottom) {
             GO_DOWN = false;
@@ -215,6 +223,35 @@ PlayState.prototype.update = async function(game, dt) {
                 invader.x = newx;
                 invader.y = newy;
             }
+                console.log("4");
+            }
+        }
+    
+        if (this.invadersAreRising) {
+            this.invaderCurrentRiseDistance -= this.invaderVelocity.y * dt;
+            if (this.invaderCurrentRiseDistance <= this.config.invaderRiseDistance) {
+                this.invadersAreRising = false;
+                this.invaderVelocity = this.invaderNextVelocity;
+                this.invaderCurrentRiseDistance = 0;
+                console.log("5");
+            }
+        }
+        if (hitLeft) {
+            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            this.invadersAreRising = true;
+            this.invaderNextVelocity = {x: this.invaderCurrentVelocity , y:0};
+            console.log("6");
+        }
+        if (hitRight) {
+            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            this.invadersAreRising = true;
+            this.invaderNextVelocity = {x: -this.invaderCurrentVelocity , y:0};
+            console.log("7");
+        }
+        if (hitTop) {
+            GO_DOWN = true;
+            console.log("8");
+        }
         }
     
         if (this.invadersAreDropping) {
