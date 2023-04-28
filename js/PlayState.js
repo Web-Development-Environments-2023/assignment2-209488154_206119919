@@ -416,6 +416,7 @@ PlayState.prototype.keyDown = function(game, keyCode) {
         gameAudioPlayer.pause();
         game.sounds.playSound('pause', 2.3);
         game.pushState(new PauseState());
+        setVisibility('pause-restart-container',  'flex');
     }
 };
 

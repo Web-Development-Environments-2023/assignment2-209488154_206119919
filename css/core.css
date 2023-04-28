@@ -164,3 +164,33 @@ body, html {
             opacity: 1;
         }
     }
+
+    /* pause state start over button */
+    #pause-restart-container{
+      display: none;
+    }
+
+    .restart-pause{
+      position: fixed;
+      top: 95%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    a{
+      display: block;
+      font-size: 2vw;
+      font-family: sans-serif;
+      /* text-decoration: none; */
+      color: #70c8a0;
+      border-top: 0.2vw solid #70c8a0;
+      border-bottom: 0.2vw solid #70c8a0;
+      padding: 0.8vw;
+      letter-spacing: 0.2vw;
+      transition: all .25s;
+    }
+    
+    a:hover{
+      letter-spacing: 1.2vw;
+      color: #70c8a0;
+    }
