@@ -195,29 +195,13 @@
       <div id="configuration">
         <div class="configuration-choice-container">
           <span>Game Duration: </span>
-          <input id="time-choice" type="number" value="2"/>
-        </div>
-        <div class="configuration-choice-container">
-          <span>Left key: </span>
-          <input class="key-choice" id="leftKey"/>
-        </div>
-        <div class="configuration-choice-container">
-          <span>Right key: </span>
-          <input class="key-choice" id="rightKey"/>
-        </div>
-        <div class="configuration-choice-container">
-          <span>Up key: </span>
-          <input class="key-choice" id="upKey"/>
-        </div>
-        <div class="configuration-choice-container">
-          <span>Down key: </span>
-          <input class="key-choice" id="downKey"/>
+          <input id="time-choice" type="number" value="120" min="120"/>
         </div>
         <div class="configuration-choice-container">
           <span>Space key: </span>
-          <input class="key-choice" id="spaceKey"/>
+          <input class="key-choice" id="spaceKey" value="" maxlength="0"/>
         </div>
-        <button class="finish-configuration">START GAME</button>
+        <button id="finish-configuration">START GAME</button>
       </div>
 
       <div id="about">
