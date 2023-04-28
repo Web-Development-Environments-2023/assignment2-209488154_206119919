@@ -12,8 +12,6 @@ function PlayState(config, level) {
     this.lastPlayerBulletTime = null;
 
     this.player = null;
-    this.extraLife = null;
-    this.giveLife = false;
     this.invaders = [];
     this.playerBullets = [];
     this.invaderBullets = [];
@@ -67,7 +65,7 @@ PlayState.prototype.enter = function(game) {
 
 
 PlayState.prototype.update = async function(game, dt) {
-    
+
     if(game.pressedKeys[KEY_LEFT]) {
         this.player.x -= this.playerSpeed * dt;
     }
@@ -103,21 +101,6 @@ PlayState.prototype.update = async function(game, dt) {
         this.player.y = game.height * 0.6;
     }
 
-    if (this.extraLife) {
-        if (this.extraLife.x >= (this.player.x - this.player.width/2) && this.extraLife.x <= (this.player.x + this.player.width/2) && 
-        this.extraLife.y >= (this.player.y - this.player.height/2) && this.extraLife.y <= (this.player.y + this.player.height/2)) {
-            this.extraLife = null;
-            if (healthBarState.currentHealth < healthBarState.maxHealth) {
-                healthBarState.currentHealth++;
-                renderHealthBar();
-            }
-        }
-
-        if(this.extraLife.y > game.gameBounds.bottom) {
-            this.extraLife = null;
-        }
-    }
-
     for(var i=0; i<this.invaderBullets.length; i++) {
         var invaderBullet = this.invaderBullets[i];
         invaderBullet.y += dt * invaderBullet.velocity;
@@ -136,14 +119,6 @@ PlayState.prototype.update = async function(game, dt) {
         }
     }
 
-    if (this.extraLife) {
-        var extraLife = this.extraLife;
-        extraLife.y -= dt * extraLife.velocity;
-
-        if(extraLife.y < 0) {
-            this.extraLife = null;
-        }
-    }
     var hitLeft = false, hitRight = false, hitBottom = false, hitTop = false;
     if (GO_DOWN) {
         for (i=0; i<this.invaders.length; i++) 
@@ -153,22 +128,18 @@ PlayState.prototype.update = async function(game, dt) {
             var newy = invader.y + (this.invaderVelocity.y * dt * this.config.invadersSpeed);
             if (hitLeft == false && newx < game.invaderBounds.left) {
                 hitLeft = true;
-                console.log("a");
             }
             else if (hitRight == false && newx > game.invaderBounds.right) {
                 hitRight = true;
-                console.log("b");
             }
             else if (hitBottom == false && newy > game.invaderBounds.bottom) {
                 hitBottom = true;
-                console.log("c");
             }
 
             if (!hitLeft && !hitRight && !hitBottom) {
                 invader.x = newx;
                 if (newy <= game.invaderBounds.bottom - 0.1 * game.height * (3-invader.row)) {
                     invader.y = newy;
-                console.log("d");
                 }
             }
         }
@@ -179,7 +150,6 @@ PlayState.prototype.update = async function(game, dt) {
                 this.invadersAreDropping = false;
                 this.invaderVelocity = this.invaderNextVelocity;
                 this.invaderCurrentDropDistance = 0;
-                console.log("e");
             }
         }
 
@@ -187,13 +157,11 @@ PlayState.prototype.update = async function(game, dt) {
             this.invaderVelocity = {x: 0, y:this.invaderInitialVelocity};
             this.invadersAreDropping = true;
             this.invaderNextVelocity = {x: this.invaderInitialVelocity , y:0};
-            console.log("f");
         }
         if (hitRight) {
             this.invaderVelocity = {x: 0, y:this.invaderInitialVelocity};
             this.invadersAreDropping = true;
             this.invaderNextVelocity = {x: -this.invaderInitialVelocity , y:0};
-            console.log("g");
         }
         if (hitBottom) {
             GO_DOWN = false;
@@ -225,33 +193,6 @@ PlayState.prototype.update = async function(game, dt) {
             }
         }
     
-        if (this.invadersAreRising) {
-            this.invaderCurrentRiseDistance -= this.invaderVelocity.y * dt;
-            if (this.invaderCurrentRiseDistance <= this.config.invaderRiseDistance) {
-                this.invadersAreRising = false;
-                this.invaderVelocity = this.invaderNextVelocity;
-                this.invaderCurrentRiseDistance = 0;
-                console.log("5");
-            }
-        }
-
-        if (hitLeft) {
-            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
-            this.invadersAreRising = true;
-            this.invaderNextVelocity = {x: this.invaderCurrentVelocity , y:0};
-            console.log("6");
-        }
-        if (hitRight) {
-            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
-            this.invadersAreRising = true;
-            this.invaderNextVelocity = {x: -this.invaderCurrentVelocity , y:0};
-            console.log("7");
-        }
-        if (hitTop) {
-            GO_DOWN = true;
-            console.log("8");
-        }
-
         if (this.invadersAreDropping) {
             this.invaderCurrentDropDistance += this.invaderVelocity.y * dt;
             if (this.invaderCurrentDropDistance >= this.config.invaderDropDistance) {
@@ -298,7 +239,6 @@ PlayState.prototype.update = async function(game, dt) {
         if (bang) {
             this.invaders.splice(i--, 1);
             game.sounds.playSound('bang', 0.5);
-            this.giveLife = !!this.extraLife;
         }
     }
 
@@ -360,7 +300,8 @@ PlayState.prototype.update = async function(game, dt) {
             }
             healthBarState.currentHealth--;
             renderHealthBar();
-        }        
+        }
+                
     }
 
     // for(var i=0; i<this.invaders.length; i++) {
@@ -404,14 +345,6 @@ PlayState.prototype.draw = function(game, dt, ctx) {
 
     ctx.clearRect(0, 0, game.width, game.height);
     
-    ctx.fillStyle = '#ff5555';
-    if (this.giveLife) {
-        var photo = new Image();
-        photo.src = 'images/bullets/coin.png';
-        var extraLife = this.extraLife;
-        ctx.drawImage(photo, extraLife.x - 2, extraLife.y - 2, 20, 20);
-    }
-    
     ctx.fillStyle = '#006600';
     ctx.drawImage(this.player.photo, this.player.x, this.player.y, this.player.height, this.player.width);
     console.log("draw " + this.player.photo.src);
@@ -450,9 +383,6 @@ PlayState.prototype.keyDown = function(game, keyCode) {
         gameAudioPlayer.pause();
         game.sounds.playSound('pause', 2.3);
         game.pushState(new PauseState());
-        setVisibility('pause-restart-container',  'flex');
-        setVisibility('return',  'inline-block');
-        hideHealthBar();
     }
 };
 
