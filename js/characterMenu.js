@@ -16,8 +16,8 @@ var onCharacterClick = function(event) {
     game.characterWidth = character.characterWidth;
     game.characterHeight = character.characterHeight;
     game.selectedCharacterImage = character.image;
-    
     game.currentPlayer = currentPlayer;
+    
     game.start();
     game.moveToState(new LevelIntroState(game.level));
     pizzaBackground.onCharacterSelect();
