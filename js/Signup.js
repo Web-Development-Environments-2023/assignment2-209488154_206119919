@@ -1,3 +1,5 @@
+
+
 var Days = [31,28,31,30,31,30,31,31,30,31,30,31];
 $(document).ready(function(){
     var option = '<option value="day">Day</option>';
@@ -91,9 +93,11 @@ signupButton.addEventListener("click", function() {
     }
     var u = document.getElementById("susername").value;
     var p = document.getElementById("password").value;
-    game.players[u] = p;
+    players[u] = p;
 
+    currentPlayer.username = u;
     setVisibility('signup', 'none');
+    game.state = "character-menu";
     setVisibility('character-menu', 'flex');
 });
 

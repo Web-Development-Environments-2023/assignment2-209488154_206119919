@@ -4,6 +4,7 @@ function WelcomeState() {
 }
 
 WelcomeState.prototype.enter = function(game) {
+    game.state = "welcome"
     game.sounds = new Sounds();
     game.sounds.init();
     game.sounds.loadSound('shoot', 'sounds/SUIII.wav');

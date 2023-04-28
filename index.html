@@ -7,9 +7,11 @@
     <link rel="stylesheet" type="text/css" href="css/menu.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <link rel="stylesheet" type="text/css" href="css/about.css">
+    <link rel="stylesheet" type="text/css" href="css/score.css">
     <link rel="stylesheet" type="text/css" href="css/signup.css">
     <link rel="stylesheet" type="text/css" href="css/characterMenu.css">
     <link rel="stylesheet" type="text/css" href="css/scoreboard.css">
+    <link rel="stylesheet" type="text/css" href="css/return.css">
     <link rel="stylesheet" type="text/css" href="css/health.css">
     <link rel="stylesheet" type="text/css" href="css/typeography.css">
     <link rel="icon" type="image/x-icon" href="/images/pizza_slice.ico" sizes="32x32">
@@ -20,11 +22,17 @@
       <header id="header">
       <img class="logo" src="images/logo.png" alt="Image" height="250" width="250">
       <p id="text">PAZZA!</p>
-      <p id="shadow">
-        <span id="glow">PA</span><span id="blink">ZZ</span><span id="glow">A</span><span id="blink">!</span>
+      <p id="shadow">
+        <span id="blink">P</span><span id="glow">AZ</span><span id="blink">Z</span><span id="glow">A</span><span id="blink">!</span>
       </p>
       </header>
 
+      <div id="return" class="backBtn">
+          <span class="line tLine"></span>
+          <span class="line mLine"></span>
+          <span class="label">Main Menu</span>
+          <span class="line bLine"></span>
+      </div>
       <div id="menu">
         <ul class="menu" data-offset="10">
           <li id="signup-menu-option" class="menu-item" data-offset="20">
@@ -229,7 +237,9 @@
         Your browser does not support the audio element.
       </audio>
 
-      <canvas id="gameCanvas"></canvas>
+      <div id="game-canvas-container">
+        <canvas id="gameCanvas"></canvas>
+      </div>
       <img src="images/background.png" id="playing-background">
       
       <div id="health-bar" class="health-bar">
@@ -242,6 +252,29 @@
         <p id="healthBarText"></p>
       </div>
 
+      <div id="game-score-container">
+        <div id="scoreContainer"></div>
+        <div id="score-title">
+          SCORE:
+        </div>
+        <div id="score-tags">
+          <div id="five-tag">
+            +5  
+          </div>
+          <div id="ten-tag">
+            +10  
+          </div>
+          <div id="fifteen-tag">
+            +15  
+          </div>
+          <div id="twenty-tag">
+            +20  
+          </div>
+        </div>
+        <div id="score">
+          0
+        </div>
+      </div>
       <div id="scoreboard-container">
         <div id="game-status">
           <h1 class="neon" data-text="U">WI<span class="flicker-slow">N</span>N<span class="flicker-fast">E</span>R!</h1>
@@ -266,6 +299,9 @@
             </ul>
           </div>
         </div>
+        <div id="restart">
+          <h1 class="neon start-over" data-text="U"><span class="flicker-slow">PRE</span>SS H<span class="flicker-fast">ER</span>E TO R<span class="flicker-slow">ESTA</span><span class="flicker-fast">RT</span></h1>
+        </div>
       </div>
     </div>
       
@@ -273,60 +309,21 @@
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="js/Sounds.js"></script>
+  <script src="js/Score.js"></script>
+  <script src="js/Game.js"></script>
+  <script src="js/PizzaBackground.js"></script>
   <script src="js/GameOverState.js"></script>
   <script src="js/LevelIntroState.js"></script>
   <script src="js/PauseState.js"></script>
   <script src="js/PlayState.js"></script>
   <script src="js/WelcomeState.js"></script>
-  <script src="js/PizzaBackground.js"></script>
   <script src="js/Signup.js"></script>
   <script src="js/PizzaInvaders.js"></script>
-  <script src="js/Game.js"></script>
   <script src="js/Login.js"></script>
   <script src="js/About.js"></script>
   <script src="js/Menu.js"></script>
   <script src="js/Scoreboard.js"></script>
   <script src="js/CharacterMenu.js"></script>
   <script src="js/Health.js"></script>
-<script>
-      function setVisibility(divId, display) {
-          const element = document.getElementById(divId);
-          element.style.display = display;
-      }
-
-      var container = document.getElementById('pizza-background');
-      var pizzaBackground = new PizzaBackground();
-      pizzaBackground.initialise(container);
-      pizzaBackground.start();
-
-      var canvas = document.getElementById("gameCanvas");
-      canvas.width = 0.7 * window.innerWidth;
-      canvas.height = 0.85 * window.innerHeight;
-      
-      var game = new Game();
-      game.initialise(canvas);
-      game.start();
-
-      window.addEventListener('resize', () => pizzaBackground.resizePizzaBackground());
-      window.addEventListener("keydown", function keydown(e) {
-          var keycode = e.which || window.event.keycode;
-          if(keycode == 37 || keycode == 39 || keycode == 32) {
-              e.preventDefault();
-          }
-          game.keyDown(keycode);
-      });
-      window.addEventListener("keyup", function keydown(e) {
-          var keycode = e.which || window.event.keycode;
-          game.keyUp(keycode);
-      });
-      window.addEventListener("touchstart", function (e) {
-          game.touchstart(e);
-      }, false);
-      window.addEventListener('touchend', function(e){
-          game.touchend(e);
-      }, false);
-      window.addEventListener('touchmove', function(e){
-          game.touchmove(e);
-      }, false);
-  </script>
+  <script src="js/Main.js"></script>
 </html>

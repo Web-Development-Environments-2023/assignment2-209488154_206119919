@@ -1,12 +1,17 @@
 function showScoreboard(game) {
     generateScoreHtml(game);
     showStatus(game);
+    game.state = "gameover";
+    clearInterval(speedUpIntervalId);
+    game.stop();
     setVisibility('scoreboard-container', 'flex');
-}
+    setVisibility('game-score-container', 'none');
+    setVisibility('return', 'block');
+};
 
 function generateScoreHtml(game) {
     var scoreboardList = document.getElementById("scoreboard-list");
-    game.scoreRecords.forEach(function (score, index) {
+    currentPlayer.records.forEach(function (score, index) {
         var newRow = document.createElement('li');
         newRow.classList.add('score-list-item');
         newRow.innerHTML = `

@@ -1,0 +1,53 @@
+#game-score-container {
+    display: none;
+    transform-style: flat;
+    /* position: absolute; */
+    /* top: 5%;
+    left: 80%; */
+    transform: translateY(-50%) translateX(-50%);
+    font-family: 'Oswald', sans-serif;
+    color: #CCC;
+    text-shadow: 1px 1px 5px black;
+    z-index: 5;
+  }
+
+  #score-tags{
+    transform-style: flat;
+    display: none;
+    position:fixed;
+    top: 5%;
+    left:35%;
+    transform: translateX(-50%);
+    font-size:2vw;
+    line-height: 2vw;
+  }
+  #score-title{
+    transform-style: flat;
+    position:fixed;
+    color: azure;
+    top:5%;
+    left:35%;
+    transform: translateX(-50%);
+    font-size:2vw;
+    line-height: 2vw;
+  }
+  #score{
+    color: azure;
+    position: fixed;
+    top: 5%;
+    left:43%;
+    transform: translateX(-50%);
+    font-size:2vw;
+    line-height: 2vw;
+  }
+
+  .score-animation {
+    transform-style: flat;
+    position: fixed;
+    top: 60%;
+    left: 5%;
+    color: white;
+    transform: translateX(-50%);
+    font-size:2vw;
+    line-height: 2vw;
+  }

@@ -91,11 +91,19 @@ body, html {
   display: none;
 }
 
+#overlay {
+  display: none;
+}
+
+#restart {
+  cursor: pointer;
+}
+
 #text,
     #shadow {
         position: absolute;
         margin: 0;
-        top: 50%;
+        top: 60%;
         left: 60%;
         transform: translate(-50%, -50%);
         font-size: 2em;

@@ -4,28 +4,31 @@ function Game() {
         invaderBulletRate: 0.5,
         invaderBulletMinVelocity: 50,
         invaderBulletMaxVelocity: 50,
-        invaderInitialVelocity: 25,
-        invaderAcceleration: 0,
-        invaderDropDistance: 20,
+        invaderBulletVelocity: 50,
+        invaderInitialVelocity: 20,
+        invaderDropDistance:5,
         playerBulletVelocity: 120,
         playerBulletMaxFireRate: 2,
         fps: 50,
         invaderRanks: 2,
-        invaderFiles: 10,
+        invaderFiles: 5,
         playerSpeed: 120,
         levelDifficultyMultiplier: 0.2,
         pointsPerInvader: 5,
-        limitLevelIncrease: 25
+        limitLevelIncrease: 25,
+        invadersSpeed: 10,
+        limitSpeedUp: 0,
+        invadersVerticalDistance: 0.1
     };
 
     this.lives = 3;
     this.width = 0;
     this.height = 0;
-    this.gameBounds = {left: 0, top: 0, right: 0, bottom: 0};
+    this.playerBounds = {left: 0, top: 0, right: 0, bottom: 0};
+    this.invaderBounds = {left: 0, top: 0, right: 0, bottom: 0};
     this.intervalId = 0;
     this.score = 0;
     this.level = 1;
-    this.scoreRecords = [];
     this.characters = {
         'rosetta': {
             characterWidth: 76,
@@ -54,7 +57,8 @@ function Game() {
         },
     }
     
-    this.players = {"p": "testuser"};
+
+    this.states = null;
 
     this.stateStack = [];
 
@@ -73,11 +77,18 @@ Game.prototype.initialise = function(gameCanvas) {
     this.width = gameCanvas.width;
     this.height = gameCanvas.height;
 
-    this.gameBounds = {
+    this.invaderBounds = {
         left: 0,
         right: 0.85 * this.width,
         top: 0,
-        bottom: 0.925* this.height
+        bottom: 0.6 * this.height
+    };
+
+    this.playerBounds = {
+        left: 0,
+        right: 0.85 * this.width,
+        top: 0.6 * this.height,
+        bottom: 0.925 * this.height
     };
     
     this.level = 1;
@@ -101,13 +112,14 @@ Game.prototype.moveToState = function(state) {
  };
 
 Game.prototype.start = function() {
-
     this.moveToState(new WelcomeState());
 
     this.lives = 3;
 
     var game = this;
-    this.intervalId = setInterval(function () { GameLoop(game);}, 1000 / this.config.fps);
+    this.intervalId = setInterval(function () {
+         GameLoop(game);
+        }, 1000 / this.config.fps);
 
 };
 
@@ -129,7 +141,6 @@ Game.prototype.mute = function(mute) {
 function GameLoop(game) {
     var currentState = game.currentState();
     if(currentState) {
-
         var dt = 1 / game.config.fps;
 
         var ctx = this.gameCanvas.getContext("2d");
@@ -162,7 +173,7 @@ Game.prototype.popState = function() {
     }
 };
 
-Game.prototype.stop = function Stop() {
+Game.prototype.stop = function() {
     clearInterval(this.intervalId);
 };
 
