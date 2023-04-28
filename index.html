@@ -237,7 +237,9 @@
         Your browser does not support the audio element.
       </audio>
 
-      <canvas id="gameCanvas"></canvas>
+      <div id="game-canvas-container">
+        <canvas id="gameCanvas"></canvas>
+      </div>
       <img src="images/background.png" id="playing-background">
       
       <div id="health-bar" class="health-bar">
@@ -297,7 +299,7 @@
             </ul>
           </div>
         </div>
-        <div onclick="restartGame(event)" style="cursor: pointer">
+        <div id="restart">
           <h1 class="neon start-over" data-text="U"><span class="flicker-slow">PRE</span>SS H<span class="flicker-fast">ER</span>E TO R<span class="flicker-slow">ESTA</span><span class="flicker-fast">RT</span></h1>
         </div>
       </div>

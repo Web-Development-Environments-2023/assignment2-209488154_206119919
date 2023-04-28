@@ -57,6 +57,10 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 0;
 }
 
+#scoreboard-list {
+  overflow-y: auto;
+}
+
 .scores {
   margin: 0;
   padding: 0;

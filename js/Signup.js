@@ -93,8 +93,9 @@ signupButton.addEventListener("click", function() {
     }
     var u = document.getElementById("susername").value;
     var p = document.getElementById("password").value;
-    game.players[u] = p;
+    players[u] = p;
 
+    currentPlayer.username = u;
     setVisibility('signup', 'none');
     game.state = "character-menu";
     setVisibility('character-menu', 'flex');

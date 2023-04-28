@@ -17,7 +17,8 @@ function validate() {
     var un = document.getElementById("username").value;
     var lp = document.getElementById("lpassword").value;
 
-    if (un in game.players && game.players[un] === lp) {
+    if (un in players && players[un] === lp) {
+        currentPlayer.username = u;
         return true;
     }
     return false;

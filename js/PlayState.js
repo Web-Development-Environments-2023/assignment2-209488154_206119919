@@ -6,7 +6,7 @@ function PlayState(config, level) {
     this.level = level;
     this.currentInvaderBullet = null;
 
-    this.invaderCurrentVelocity = this.config.invaderInitialVelocity;
+    this.invaderInitialVelocity = this.config.invaderInitialVelocity;
     this.invaderCurrentDropDistance =  0;
     this.invaderCurrentRiseDistance =  0;
     this.invadersAreDropping =  false;
@@ -24,8 +24,9 @@ function PlayState(config, level) {
 function speedUp(){
     if(game.config.limitSpeedUp < 4){
         document.getElementById("game-audio-player").playbackRate *= 1.05;
-        this.config.invadersSpeed += 1.2;
-        this.config.limitSpeedUp += 1;
+        game.config.invaderBulletVelocity *= 1.2;
+        game.config.invadersSpeed += 3;
+        game.config.limitSpeedUp += 1;
     }
 
 }
@@ -35,15 +36,15 @@ PlayState.prototype.enter = function(game) {
     var playerImage = new Image();
     playerImage.src = game.selectedCharacterImage;
  
-    this.player = new Player(game.width / 2, game.gameBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
+    this.player = new Player(game.width / 2, game.playerBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
 
     var levelMultiplier = this.level * this.config.levelDifficultyMultiplier;
-    var limitLevel = (this.level < this.config.limitLevelIncrease ? this.level : this.config.limitLevelIncrease);
+    // var limitLevel = (this.level < this.config.limitLevelIncrease ? this.level : this.config.limitLevelIncrease);
     this.playerSpeed = this.config.playerSpeed;
-    this.invaderBulletRate = this.config.invaderBulletRate + (levelMultiplier * this.config.invaderBulletRate);
-    this.invaderBulletMinVelocity = this.config.invaderBulletMinVelocity + (levelMultiplier * this.config.invaderBulletMinVelocity);
-    this.invaderBulletMaxVelocity = this.config.invaderBulletMaxVelocity + (levelMultiplier * this.config.invaderBulletMaxVelocity);
-    this.playerBulletMaxFireRate = this.config.playerBulletMaxFireRate + 0.4 * limitLevel;
+    // this.invaderBulletRate = this.config.invaderBulletRate + (levelMultiplier * this.config.invaderBulletRate);
+    // this.invaderBulletMinVelocity = this.config.invaderBulletMinVelocity + (levelMultiplier * this.config.invaderBulletMinVelocity);
+    // this.invaderBulletMaxVelocity = this.config.invaderBulletMaxVelocity + (levelMultiplier * this.config.invaderBulletMaxVelocity);
+    // this.playerBulletMaxFireRate = this.config.playerBulletMaxFireRate + 0.4 * limitLevel;
 
     var invaders = [];
     var invaderPhotos = ['images/clients/character_1.png', 'images/clients/character_2.png', 'images/clients/character_3.png', 'images/clients/character_5.png'];
@@ -89,15 +90,15 @@ PlayState.prototype.update = async function(game, dt) {
             this.canShoot = true;
         }, this.shootDelay);
     }
-    if(this.player.x < game.gameBounds.left + 20) {
-        this.player.x = game.gameBounds.left + 20;
+    if(this.player.x < game.playerBounds.left + 20) {
+        this.player.x = game.playerBounds.left + 20;
     }
-    if(this.player.x > game.gameBounds.right) {
-        this.player.x = game.gameBounds.right;
+    if(this.player.x > game.playerBounds.right) {
+        this.player.x = game.playerBounds.right;
     }
 
-    if(this.player.y > game.gameBounds.bottom - 50) {
-        this.player.y = game.gameBounds.bottom - 50;
+    if(this.player.y > game.playerBounds.bottom - 50) {
+        this.player.y = game.playerBounds.bottom - 50;
     }
 
     if(this.player.y < game.height * 0.6) {
@@ -108,7 +109,7 @@ PlayState.prototype.update = async function(game, dt) {
         var invaderBullet = this.invaderBullets[i];
         invaderBullet.y += dt * invaderBullet.velocity;
 
-        if(invaderBullet.y > game.gameBounds.bottom) {
+        if(invaderBullet.y > game.playerBounds.bottom) {
             this.invaderBullets.splice(i--, 1);
         }
     }
@@ -117,10 +118,13 @@ PlayState.prototype.update = async function(game, dt) {
         var playerBullet = this.playerBullets[i];
         playerBullet.y -= dt * playerBullet.velocity;
 
-        if(playerBullet.y < 0) {
+        if(playerBullet.y < game.invaderBounds.top) {
             this.playerBullets.splice(i--, 1);
         }
     }
+
+    // ---------------------------------------------------------------------------------------
+    
 
     var hitLeft = false, hitRight = false, hitBottom = false, hitTop = false;
     if (GO_DOWN) {
@@ -129,23 +133,20 @@ PlayState.prototype.update = async function(game, dt) {
             var invader = this.invaders[i];
             var newx = invader.x + (this.invaderVelocity.x * dt * game.config.invadersSpeed);
             var newy = invader.y + (this.invaderVelocity.y * dt * game.config.invadersSpeed);
-            if (hitLeft == false && newx < game.gameBounds.left) {
+            if (hitLeft == false && newx < game.invaderBounds.left) {
                 hitLeft = true;
-                console.log("a");
             }
-            else if (hitRight == false && newx > game.gameBounds.right) {
+            else if (hitRight == false && newx > game.invaderBounds.right) {
                 hitRight = true;
-                console.log("b");
             }
-            else if (hitBottom == false && newy > game.gameBounds.bottom) {
+            else if (hitBottom == false && newy > game.invaderBounds.bottom) {
                 hitBottom = true;
-                console.log("c");
             }
 
             if (!hitLeft && !hitRight && !hitBottom) {
                 invader.x = newx;
-                invader.y = newy;
-                console.log("d");
+                if(!(game.invaderBounds.bottom - newy < 0.1 * game.height * (3-invader.row)))
+                    invader.y = newy;
             }
         }
 
@@ -155,24 +156,24 @@ PlayState.prototype.update = async function(game, dt) {
                 this.invadersAreDropping = false;
                 this.invaderVelocity = this.invaderNextVelocity;
                 this.invaderCurrentDropDistance = 0;
-                console.log("e");
             }
         }
+
         if (hitLeft) {
-            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            this.invaderVelocity = {x: 0, y:this.invaderInitialVelocity};
             this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: this.invaderCurrentVelocity , y:0};
-            console.log("f");
+            this.invaderNextVelocity = {x: this.invaderInitialVelocity , y:0};
         }
         if (hitRight) {
-            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            this.invaderVelocity = {x: 0, y:this.invaderInitialVelocity};
             this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: -this.invaderCurrentVelocity , y:0};
-            console.log("g");
+            this.invaderNextVelocity = {x: -this.invaderInitialVelocity , y:0};
         }
         if (hitBottom) {
             GO_DOWN = false;
-            console.log("h");
+            this.invadersAreDropping = false;
+            this.invaderVelocity = this.invaderNextVelocity;
+            this.invaderCurrentDropDistance = 0;
         }
     }
     
@@ -181,53 +182,51 @@ PlayState.prototype.update = async function(game, dt) {
         {
             var invader = this.invaders[i];
             var newx = invader.x + (this.invaderVelocity.x * dt * game.config.invadersSpeed);
-            var newy = invader.y - (this.invaderVelocity.y * dt * game.config.invadersSpeed);
-            if (hitLeft == false && newx < game.gameBounds.left) {
+            var newy = invader.y + (this.invaderVelocity.y * dt * game.config.invadersSpeed);
+            if (hitLeft == false && newx < game.invaderBounds.left) {
                 hitLeft = true;
-                console.log("1");
             }
-            else if (hitRight == false && newx > game.gameBounds.right) {
+            else if (hitRight == false && newx > game.invaderBounds.right) {
                 hitRight = true;
-                console.log("2");
             }
-            else if (hitTop == false && newy < game.gameBounds.top) {
+            else if (hitTop == false && newy < game.invaderBounds.top) {
                 hitTop = true;
-                console.log("3");
             }
     
             if (!hitLeft && !hitRight && !hitTop) {
                 invader.x = newx;
                 invader.y = newy;
-                console.log("4");
             }
         }
     
         if (this.invadersAreRising) {
-            this.invaderCurrentRiseDistance -= this.invaderVelocity.y * dt;
-            if (this.invaderCurrentRiseDistance <= this.config.invaderRiseDistance) {
+            this.invaderCurrentRiseDistance += this.invaderVelocity.y * dt;
+            if (this.invaderCurrentRiseDistance >= game.config.invaderRiseDistance) {
                 this.invadersAreRising = false;
                 this.invaderVelocity = this.invaderNextVelocity;
                 this.invaderCurrentRiseDistance = 0;
-                console.log("5");
             }
         }
         if (hitLeft) {
-            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            this.invaderVelocity = {x: 0, y:-this.invaderInitialVelocity};
             this.invadersAreRising = true;
-            this.invaderNextVelocity = {x: this.invaderCurrentVelocity , y:0};
-            console.log("6");
+            this.invaderNextVelocity = {x: this.invaderInitialVelocity , y:0};
         }
         if (hitRight) {
-            this.invaderVelocity = {x: 0, y:this.invaderCurrentVelocity};
+            this.invaderVelocity = {x: 0, y:-this.invaderInitialVelocity};
             this.invadersAreRising = true;
-            this.invaderNextVelocity = {x: -this.invaderCurrentVelocity , y:0};
-            console.log("7");
+            this.invaderNextVelocity = {x: -this.invaderInitialVelocity , y:0};
         }
         if (hitTop) {
             GO_DOWN = true;
-            console.log("8");
+            this.invadersAreRising = false;
+            this.invaderVelocity = this.invaderNextVelocity;
+            this.invaderCurrentRiseDistance = 0;
         }
     }
+
+
+    // ---------------------------------------------------------------------------------------
     
     for (i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
@@ -252,26 +251,42 @@ PlayState.prototype.update = async function(game, dt) {
         }
     }
 
-    var frontRankInvaders = {};
-    for (var i=0; i<this.invaders.length; i++) {
-        var invader = this.invaders[i];
+    // var frontRankInvaders = {};
+    // for (var i=0; i<this.invaders.length; i++) {
+    //     var invader = this.invaders[i];
 
-        if (!frontRankInvaders[invader.file] || frontRankInvaders[invader.file].rank < invader.rank) {
-            frontRankInvaders[invader.file] = invader;
-        }
-    }
+    //     if (!frontRankInvaders[invader.file] || frontRankInvaders[invader.file].rank < invader.rank) {
+    //         frontRankInvaders[invader.file] = invader;
+    //     }
+    // }
 
-    for (var i=0; i<this.config.invaderFiles; i++) {
-        var invader = frontRankInvaders[i];
-        if (!invader) continue;
-        var chance = this.invaderBulletRate * dt;
-        if (chance > Math.random()) {
-            if (!this.currentInvaderBullet || this.currentInvaderBullet.y >= game.height * 0.75) {
-                this.currentInvaderBullet = new InvaderBullet(invader.x, invader.y + invader.height / 2, 
-                this.invaderBulletMinVelocity + Math.random()*(this.invaderBulletMaxVelocity - this.invaderBulletMinVelocity))
-                this.invaderBullets.push(this.currentInvaderBullet);
-            }
-        }
+    // for (var i=0; i<this.config.invaderFiles; i++) {
+    //     var invader = frontRankInvaders[i];
+    //     if (!invader) continue;
+    //     var chance = this.invaderBulletRate * dt;
+    //     if (chance > Math.random()) {
+    //         if (!this.currentInvaderBullet || this.currentInvaderBullet.y >= game.height * 0.75) {
+    //             this.currentInvaderBullet = new InvaderBullet(invader.x, invader.y + invader.height / 2, game.config.invaderBulletVelocity);
+    //             this.invaderBullets.push(this.currentInvaderBullet);
+    //         }
+    //     }
+    // }
+
+    // for (var i=0; i<this.invaders.length; i++) {
+    //     var invader = this.invaders[i];
+    //     var chance = this.config.invaderBulletRate * dt;
+    //     if (chance > Math.random()) {
+    //         if (!this.currentInvaderBullet || this.currentInvaderBullet.y >= game.height * 0.75) {
+    //             this.currentInvaderBullet = new InvaderBullet(invader.x, invader.y + invader.height / 2, game.config.invaderBulletVelocity);
+    //             this.invaderBullets.push(this.currentInvaderBullet);
+    //         }
+    //     }
+    // }
+
+    var shootingInvader = this.invaders[Math.floor(Math.random() * this.invaders.length)];
+    if (!this.currentInvaderBullet || this.currentInvaderBullet.y >= game.height * 0.75) {
+        this.currentInvaderBullet = new InvaderBullet(shootingInvader.x, shootingInvader.y + shootingInvader.height / 2, game.config.invaderBulletVelocity);
+        this.invaderBullets.push(this.currentInvaderBullet);
     }
 
     for(var i=0; i<this.invaderBullets.length; i++) {
@@ -286,7 +301,9 @@ PlayState.prototype.update = async function(game, dt) {
             var playerImage = new Image();
             playerImage.src = game.selectedCharacterImage;
 
-            this.player = new Player(game.width / 2, game.gameBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
+            this.player = new Player(game.width / 2, game.playerBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
+
+            //todo: check if
             if (invaderBullet = this.currentInvaderBullet && this.currentInvaderBullet.y <= game.height * 0.75) {
                 this.currentInvaderBullet = null;
             }
@@ -410,8 +427,8 @@ PlayState.prototype.firePlayerBullet = function() {
 
 function saveRecord(game) {
     var record = {
-        username: 'bar',
+        username: currentPlayer.username,
         points: game.score,
     }
-    game.scoreRecords.push(record);
+    currentPlayer.records.push(record);
 }
