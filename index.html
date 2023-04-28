@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/return.css">
     <link rel="stylesheet" type="text/css" href="css/health.css">
     <link rel="stylesheet" type="text/css" href="css/return.css">
+    <link rel="stylesheet" type="text/css" href="css/configuration.css">
     <link rel="stylesheet" type="text/css" href="css/typeography.css">
     <link rel="icon" type="image/x-icon" href="/images/pizza_slice.ico" sizes="32x32">
   </head>
@@ -191,6 +192,34 @@
         </form>
       </div>
 
+      <div id="configuration">
+        <div class="configuration-choice-container">
+          <span>Game Duration: </span>
+          <input id="time-choice" type="number" value="2"/>
+        </div>
+        <div class="configuration-choice-container">
+          <span>Left key: </span>
+          <input class="key-choice" id="leftKey"/>
+        </div>
+        <div class="configuration-choice-container">
+          <span>Right key: </span>
+          <input class="key-choice" id="rightKey"/>
+        </div>
+        <div class="configuration-choice-container">
+          <span>Up key: </span>
+          <input class="key-choice" id="upKey"/>
+        </div>
+        <div class="configuration-choice-container">
+          <span>Down key: </span>
+          <input class="key-choice" id="downKey"/>
+        </div>
+        <div class="configuration-choice-container">
+          <span>Space key: </span>
+          <input class="key-choice" id="spaceKey"/>
+        </div>
+        <button class="finish-configuration">START GAME</button>
+      </div>
+
       <div id="about">
         <button id="close-about-button" class="close">X</button>
         <div class="about-content">
@@ -347,5 +376,6 @@
   <script src="js/Scoreboard.js"></script>
   <script src="js/CharacterMenu.js"></script>
   <script src="js/Health.js"></script>
+  <script src="js/configuration.js"></script>
   <script src="js/Main.js"></script>
 </html>

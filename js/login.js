@@ -9,8 +9,8 @@ function onLogin() {
         return;
     }
     setVisibility('login', 'none');
-    game.state = "character-menu";
-    setVisibility('character-menu', 'flex');
+    game.state = "configuration";
+    onConfigurationOpen();
 };
 
 function validate() {

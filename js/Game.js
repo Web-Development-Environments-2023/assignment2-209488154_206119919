@@ -18,7 +18,15 @@ function Game() {
         limitLevelIncrease: 25,
         invadersSpeed: 10,
         limitSpeedUp: 0,
-        invadersVerticalDistance: 0.1
+        invadersVerticalDistance: 0.1,
+        keyChoices: {
+            spaceKey: 32,
+            leftKey: 37,
+            upKey: 38,
+            rightKey: 39,
+            downKey: 40,
+            pKey: 80
+        }        
     };
 
     this.lives = 3;
@@ -186,24 +194,24 @@ Game.prototype.keyDown = function(keyCode) {
 
 Game.prototype.touchstart = function(s) {
     if(this.currentState() && this.currentState().keyDown) {
-        this.currentState().keyDown(this, KEY_SPACE);
+        this.currentState().keyDown(this, this.config.keyChoices.spaceKey);
     }    
 };
 
 Game.prototype.touchend = function(s) {
-    delete this.pressedKeys[KEY_RIGHT];
-    delete this.pressedKeys[KEY_LEFT];
+    delete this.pressedKeys[game.config.keyChoices.rightKey];
+    delete this.pressedKeys[game.config.keyChoices.leftKey];
 };
 
 Game.prototype.touchmove = function(e) {
 	var currentX = e.changedTouches[0].pageX;
     if (this.previousX > 0) {
         if (currentX > this.previousX) {
-            delete this.pressedKeys[KEY_LEFT];
-            this.pressedKeys[KEY_RIGHT] = true;
+            delete this.pressedKeys[game.config.keyChoices.leftKey];
+            this.pressedKeys[game.config.keyChoices.rightKey] = true;
         } else {
-            delete this.pressedKeys[KEY_RIGHT];
-            this.pressedKeys[KEY_LEFT] = true;
+            delete this.pressedKeys[game.config.keyChoices.rightKey];
+            this.pressedKeys[game.config.keyChoices.leftKey] = true;
         }
     }
     this.previousX = currentX;
