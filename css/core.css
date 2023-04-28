@@ -164,3 +164,108 @@ body, html {
             opacity: 1;
         }
     }
+
+    /* pause state start over button */
+    #pause-restart-container{
+      display: none;
+    }
+
+    .restart-pause{
+      position: fixed;
+      top: 95%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    #restart-link{
+      display: block;
+      font-size: 2vw;
+      font-family: sans-serif;
+      /* text-decoration: none; */
+      color: #70c8a0;
+      border-top: 0.2vw solid #70c8a0;
+      border-bottom: 0.2vw solid #70c8a0;
+      padding: 0.8vw;
+      letter-spacing: 0.2vw;
+      transition: all .25s;
+    }
+    
+    #restart-link:hover{
+      letter-spacing: 1.2vw;
+      color: #70c8a0;
+    }
+
+  #pazza-footer{
+    position: fixed;
+    bottom: 0;
+    margin:0;
+    width: 100%;
+    background-color: black;
+    display: inline-flex;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index:99;
+  }
+   
+.N-text{
+  padding-top: 0.8vw;
+  vertical-align: middle;
+  font-size: 1.5vw;
+  color: pink;
+  margin: 0;
+  width:100%;
+  animation:marquee 10s linear infinite;
+  display: inline-block;
+  padding-right: 0.8vw;
+}
+.footer{
+  height:auto;
+  background-color:rgba(255, 69, 243, 0.838);
+  padding: 1vw 2.5vw 0.8vw 2.5vw;
+  font-size:1.5vw;
+  color: white;
+  z-index:9;
+  display: block;
+} 
+.footer:after{
+  content:'';
+  top:0;
+  transform:translateX(100%);
+  width:100%;
+  height:17.5vw;
+  position: absolute;
+  z-index:99;
+  animation: slide 5s infinite;
+  background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 50%,rgba(128,186,232,0) 99%,rgba(125,185,232,0) 100%);/* Chrome10+,Safari5.1+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#007db9e8',GradientType=1 ); /* IE6-9 */
+}
+
+  #footer-head:before{
+    position: absolute;
+    content: '';
+    top:1.5vw;
+    left: 0.8vw;
+    display: inline-block;
+    height: 1vw;
+    width: 0.8vw;
+    background: #fff;
+    animation:at-blink .4s infinite;
+  } 
+
+  @keyframes at-blink{
+    from{opacity:0}to{opacity:1}
+  }
+  
+  @keyframes slide{
+    0% {transform:translateX(-100%);} 100% {transform:translateX(100%);}
+  }
+  
+  .t-link{
+    color:inherit!important;
+    list-style:none;}
+
+  #github-link{
+    font-size: 1.5vw;
+    color: rgb(249, 148, 202);
+    text-decoration:underline;
+  }

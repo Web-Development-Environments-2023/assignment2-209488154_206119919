@@ -7,6 +7,7 @@ function showScoreboard(game) {
     setVisibility('scoreboard-container', 'flex');
     setVisibility('game-score-container', 'none');
     setVisibility('return', 'block');
+    hideHealthBar();
 };
 
 function generateScoreHtml(game) {

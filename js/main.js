@@ -22,6 +22,18 @@ function startGameMusic() {
 	menuAudioPlayer.currentTime = 0;
 }
 
+function showHealthBar(){
+    setVisibility('healthBarText',  'inline-block');
+    setVisibility('healthBarInner',  'inline-block');
+    setVisibility('health-bar',  'inline-block');
+}
+
+function hideHealthBar(){
+    setVisibility('healthBarText',  'none');
+    setVisibility('healthBarInner',  'none');
+    setVisibility('health-bar',  'none');
+}
+
 function initialiseCanvas() {
     canvas = document.getElementById("gameCanvas");
 
@@ -42,7 +54,6 @@ function initialiseGame(currentGame = null) {
     if (!currentGame) game = new Game();
     initialiseCanvas();
     game.initialise(canvas);
-    
 }
 
 function destroyGame() {    
@@ -52,6 +63,7 @@ function destroyGame() {
     var score = document.getElementById("score");
     score.innerHTML = '0';
     // game = null;
+    hideHealthBar()
 }
 
 function restartGame(event) {
@@ -101,6 +113,7 @@ restart.addEventListener("click", function(event) {restartGame(event)} );
 // }
 
 function returnHome() {
+    setVisibility('pause-restart-container',  'none');
     currentPlayer = {username: '', records: []};
     game.stop();
     var state = game.state;
@@ -115,8 +128,15 @@ function returnHome() {
         game.popState();
     }
 
+    if(state == 'signup' || state == 'login' || state == 'character-menu')
+    {
+        setVisibility('character-menu', 'none');
+        setVisibility(state, 'none');
+        loginClearForm();
+        signupClearForm();
+    }
+
     startMenuMusic();
-    
     game.moveToState(new WelcomeState());
     // var canvas = document.getElementById("gameCanvas");
     // var ctx = canvas.getContext("2d");
@@ -130,6 +150,7 @@ function returnHome() {
     setVisibility('header', "block");
     setVisibility('return', 'none');
     setVisibility('game-score-container', 'none');
+    setVisibility('pazza-footer', 'inline-flex');
     initialisePizzaBackground();
     initialiseGame();
 }

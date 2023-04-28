@@ -16,14 +16,16 @@ var onCharacterClick = function(event) {
     game.characterWidth = character.characterWidth;
     game.characterHeight = character.characterHeight;
     game.selectedCharacterImage = character.image;
-    
     game.currentPlayer = currentPlayer;
+    
     game.start();
     game.moveToState(new LevelIntroState(game.level));
     pizzaBackground.onCharacterSelect();
     setVisibility('character-menu', 'none');
+    setVisibility('pizza-background', 'none');
     setVisibility('return', 'none');
     setVisibility('playing-background', 'inline-block');
     setVisibility('gameCanvas', 'block');
     setVisibility('game-score-container', 'flex');
+    showHealthBar();
 };
