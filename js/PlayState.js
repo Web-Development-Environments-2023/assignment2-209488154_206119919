@@ -454,6 +454,10 @@ PlayState.prototype.keyDown = function(game, keyCode) {
         game.sounds.playSound('pause', 2.3);
         game.pushState(new PauseState());
         setVisibility('pause-restart-container',  'flex');
+        setVisibility('return',  'flex');
+        setVisibility('healthBarText',  'none');
+        setVisibility('healthBarInner',  'none');
+        setVisibility('health-bar',  'none');
     }
 };
 

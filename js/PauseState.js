@@ -12,6 +12,9 @@ PauseState.prototype.keyDown = function(game, keyCode) {
         var gameAudioPlayer = document.getElementById('game-audio-player');
         gameAudioPlayer.play();
         setVisibility('pause-restart-container',  'none');
+        setVisibility('healthBarText',  'inline-block');
+        setVisibility('healthBarInner',  'inline-block');
+        setVisibility('health-bar',  'inline-block');
     }
 };
 
