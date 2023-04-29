@@ -9,7 +9,7 @@ function Game() {
         invadersSpeed: 10,
         limitSpeedUp: 0,
         keyChoices: {
-            spaceKey: 32,
+            keyChoice: 32,
             leftKey: 37,
             upKey: 38,
             rightKey: 39,
@@ -198,7 +198,7 @@ Game.prototype.keyDown = function(keyCode) {
 
 Game.prototype.touchstart = function(s) {
     if(this.currentState() && this.currentState().keyDown) {
-        this.currentState().keyDown(this, this.config.keyChoices.spaceKey);
+        this.currentState().keyDown(this, this.config.keyChoices.keyChoice);
     }    
 };
 

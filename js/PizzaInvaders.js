@@ -1,5 +1,5 @@
 var keyChoices = {
-    spaceKey: 32,
+    keyChoice: 32,
     leftKey: 37,
     upKey: 38,
     rightKey: 39,

@@ -6,10 +6,9 @@ var keyChoiceElements = document.querySelectorAll("key-choice");
 function onConfigurationOpen() {
     game.state = "configuration";
     setVisibility('configuration', 'flex');
-    setVisibility('overlay', 'block');
 };
 
-function getSpaceKeyInputValue(which, code) {
+function getKeyChoiceInputValue(which, code) {
     var aAscii = 65;
     var zAscii = 90;
 
@@ -17,9 +16,8 @@ function getSpaceKeyInputValue(which, code) {
 }
 
 function onKeyChoiceKeyDown(event) {
-    document.getElementById("spaceKey").value = getSpaceKeyInputValue(event.which, event.code);
-    // game.config.keyChoices[event.target.id] = event.which;
-    game.config.keyChoices.spaceKey = event.which;
+    document.getElementById("key-choice").value = getKeyChoiceInputValue(event.which, event.code);
+    game.config.keyChoices.keyChoice = event.which;
 }
 
 function onTimeChoiceBlur() {
@@ -36,15 +34,9 @@ function onConfigurationFinish() {
 function goToCharacterSelect() {
     game.state = "character-menu";
     setVisibility('configuration', 'none');
-    setVisibility('overlay', 'none');
     setVisibility('character-menu', 'flex');
 }
 
 finishConfigurationButton.addEventListener("click", onConfigurationFinish);
 timeChoice.addEventListener("blur", onTimeChoiceBlur);
-document.getElementById("spaceKey").addEventListener("keydown", function(event) {onKeyChoiceKeyDown(event)})
-// keyChoiceElements.forEach(function(element) {
-//     element.setAttribute('value', '');
-//     element.setAttribute('maxlength', '0');
-//     element.addEventListener("keydown", function(event) {onKeyChoiceKeyDown(event)});
-// });
+document.getElementById("key-choice").addEventListener("keydown", function(event) {onKeyChoiceKeyDown(event)})

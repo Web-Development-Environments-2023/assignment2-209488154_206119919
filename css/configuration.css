@@ -17,10 +17,10 @@
     height: 80%;
 }
 
-.configuration-choice-container, #configuration button {
+/* .configuration-choice-container, #configuration button {
     margin-top: 2%;
     width: 25%;
-}
+} */
 
 .configuration-choice-container {
     display: flex;
