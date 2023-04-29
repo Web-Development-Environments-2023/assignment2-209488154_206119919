@@ -23,13 +23,14 @@ function Game() {
     this.pauseStartTime = null;
     this.paused = false;
     this.pausedTimeElapesed = 0;
-    this.lives = 3;
     this.width = 0;
     this.height = 0;
     this.playerBounds = {left: 0, top: 0, right: 0, bottom: 0};
     this.invaderBounds = {left: 0, top: 0, right: 0, bottom: 0};
     this.intervalId = 0;
     this.score = 0;
+    this.lives;
+    this.finished;
     this.characters = {
         'rosetta': {
             characterWidth: 76,
@@ -59,29 +60,27 @@ function Game() {
     }
     
     this.stateStack = [];
-
+    
     this.pressedKeys = {};
     this.gameCanvas =  null;
-
+    
     this.sounds = null;
-
+    
     this.previousX = 0;
 }
 
 Game.prototype.initialise = function(gameCanvas) {
-
     this.gameCanvas = gameCanvas;
-
     this.width = gameCanvas.width;
     this.height = gameCanvas.height;
-
+    
     this.invaderBounds = {
         left: 0,
         right: 0.85 * this.width,
         top: 0,
         bottom: 0.5 * this.height
     };
-
+    
     this.playerBounds = {
         left: 0,
         right: 0.85 * this.width,
@@ -89,38 +88,36 @@ Game.prototype.initialise = function(gameCanvas) {
         bottom: 0.925 * this.height
     };
     
-    this.score = 0;
     this.lives = 3;
+    this.score = 0;
     this.didWin = false;
     this.didLose = false;
 };
 
 Game.prototype.moveToState = function(state) {
- 
-   if(this.currentState() && this.currentState().leave) {
-     this.currentState().leave(game);
-     this.stateStack.pop();
-   }
-   
-   if(state.enter) {
-     state.enter(game);
-   }
- 
-   this.stateStack.pop();
-   this.stateStack.push(state);
- };
+    if(this.currentState() && this.currentState().leave) {
+        this.currentState().leave(game);
+        this.stateStack.pop();
+    }
+    
+    if(state.enter) {
+        state.enter(game);
+    }
+    
+    this.stateStack.pop();
+    this.stateStack.push(state);
+};
 
 Game.prototype.start = function() {
     this.moveToState(new WelcomeState());
-
-    this.lives = 3;
-
+    
     var game = this;
+    game.finished = false;
     game.startTime = new Date();
     this.intervalId = setInterval(function () {
-         GameLoop(game);
-        }, 1000 / this.config.fps);
-
+        GameLoop(game);
+    }, 1000 / this.config.fps);
+    
 };
 
 Game.prototype.currentState = function() {
@@ -186,7 +183,7 @@ function checkIsTimeUp() {
     var currentTime = new Date();
     var timeElapsed = (currentTime - game.startTime) / 1000 - game.pausedTimeElapesed;
 
-    if(timeElapsed >= game.config.timeLimit){
+    if(timeElapsed >= game.config.timeLimit && !(game.finished)){
         finishGame(game);
     }
 }

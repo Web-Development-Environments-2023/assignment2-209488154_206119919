@@ -24,11 +24,18 @@ function speedUp(){
         game.config.invadersSpeed += 3;
         game.config.limitSpeedUp += 1;
     }
+}
 
+function resetSpeed() {
+    clearInterval(speedUpIntervalId);
+    document.getElementById("game-audio-player").playbackRate = 1;
+    game.config.invaderBulletVelocity = 50;
+    game.config.invadersSpeed = 10;
+    game.config.limitSpeedUp = 0;
 }
 
 PlayState.prototype.enter = function(game) {
-
+    go(0, 0);
     var playerImage = new Image();
     playerImage.src = game.selectedCharacterImage;
     this.player = new Player(game.width / 2, game.playerBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
@@ -50,6 +57,7 @@ PlayState.prototype.enter = function(game) {
     this.invaders = invaders;
     this.invaderVelocity = {x: -this.config.invaderInitialVelocity, y:0};
     this.invaderNextVelocity = null;
+
 
     speedUpIntervalId = window.setInterval(speedUp, 5000);
 };
@@ -267,15 +275,16 @@ PlayState.prototype.update = async function(game, dt) {
             if (invaderBullet == this.currentInvaderBullet && this.currentInvaderBullet.y <= game.height * 0.75) {
                 this.currentInvaderBullet = null;
             }
-            healthBarState.currentHealth--;
-            renderHealthBar();
+
+            var healthBarState = getHealthBarState(game);
+            renderHealthBar(healthBarState);
         }
     }
     if (game.lives <= 0) {
         loseGame(game);
     }
     if (this.invaders.length === 0) {
-        winGame();
+        winGame(game);
     }
 };
 
@@ -286,15 +295,17 @@ function loseGame(game) {
     finishGame(game);
 }
 
-function winGame() {
+function winGame(game) {
     game.didWin = true;
     game.didLose = false;
     finishGame(game);
 }
 
 function finishGame(game) {
+    game.finished = true;
+    game.stop();
+    clearInterval(speedUpIntervalId);
     saveRecord(game);
-    clearInterval(game.intervalId)
     setVisibility('gameCanvas', 'none');
     showScoreboard(game);
 }
