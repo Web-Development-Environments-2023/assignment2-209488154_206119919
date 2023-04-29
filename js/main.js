@@ -3,6 +3,11 @@ function setVisibility(divId, display) {
     element.style.display = display;
 }
 
+function setVisibilityByClass(className, display){
+    const elements = document.querySelectorAll(className);
+    elements.forEach(element => element.style.display = display);
+}
+
 var pizzaBackground;
 var canvas;
 var game;
@@ -67,9 +72,12 @@ function destroyGame() {
 
 function restartGame(event) {
     game.popState();
-    setVisibility('scoreboard-container', 'none');
     destroyGame();
     initialiseGame(game);
+    setVisibility('scoreboard-container', 'none');
+    setVisibilityByClass('.status-result', 'none');
+    setVisibility('game-controls', 'block');
+    showHealthBar();
     game.start();
     game.moveToState(new IntroState());
     setVisibility('return', 'none');
@@ -88,6 +96,7 @@ function returnHome() {
     if(state == "gameover"){
         game.popState();
         setVisibility('scoreboard-container', 'none');
+        setVisibilityByClass('.status-result', 'none');
     }
 
     if(state == "pause"){

@@ -24,7 +24,8 @@ function onKeyChoiceKeyDown(event) {
 
 function onTimeChoiceBlur() {
     var time = parseInt(timeChoice.value)
-    time = isNaN(time) ? 120 : time;
+    //todo: shift back to 120
+    time = isNaN(time) ? 30 : time;
     game.config.timeLimit = time;
 }
   

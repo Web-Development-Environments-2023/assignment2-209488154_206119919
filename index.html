@@ -196,7 +196,9 @@
       <div id="configuration">
         <div class="configuration-choice-container">
           <span>Game Duration: </span>
-          <input id="time-choice" type="number" value="120" min="120"/>
+          <!-- //TODO: get min back -->
+          <!-- <input id="time-choice" type="number" value="120" min="120"/> -->
+          <input id="time-choice" type="number" value="30"/>
         </div>
         <div class="configuration-choice-container">
           <span>Space key: </span>
@@ -305,10 +307,10 @@
         
       <div id="scoreboard-container">
         <div id="game-status">
-          <h1 class="neon" data-text="U">WI<span class="flicker-slow">N</span>N<span class="flicker-fast">E</span>R!</h1>
-          <h1 class="neon" data-text="U">YO<span class="flicker-slow">U L</span>O<span class="flicker-fast">ST</span></h1>
-          <h1 class="neon" data-text="U">YO<span class="flicker-slow">U C</span>AN D<span class="flicker-fast">O BET</span>TER</h1>
-          <h1 class="neon" data-text="U">CH<span class="flicker-slow">A</span>MP<span class="flicker-fast">IO</span>N!</h1>
+          <h1 class="neon status-result" data-text="U">WI<span class="flicker-slow">N</span>N<span class="flicker-fast">E</span>R!</h1>
+          <h1 class="neon status-result" data-text="U">YO<span class="flicker-slow">U L</span>O<span class="flicker-fast">ST</span></h1>
+          <h1 class="neon status-result" data-text="U">YO<span class="flicker-slow">U C</span>AN D<span class="flicker-fast">O BET</span>TER</h1>
+          <h1 class="neon status-result" data-text="U">CH<span class="flicker-slow">A</span>MP<span class="flicker-fast">IO</span>N!</h1>
         </div>
         <br/>
         <div id="scoreboard">
@@ -350,7 +352,8 @@
       
     <div id="pizza-background"></div>
   </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+  <script src="js/jquery.min.js"></script>
   <script src="js/Sounds.js"></script>
   <script src="js/Score.js"></script>
   <script src="js/Game.js"></script>

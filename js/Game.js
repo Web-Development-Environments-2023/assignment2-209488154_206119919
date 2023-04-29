@@ -14,9 +14,11 @@ function Game() {
             upKey: 38,
             rightKey: 39,
             downKey: 40,
-            pKey: 80
+            pKey: 27
         },
-        timeLimit: 120
+        //todo: change back
+        // timeLimit: 120
+        timeLimit: 30
     };
 
     this.lives = 3;
@@ -87,6 +89,8 @@ Game.prototype.initialise = function(gameCanvas) {
     
     this.score = 0;
     this.lives = 3;
+    this.didWin = false;
+    this.didLose = false;
 };
 
 Game.prototype.moveToState = function(state) {

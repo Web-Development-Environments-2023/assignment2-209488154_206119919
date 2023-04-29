@@ -106,8 +106,8 @@ body, html {
   justify-content: center;
   align-items: center;
   position: fixed;
-  left: 3%;
-  bottom: 5%;
+  right: 3%;
+  top: 14%;
 }
 
 #timer-container {
