@@ -27,10 +27,11 @@ function InvaderBullet(x, y, velocity) {
     this.velocity = velocity;
 }
 
-function Invader(x, y, rank, invaderWidth, invaderHeight, type, photo) {
+function Invader(x, y, rank, col, invaderWidth, invaderHeight, type, photo) {
     this.x = x;
     this.y = y;
     this.row = rank;
+    this.col = col;
     this.rank = (20 - (rank * 5));
     this.type = type;
     this.width = invaderWidth;

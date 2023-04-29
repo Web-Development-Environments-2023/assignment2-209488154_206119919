@@ -5,7 +5,6 @@ function PlayState(config) {
     this.config = config;
     this.currentInvaderBullet = null;
 
-    this.invaderInitialVelocity = this.config.invaderInitialVelocity;
     this.invaderCurrentDropDistance =  0;
     this.invadersAreDropping =  false;
     this.lastPlayerBulletTime = null;
@@ -45,7 +44,7 @@ PlayState.prototype.enter = function(game) {
         for (var col = 0; col < 5; col++){
             var photo = new Image();
             photo.src = invaderPhotos[row];
-            invaders.push(new Invader((0.25 * game.width) + (col * 0.1 * game.width), (0.1 * game.height * row), row, invaderWidth, invaderHeight, 'Invader', photo));
+            invaders.push(new Invader((0.25 * game.width) + (col * 0.1 * game.width), (0.1 * game.height * row), row, col, invaderWidth, invaderHeight, 'Invader', photo));
         }
     }
     this.invaders = invaders;
@@ -128,8 +127,12 @@ PlayState.prototype.update = async function(game, dt) {
             }
 
             if (!hitLeft && !hitRight && !hitBottom) {
-                invader.x = newx;
-                if (newy <= game.invaderBounds.bottom - 0.1 * game.height * (3-invader.row)) {
+                if (newx <= game.invaderBounds.right - 0.1 * game.width * (3 - invader.col) &&
+                    newx >= game.invaderBounds.left + 0.1 * game.width * invader.col) {
+                    invader.x = newx;
+                }
+                if (newy >= game.invaderBounds.top + 0.1 * game.height * invader.row &&
+                    newy <= game.invaderBounds.bottom - 0.1 * game.height * (3 - invader.row)) {
                     invader.y = newy;
                 }
             }
@@ -145,14 +148,14 @@ PlayState.prototype.update = async function(game, dt) {
         }
 
         if (hitLeft) {
-            this.invaderVelocity = {x: 0, y:this.invaderInitialVelocity};
+            this.invaderVelocity = {x: 0, y:this.config.invaderInitialVelocity};
             this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: this.invaderInitialVelocity , y:0};
+            this.invaderNextVelocity = {x: this.config.invaderInitialVelocity, y:0};
         }
         if (hitRight) {
-            this.invaderVelocity = {x: 0, y:this.invaderInitialVelocity};
+            this.invaderVelocity = {x: 0, y:this.config.invaderInitialVelocity};
             this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: -this.invaderInitialVelocity , y:0};
+            this.invaderNextVelocity = {x: -this.config.invaderInitialVelocity, y:0};
         }
         if (hitBottom) {
             GO_DOWN = false;
@@ -193,14 +196,14 @@ PlayState.prototype.update = async function(game, dt) {
             }
         }
         if (hitLeft) {
-            this.invaderVelocity = {x: 0, y:-this.invaderInitialVelocity};
+            this.invaderVelocity = {x: 0, y:-this.config.invaderInitialVelocity};
             this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: this.invaderInitialVelocity , y:0};
+            this.invaderNextVelocity = {x: this.config.invaderInitialVelocity, y:0};
         }
         if (hitRight) {
-            this.invaderVelocity = {x: 0, y:-this.invaderInitialVelocity};
+            this.invaderVelocity = {x: 0, y:-this.config.invaderInitialVelocity};
             this.invadersAreDropping = true;
-            this.invaderNextVelocity = {x: -this.invaderInitialVelocity , y:0};
+            this.invaderNextVelocity = {x: -this.config.invaderInitialVelocity, y:0};
         }
         if (hitTop) {
             GO_DOWN = true;
@@ -239,10 +242,10 @@ PlayState.prototype.update = async function(game, dt) {
         this.invaderBullets.push(this.currentInvaderBullet);
     }
 
-    for(var i=0; i<this.invaderBullets.length; i++) {
+    for (var i=0; i<this.invaderBullets.length; i++) {
         var invaderBullet = this.invaderBullets[i];
-        if(invaderBullet.x >= (this.player.x - this.player.width/2) && invaderBullet.x <= (this.player.x + this.player.width/2) &&
-                invaderBullet.y >= (this.player.y - this.player.height/2) && invaderBullet.y <= (this.player.y + this.player.height/2)) {
+        if (invaderBullet.x >= (this.player.x - this.player.width / 2) && invaderBullet.x <= (this.player.x + this.player.width / 2) &&
+                invaderBullet.y >= (this.player.y - this.player.height / 2) && invaderBullet.y <= (this.player.y + this.player.height / 2)) {
             this.invaderBullets.splice(i--, 1);
             game.lives--;
             if (game.lives > 0) {
@@ -253,8 +256,7 @@ PlayState.prototype.update = async function(game, dt) {
 
             this.player = new Player(game.width / 2, game.playerBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
 
-            //todo: check if
-            if (invaderBullet = this.currentInvaderBullet && this.currentInvaderBullet.y <= game.height * 0.75) {
+            if (invaderBullet == this.currentInvaderBullet && this.currentInvaderBullet.y <= game.height * 0.75) {
                 this.currentInvaderBullet = null;
             }
             healthBarState.currentHealth--;

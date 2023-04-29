@@ -1,8 +1,9 @@
 function Game() {
     this.config = {
         invaderInitialVelocity: 20,
-        invaderDropDistance:10,
+        invaderDropDistance:1,
         playerBulletVelocity: 120,
+        invaderBulletVelocity: 120,
         fps: 50,
         playerSpeed: 120,
         invadersSpeed: 10,
@@ -74,7 +75,7 @@ Game.prototype.initialise = function(gameCanvas) {
         left: 0,
         right: 0.85 * this.width,
         top: 0,
-        bottom: 0.6 * this.height
+        bottom: 0.5 * this.height
     };
 
     this.playerBounds = {
@@ -150,7 +151,6 @@ function GameLoop(game) {
     var timeElapsed = (currentTime - game.startTime) / 1000;
     document.getElementById("timer").value = (game.config.timeLimit - timeElapsed).toPrecision(3);
     checkIsTimeUp();
-    // if(timeElapsed > this.timeLimit)
 }
 
 function checkIsTimeUp() {
