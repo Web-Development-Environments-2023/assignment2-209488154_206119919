@@ -22,7 +22,7 @@ GameOverState.prototype.draw = function(game, dt, ctx) {
 };
 
 GameOverState.prototype.keyDown = function(game, keyCode) {
-    if(keyCode == KEY_SPACE) {
+    if(keyCode == game.config.keyChoices.spaceKey) {
         game.lives = 3;
         game.score = 0;
         game.level = 1;

@@ -7,7 +7,7 @@ function PauseState() {
 
 PauseState.prototype.keyDown = function(game, keyCode) {
 
-    if(keyCode == KEY_P) {
+    if(keyCode == game.config.keyChoices.pKey) {
         game.popState();
         var gameAudioPlayer = document.getElementById('game-audio-player');
         gameAudioPlayer.play();

@@ -62,24 +62,22 @@ PlayState.prototype.enter = function(game) {
     speedUpIntervalId = window.setInterval(speedUp, 5000);
 };
 
-
-
 PlayState.prototype.update = async function(game, dt) {
 
-    if(game.pressedKeys[KEY_LEFT]) {
+    if(game.pressedKeys[game.config.keyChoices.leftKey]) {
         this.player.x -= this.playerSpeed * dt;
     }
-    if(game.pressedKeys[KEY_RIGHT]) {
+    if(game.pressedKeys[game.config.keyChoices.rightKey]) {
         this.player.x += this.playerSpeed * dt;
     }
-    if(game.pressedKeys[KEY_UP]) {
+    if(game.pressedKeys[game.config.keyChoices.upKey]) {
         this.player.y -= this.playerSpeed * dt;
     }
-    if(game.pressedKeys[KEY_DOWN]) {
+    if(game.pressedKeys[game.config.keyChoices.downKey]) {
         this.player.y += this.playerSpeed * dt;
     }
 
-    if (game.pressedKeys[KEY_SPACE] && this.canShoot) {
+    if (game.pressedKeys[game.config.keyChoices.spaceKey] && this.canShoot) {
         this.firePlayerBullet();
         this.canShoot = false;
         setTimeout(function() {
@@ -374,10 +372,10 @@ PlayState.prototype.draw = function(game, dt, ctx) {
 
 PlayState.prototype.keyDown = function(game, keyCode) {
 
-    if(keyCode == KEY_SPACE) {
+    if(keyCode == game.config.keyChoices.spaceKey) {
         this.firePlayerBullet();
     }
-    if(keyCode == KEY_P) {
+    if(keyCode == game.config.keyChoices.pKey) {
         game.state = "pause";
         var gameAudioPlayer = document.getElementById('game-audio-player');
         gameAudioPlayer.pause();

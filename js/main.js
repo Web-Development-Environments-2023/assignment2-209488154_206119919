@@ -136,6 +136,10 @@ function returnHome() {
         signupClearForm();
     }
 
+    if(state == 'configuration') {
+        setVisibility('configuration', 'none');
+    }
+
     startMenuMusic();
     game.moveToState(new WelcomeState());
     // var canvas = document.getElementById("gameCanvas");

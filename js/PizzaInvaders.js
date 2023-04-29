@@ -1,9 +1,11 @@
-var KEY_LEFT = 37;
-var KEY_RIGHT = 39;
-var KEY_SPACE = 32;
-var KEY_UP = 38;
-var KEY_DOWN = 40;
-var KEY_P = 80;
+var keyChoices = {
+    spaceKey: 32,
+    leftKey: 37,
+    upKey: 38,
+    rightKey: 39,
+    downKey: 40,
+    pKey: 80
+};
 
 function Player(x, y, width, height, photo) {
     this.x = x;
