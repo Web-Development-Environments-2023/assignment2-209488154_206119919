@@ -69,7 +69,7 @@ PlayState.prototype.update = async function(game, dt) {
         this.player.y += this.playerSpeed * dt;
     }
 
-    if (game.pressedKeys[game.config.keyChoices.spaceKey] && this.canShoot) {
+    if (game.pressedKeys[game.config.keyChoices.keyChoice] && this.canShoot) {
         this.firePlayerBullet();
         this.canShoot = false;
         setTimeout(function() {
@@ -325,7 +325,7 @@ PlayState.prototype.draw = function(game, dt, ctx) {
 
 PlayState.prototype.keyDown = function(game, keyCode) {
 
-    if(keyCode == game.config.keyChoices.spaceKey) {
+    if(keyCode == game.config.keyChoices.keyChoice) {
         this.firePlayerBullet();
     }
     if(keyCode == game.config.keyChoices.pKey) {

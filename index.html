@@ -5,6 +5,7 @@
     <link rel="preload" as="image" href="/images/background.png">
     <link rel="stylesheet" type="text/css" href="css/core.css">
     <link rel="stylesheet" type="text/css" href="css/menu.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <link rel="stylesheet" type="text/css" href="css/about.css">
     <link rel="stylesheet" type="text/css" href="css/score.css">
@@ -194,17 +195,46 @@
       </div>
 
       <div id="configuration">
-        <div class="configuration-choice-container">
-          <span>Game Duration: </span>
+        <form id='configuration-form' class="form" autocomplete="off">
+          <div class="control box box-input">
           <!-- //TODO: get min back -->
           <!-- <input id="time-choice" type="number" value="120" min="120"/> -->
-          <input id="time-choice" type="number" value="30"/>
-        </div>
-        <div class="configuration-choice-container">
-          <span>Space key: </span>
-          <input class="key-choice" id="spaceKey" value="" maxlength="0"/>
-        </div>
-        <button id="finish-configuration">START GAME</button>
+            <input id="time-choice" name="time-choice" type="number" placeholder="Game Duration" value="120" min="120"/><div class="upper-background">
+              <div class="inner-background"></div>
+            </div>
+            <div class="right-background">
+              <div class="inner-background"></div>
+            </div>
+            <div class="background">
+              <div class="inner-background"></div>
+            </div>
+          </div>
+          <div class="control box box-input">
+            <input id="key-choice" id="key-choice" name="key-choice" type="key-choice" placeholder="Shooting Key" value="" maxlength="0"/><div class="upper-background">
+              <div class="inner-background"></div>
+            </div>
+            <div class="right-background">
+              <div class="inner-background"></div>
+            </div>
+            <div class="background">
+              <div class="inner-background"></div>
+            </div>
+          </div>
+          <button id="finish-configuration" type="button" class="btn box box-hover" >
+            <div class="upper-background">
+              <div class="inner-background"></div>
+            </div>
+            <div class="right-background">
+              <div class="inner-background"></div>
+            </div>
+            <div class="background">
+              <div class="inner-background"></div>
+            </div>
+            <div class="text">
+              START GAME
+            </div>
+          </button>
+        </form>
       </div>
 
       <div id="about">
