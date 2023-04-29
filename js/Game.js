@@ -20,7 +20,9 @@ function Game() {
         // timeLimit: 120
         timeLimit: 30
     };
-
+    this.pauseStartTime = null;
+    this.paused = false;
+    this.pausedTimeElapesed = 0;
     this.lives = 3;
     this.width = 0;
     this.height = 0;
@@ -137,29 +139,36 @@ Game.prototype.mute = function(mute) {
 };
 
 function GameLoop(game) {
-    var currentState = game.currentState();
-    if(currentState) {
-        var dt = 1 / game.config.fps;
-
-        var ctx = this.gameCanvas.getContext("2d");
-        
-        if(currentState.update) {
-            currentState.update(game, dt);
-        }
-        if(currentState.draw) {
-            currentState.draw(game, dt, ctx);
-        }
+    if (game.paused) {
+        var currentTime = new Date();
+        game.pausedTimeElapesed = (currentTime - game.pauseStartTime) / 1000;
     }
+    else {
+        var currentState = game.currentState();
+        if(currentState) {
+            var dt = 1 / game.config.fps;
 
-    var currentTime = new Date();
-    var timeElapsed = (currentTime - game.startTime) / 1000;
-    document.getElementById("timer").value = (game.config.timeLimit - timeElapsed).toPrecision(3);
-    checkIsTimeUp();
+            var ctx = this.gameCanvas.getContext("2d");
+            
+            if(currentState.update) {
+                currentState.update(game, dt);
+            }
+            if(currentState.draw) {
+                currentState.draw(game, dt, ctx);
+            }
+        }
+
+        var currentTime = new Date();
+        var timeElapsed = (currentTime - game.startTime) / 1000 - game.pausedTimeElapesed;
+        document.getElementById("timer").value = (game.config.timeLimit - timeElapsed).toPrecision(3);
+        checkIsTimeUp();
+    }
+    console.log(game.paused);
 }
 
 function checkIsTimeUp() {
     var currentTime = new Date();
-    var timeElapsed = (currentTime - game.startTime) / 1000;
+    var timeElapsed = (currentTime - game.startTime) / 1000 - game.pausedTimeElapesed;
 
     if(timeElapsed >= game.config.timeLimit){
         finishGame(game);

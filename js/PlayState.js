@@ -329,6 +329,8 @@ PlayState.prototype.keyDown = function(game, keyCode) {
         this.firePlayerBullet();
     }
     if(keyCode == game.config.keyChoices.pKey) {
+        game.pauseStartTime = new Date();
+        game.paused = true;
         game.state = "pause";
         var gameAudioPlayer = document.getElementById('game-audio-player');
         gameAudioPlayer.pause();

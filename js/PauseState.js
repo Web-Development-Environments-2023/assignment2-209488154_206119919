@@ -37,6 +37,7 @@ function onPauseExit(game) {
     setVisibility('return', 'none');
     setVisibility('pause-x-button', 'none');
     showHealthBar();
+    game.paused = false;
 }
 
 function onPauseRestart(game){
