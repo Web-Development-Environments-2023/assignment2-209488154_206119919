@@ -4,9 +4,7 @@ var aboutMenuOption = document.getElementById("about-menu-option")
 
 function hideMenu() {
     setVisibility('menu', 'none');
-    setVisibility('header', 'none');
     setVisibility('pazza-footer', 'none');
-    setVisibility('return', 'inline-block');
 };
 
 function onSignupMenuOption() {

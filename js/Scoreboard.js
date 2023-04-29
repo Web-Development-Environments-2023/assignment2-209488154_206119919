@@ -6,7 +6,6 @@ function showScoreboard(game) {
     game.stop();
     setVisibility('scoreboard-container', 'flex');
     setVisibility('game-controls', 'none');
-    setVisibility('return', 'block');
     hideHealthBar();
 };
 

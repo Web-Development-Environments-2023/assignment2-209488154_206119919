@@ -80,7 +80,6 @@ function restartGame(event) {
     showHealthBar();
     game.start();
     game.moveToState(new IntroState());
-    setVisibility('return', 'none');
     setVisibility('gameCanvas', 'block');
 }
 
@@ -88,11 +87,12 @@ var restart = document.querySelector(".start-over");
 restart.addEventListener("click", function(event) {restartGame(event)} );
 
 function returnHome() {
-    setVisibility('pause-restart-container',  'none');
     currentPlayer = {username: '', records: []};
     game.stop();
     var state = game.state;
     setVisibility("playing-background", 'none');
+    setVisibility('restart-nav-button', 'none');
+
     if(state == "gameover"){
         game.popState();
         setVisibility('scoreboard-container', 'none');
@@ -119,12 +119,9 @@ function returnHome() {
     startMenuMusic();
     game.moveToState(new WelcomeState());
     destroyGame();
-    game = null;
 
     setVisibility('pizza-background', 'block');
     setVisibility('menu', 'block');
-    setVisibility('header', "block");
-    setVisibility('return', 'none');
     setVisibility('game-controls', 'none');
     setVisibility('pazza-footer', 'inline-flex');
     initialisePizzaBackground();
@@ -171,5 +168,11 @@ window.addEventListener('touchmove', function(e){
     game?.touchmove(e);
 }, false);
 
-var MainMenuOption = document.getElementById("return");
-MainMenuOption.addEventListener("click", returnHome);
+var aboutNavButton = document.getElementById("about-nav-button");
+aboutNavButton.addEventListener("click", onAboutOpen);
+var homeNavButton = document.getElementById("home-nav-button");
+homeNavButton.addEventListener("click", returnHome);
+var instructionNavButton = document.getElementById("instruction-nav-button");
+instructionNavButton.addEventListener("click", onInstructionOpen);
+var restartNavButton = document.getElementById("restart-nav-button");
+restartNavButton.addEventListener("click", function(event) {restartGame(event)});
