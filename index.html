@@ -35,6 +35,7 @@
           <span class="label">Main Menu</span>
           <span class="line bLine"></span>
       </div>
+      <button id="pause-x-button">X</button>
       <div id="menu">
         <ul class="menu" data-offset="10">
           <li id="signup-menu-option" class="menu-item" data-offset="20">
@@ -272,29 +273,36 @@
         </div>
       </div>
 
-      <div id="game-score-container">
-        <div id="scoreContainer"></div>
-        <div id="score-title">
-          SCORE:
+      <div id="game-controls">
+        <div id="game-score-container">
+          <div id="scoreContainer"></div>
+          <div id="score-title">
+            SCORE:
+          </div>
+          <div id="score-tags">
+            <div id="five-tag">
+              +5  
+            </div>
+            <div id="ten-tag">
+              +10  
+            </div>
+            <div id="fifteen-tag">
+              +15  
+            </div>
+            <div id="twenty-tag">
+              +20  
+            </div>
+          </div>
+          <div id="score">
+            0
+          </div>
         </div>
-        <div id="score-tags">
-          <div id="five-tag">
-            +5  
-          </div>
-          <div id="ten-tag">
-            +10  
-          </div>
-          <div id="fifteen-tag">
-            +15  
-          </div>
-          <div id="twenty-tag">
-            +20  
-          </div>
-        </div>
-        <div id="score">
-          0
+        <div id="timer-container">
+          <span>TIME: </span>
+          <input id="timer" readonly />
         </div>
       </div>
+        
       <div id="scoreboard-container">
         <div id="game-status">
           <h1 class="neon" data-text="U">WI<span class="flicker-slow">N</span>N<span class="flicker-fast">E</span>R!</h1>
@@ -348,7 +356,7 @@
   <script src="js/Game.js"></script>
   <script src="js/PizzaBackground.js"></script>
   <script src="js/GameOverState.js"></script>
-  <script src="js/LevelIntroState.js"></script>
+  <script src="js/IntroState.js"></script>
   <script src="js/PauseState.js"></script>
   <script src="js/PlayState.js"></script>
   <script src="js/WelcomeState.js"></script>

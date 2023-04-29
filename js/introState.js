@@ -1,9 +1,8 @@
-function LevelIntroState(level) {
-    this.level = level;
+function IntroState() {
     this.countdownMessage = "3";
 }
 
-LevelIntroState.prototype.update = function(game, dt) {
+IntroState.prototype.update = function(game, dt) {
 
     if(this.countdown === undefined) {
         this.countdown = 3;
@@ -17,12 +16,12 @@ LevelIntroState.prototype.update = function(game, dt) {
         this.countdownMessage = "1"; 
     } 
     if(this.countdown <= 0) {
-        game.moveToState(new PlayState(game.config, this.level));
+        game.moveToState(new PlayState(game.config));
     }
 
 };
 
-LevelIntroState.prototype.draw = function(game, dt, ctx) {
+IntroState.prototype.draw = function(game, dt, ctx) {
 
     ctx.clearRect(0, 0, game.width, game.height);
 
@@ -30,7 +29,7 @@ LevelIntroState.prototype.draw = function(game, dt, ctx) {
     ctx.fillStyle = '#ffffff';
     ctx.textBaseline="middle"; 
     ctx.textAlign="center"; 
-    ctx.fillText("Level " + this.level, game.width / 2, game.height/2);
+    // ctx.fillText("Level " + this.level, game.width / 2, game.height/2);
     ctx.font="18px Arial";
     ctx.fillText("Ready in " + this.countdownMessage, game.width / 2, game.height/2 + 36);      
     return;

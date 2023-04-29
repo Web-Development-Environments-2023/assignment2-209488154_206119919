@@ -1,24 +1,12 @@
 function Game() {
-
     this.config = {
-        invaderBulletRate: 0.5,
-        invaderBulletMinVelocity: 50,
-        invaderBulletMaxVelocity: 50,
         invaderInitialVelocity: 20,
-        // invaderAcceleration: 0,
         invaderDropDistance:10,
         playerBulletVelocity: 120,
-        playerBulletMaxFireRate: 2,
         fps: 50,
-        invaderRanks: 2,
-        invaderFiles: 5,
         playerSpeed: 120,
-        levelDifficultyMultiplier: 0.2,
-        pointsPerInvader: 5,
-        limitLevelIncrease: 25,
         invadersSpeed: 10,
         limitSpeedUp: 0,
-        invadersVerticalDistance: 0.1,
         keyChoices: {
             spaceKey: 32,
             leftKey: 37,
@@ -26,7 +14,8 @@ function Game() {
             rightKey: 39,
             downKey: 40,
             pKey: 80
-        }        
+        },
+        timeLimit: 120
     };
 
     this.lives = 3;
@@ -36,7 +25,6 @@ function Game() {
     this.invaderBounds = {left: 0, top: 0, right: 0, bottom: 0};
     this.intervalId = 0;
     this.score = 0;
-    this.level = 1;
     this.characters = {
         'rosetta': {
             characterWidth: 76,
@@ -65,9 +53,6 @@ function Game() {
         },
     }
     
-
-    this.states = null;
-
     this.stateStack = [];
 
     this.pressedKeys = {};
@@ -99,7 +84,6 @@ Game.prototype.initialise = function(gameCanvas) {
         bottom: 0.925 * this.height
     };
     
-    this.level = 1;
     this.score = 0;
     this.lives = 3;
 };
@@ -125,6 +109,7 @@ Game.prototype.start = function() {
     this.lives = 3;
 
     var game = this;
+    game.startTime = new Date();
     this.intervalId = setInterval(function () {
          GameLoop(game);
         }, 1000 / this.config.fps);
@@ -159,6 +144,21 @@ function GameLoop(game) {
         if(currentState.draw) {
             currentState.draw(game, dt, ctx);
         }
+    }
+
+    var currentTime = new Date();
+    var timeElapsed = (currentTime - game.startTime) / 1000;
+    document.getElementById("timer").value = (game.config.timeLimit - timeElapsed).toPrecision(3);
+    checkIsTimeUp();
+    // if(timeElapsed > this.timeLimit)
+}
+
+function checkIsTimeUp() {
+    var currentTime = new Date();
+    var timeElapsed = (currentTime - game.startTime) / 1000;
+
+    if(timeElapsed >= game.config.timeLimit){
+        finishGame(game);
     }
 }
 

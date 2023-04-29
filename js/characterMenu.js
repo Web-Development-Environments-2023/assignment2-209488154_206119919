@@ -19,13 +19,13 @@ var onCharacterClick = function(event) {
     game.currentPlayer = currentPlayer;
     
     game.start();
-    game.moveToState(new LevelIntroState(game.level));
+    game.moveToState(new IntroState());
     pizzaBackground.onCharacterSelect();
     setVisibility('character-menu', 'none');
     setVisibility('pizza-background', 'none');
     setVisibility('return', 'none');
     setVisibility('playing-background', 'inline-block');
     setVisibility('gameCanvas', 'block');
-    setVisibility('game-score-container', 'flex');
+    setVisibility('game-controls', 'flex');
     showHealthBar();
 };

@@ -1,9 +1,8 @@
 GO_DOWN = true;
 var speedUpIntervalId;
 
-function PlayState(config, level) {
+function PlayState(config) {
     this.config = config;
-    this.level = level;
     this.currentInvaderBullet = null;
 
     this.invaderInitialVelocity = this.config.invaderInitialVelocity;
@@ -35,13 +34,7 @@ PlayState.prototype.enter = function(game) {
     playerImage.src = game.selectedCharacterImage;
     this.player = new Player(game.width / 2, game.playerBounds.bottom - 50, game.characterWidth, game.characterHeight, playerImage);
 
-    // var levelMultiplier = this.level * this.config.levelDifficultyMultiplier;
-    // var limitLevel = (this.level < this.config.limitLevelIncrease ? this.level : this.config.limitLevelIncrease);
     this.playerSpeed = this.config.playerSpeed;
-    // this.invaderBulletRate = this.config.invaderBulletRate + (levelMultiplier * this.config.invaderBulletRate);
-    // this.invaderBulletMinVelocity = this.config.invaderBulletMinVelocity + (levelMultiplier * this.config.invaderBulletMinVelocity);
-    // this.invaderBulletMaxVelocity = this.config.invaderBulletMaxVelocity + (levelMultiplier * this.config.invaderBulletMaxVelocity);
-    // this.playerBulletMaxFireRate = this.config.playerBulletMaxFireRate + 0.4 * limitLevel;
 
     var invaders = [];
     var invaderPhotos = ['images/clients/character_1.png', 'images/clients/character_2.png', 'images/clients/character_3.png', 'images/clients/character_5.png'];
@@ -240,38 +233,6 @@ PlayState.prototype.update = async function(game, dt) {
         }
     }
 
-    // var frontRankInvaders = {};
-    // for (var i=0; i<this.invaders.length; i++) {
-    //     var invader = this.invaders[i];
-
-    //     if (!frontRankInvaders[invader.file] || frontRankInvaders[invader.file].rank < invader.rank) {
-    //         frontRankInvaders[invader.file] = invader;
-    //     }
-    // }
-
-    // for (var i=0; i<this.config.invaderFiles; i++) {
-    //     var invader = frontRankInvaders[i];
-    //     if (!invader) continue;
-    //     var chance = this.invaderBulletRate * dt;
-    //     if (chance > Math.random()) {
-    //         if (!this.currentInvaderBullet || this.currentInvaderBullet.y >= game.height * 0.75) {
-    //             this.currentInvaderBullet = new InvaderBullet(invader.x, invader.y + invader.height / 2, game.config.invaderBulletVelocity);
-    //             this.invaderBullets.push(this.currentInvaderBullet);
-    //         }
-    //     }
-    // }
-
-    // for (var i=0; i<this.invaders.length; i++) {
-    //     var invader = this.invaders[i];
-    //     var chance = this.config.invaderBulletRate * dt;
-    //     if (chance > Math.random()) {
-    //         if (!this.currentInvaderBullet || this.currentInvaderBullet.y >= game.height * 0.75) {
-    //             this.currentInvaderBullet = new InvaderBullet(invader.x, invader.y + invader.height / 2, game.config.invaderBulletVelocity);
-    //             this.invaderBullets.push(this.currentInvaderBullet);
-    //         }
-    //     }
-    // }
-
     var shootingInvader = this.invaders[Math.floor(Math.random() * this.invaders.length)];
     if (!this.currentInvaderBullet || this.currentInvaderBullet.y >= game.height * 0.75) {
         this.currentInvaderBullet = new InvaderBullet(shootingInvader.x, shootingInvader.y + shootingInvader.height / 2, game.config.invaderBulletVelocity);
@@ -301,16 +262,6 @@ PlayState.prototype.update = async function(game, dt) {
         }
                 
     }
-
-    // for(var i=0; i<this.invaders.length; i++) {
-    //     var invader = this.invaders[i];
-    //     if((invader.x + invader.width/2) > (this.player.x - this.player.width/2) && 
-    //         (invader.x - invader.width/2) < (this.player.x + this.player.width/2) &&
-    //         (invader.y + invader.height/2) > (this.player.y - this.player.height/2) &&
-    //         (invader.y - invader.height/2) < (this.player.y + this.player.height/2)) {
-    //         game.lives = 0;
-    //     }
-    // }
 
     if(game.lives <= 0)
         loseGame(game);
@@ -388,22 +339,9 @@ PlayState.prototype.keyUp = function(game, keyCode) {
 
 };
 
-// PlayState.prototype.firePlayerBullet = function() {
-
-//     console.log("PIU");
-//     if(this.lastPlayerBulletTime === null || ((new Date()).valueOf() - this.lastPlayerBulletTime) > (1000 / this.playerBulletMaxFireRate))
-//     {   
-//         this.playerBullets.push(new PlayerBullet(this.player.x, this.player.y - 12, this.config.playerBulletVelocity));
-//         this.lastPlayerBulletTime = (new Date()).valueOf();
-
-//         game.sounds.playSound('shoot', 0.5);
-//     }
-// };
-
 PlayState.prototype.firePlayerBullet = function() {
     const now = new Date().getTime();
     if (now - this.lastPlayerBulletTime < this.shootDelay) {
-        // If the delay time has not passed since the last bullet was fired, return early
         return;
     }
 
