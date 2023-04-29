@@ -8,6 +8,8 @@ function onLogin() {
         alert("Wrong username or password.");
         return;
     }
+    //TODO: remove this
+    currentPlayer.username = document.getElementById("username").value;
     setVisibility('login', 'none');
     game.state = "configuration";
     onConfigurationOpen();
@@ -18,7 +20,7 @@ function validate() {
     var lp = document.getElementById("lpassword").value;
 
     if (un in players && players[un] === lp) {
-        currentPlayer.username = u;
+        currentPlayer.username = un;
         return true;
     }
     return false;

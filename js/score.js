@@ -2,9 +2,10 @@
 function go(rank, score) {
     var duration = 1000;
     var start = null;
-    var startY = gameCanvas.height;
+    var gameScoreContainer = document.getElementById("game-score-container");
+    var startY = gameScoreContainer.getBoundingClientRect().bottom;
     var endY = startY - 250;
-    var fps = 60;
+    var fps = 80;
     var currentY = startY;
     var incrementY = (endY - startY) / (duration / 1000 * fps);
     var scoreEl = document.createElement('div');

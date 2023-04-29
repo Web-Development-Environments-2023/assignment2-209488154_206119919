@@ -14,11 +14,11 @@
   }
 
   #score-tags{
-    transform-style: flat;
+    /* transform-style: flat; */
     display: none;
     position:fixed;
-    top: 5%;
-    left:35%;
+    /* top: 5%; */
+    right:35%;
     /* transform: translateX(-50%); */
     /* font-size:2vw;
     line-height: 2vw; */
@@ -46,8 +46,8 @@
   .score-animation {
     transform-style: flat;
     position: fixed;
-    top: 60%;
-    left: 5%;
+    top: 15%;
+    right: 5%;
     color: white;
     /* transform: translateX(-50%); */
     /* font-size:2vw;

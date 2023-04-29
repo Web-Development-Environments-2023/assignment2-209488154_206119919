@@ -13,6 +13,7 @@ function showScoreboard(game) {
 function generateScoreHtml(game) {
     var scoreboardList = document.getElementById("scoreboard-list");
     scoreboardList.innerHTML = '';
+    currentPlayer.records.sort((a, b) => b.points - a.points);
     currentPlayer.records.forEach(function (score, index) {
         var newRow = document.createElement('li');
         newRow.classList.add('score-list-item');
