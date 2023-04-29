@@ -41,9 +41,13 @@ body, html {
 
 #header {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  justify-content: space-around;
+  align-items: center;
+  height: 10vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
 }
 
 .flex-column {
@@ -205,11 +209,6 @@ body, html {
         92.5% {
             opacity: 1;
         }
-    }
-
-    /* pause state start over button */
-    #pause-restart-container{
-      display: none;
     }
 
     .restart-pause{
