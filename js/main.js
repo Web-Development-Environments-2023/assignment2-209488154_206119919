@@ -141,6 +141,9 @@ initialiseGame();
 function resizeGameCanvas(canvas) {
     canvas.width = 0.7 * window.innerWidth;
     canvas.height = 0.85 * window.innerHeight;
+    game.width = canvas.width;
+    game.height = canvas.height;
+    game.resizeBounds();
 };
 
 

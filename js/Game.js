@@ -127,6 +127,22 @@ Game.prototype.currentState = function() {
     return this.stateStack.length > 0 ? this.stateStack[this.stateStack.length - 1] : null;
 };
 
+Game.prototype.resizeBounds = function() {
+    this.invaderBounds = {
+        left: 0,
+        right: 0.85 * this.width,
+        top: 0,
+        bottom: 0.5 * this.height
+    };
+
+    this.playerBounds = {
+        left: 0,
+        right: 0.85 * this.width,
+        top: 0.6 * this.height,
+        bottom: 0.925 * this.height
+    };
+};
+
 Game.prototype.mute = function(mute) {
 
     if(mute === true) {
