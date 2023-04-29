@@ -8,10 +8,12 @@ function go(rank, score) {
     var fps = 80;
     var currentY = startY;
     var incrementY = (endY - startY) / (duration / 1000 * fps);
-    var scoreEl = document.createElement('div');
-    scoreEl.innerHTML = "+" + rank;
-    scoreEl.classList.add('score-animation');
-    document.body.appendChild(scoreEl);
+    if(rank){
+        var scoreEl = document.createElement('div');
+        scoreEl.innerHTML = "+" + rank;
+        scoreEl.classList.add('score-animation');
+        document.body.appendChild(scoreEl);
+    }
 
     $({ score }).animate({ score: score + rank }, {
         duration,
@@ -26,14 +28,16 @@ function go(rank, score) {
     });
     
     function animate(timestamp) {
-        if (!start) start = timestamp;
-        var progress = timestamp - start;
-    
-        currentY += incrementY;
-        scoreEl.style.top = currentY + "px";
-    
-        if (progress < duration) {
-            requestAnimationFrame(animate);
+        if(rank){
+            if (!start) start = timestamp;
+            var progress = timestamp - start;
+        
+            currentY += incrementY;
+            scoreEl.style.top = currentY + "px";
+        
+            if (progress < duration) {
+                requestAnimationFrame(animate);
+            }
         }
     }
 

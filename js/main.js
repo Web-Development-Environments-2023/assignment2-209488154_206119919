@@ -61,23 +61,34 @@ function initialiseGame(currentGame = null) {
     game.initialise(canvas);
 }
 
+function getHealthBarState(game){
+    return {
+        healthBarSectionGap: 4,
+        maxHealth: 3,
+        currentHealth: game.lives
+      };
+}
+
 function destroyGame() {    
+    resetSpeed();
     var gameCanvas = document.getElementById("gameCanvas");
     var gameCanvasContainer = document.getElementById("game-canvas-container");
     gameCanvasContainer.removeChild(gameCanvas);
-    var score = document.getElementById("score");
-    score.innerHTML = '0';
-    hideHealthBar()
+    debugger;
+    document.getElementById("score").innerHTML = '0';
+    hideHealthBar();
 }
 
 function restartGame(event) {
+    game.stop();
     game.popState();
     destroyGame();
     initialiseGame(game);
+    renderHealthBar(getHealthBarState(game));
+    showHealthBar();
     setVisibility('scoreboard-container', 'none');
     setVisibilityByClass('.status-result', 'none');
-    setVisibility('game-controls', 'block');
-    showHealthBar();
+    setVisibility('game-controls', 'flex');
     game.start();
     game.moveToState(new IntroState());
     setVisibility('gameCanvas', 'block');
@@ -117,15 +128,16 @@ function returnHome() {
     }
 
     startMenuMusic();
-    game.moveToState(new WelcomeState());
     destroyGame();
+    initialiseGame();
+    renderHealthBar(getHealthBarState(game));
+    game.moveToState(new WelcomeState());
 
     setVisibility('pizza-background', 'block');
     setVisibility('menu', 'block');
     setVisibility('game-controls', 'none');
     setVisibility('pazza-footer', 'inline-flex');
     initialisePizzaBackground();
-    initialiseGame();
 }
 
 function initialisePizzaBackground() {

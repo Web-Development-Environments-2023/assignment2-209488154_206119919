@@ -1,19 +1,20 @@
 const healthBarText = document.getElementById("healthBarText");
 const healthBarInner = document.getElementById("healthBarInner");
+
 let healthBarState = {
   healthBarSectionGap: 4,
   maxHealth: 3,
   currentHealth: 3
 };
+renderHealthBar(healthBarState);
 
-renderHealthBar();
-
-function renderHealthBar() {
-  renderHealthBarSections(100 / healthBarState.maxHealth);
-  renderHealthBarText();
+function renderHealthBar(healthBarState) {
+  renderHealthBarSections(healthBarState);
+  renderHealthBarText(healthBarState);
 }
 
-function renderHealthBarSections(percentage) {
+function renderHealthBarSections(healthBarState) {
+  var percentage = 100 / healthBarState.maxHealth;
   healthBarInner.innerHTML = "";
   const sectionTemplate = `<path class="health-bar__section" d="M0 0" fill="#fff" style="transform: rotate(10deg)" />`;
   const radius = 100;
@@ -44,6 +45,6 @@ function getSectionRotation(index) {
   return (360 / healthBarState.maxHealth) * index;
 }
 
-function renderHealthBarText() {
+function renderHealthBarText(healthBarState) {
   healthBarText.innerHTML = healthBarState.currentHealth;
 }

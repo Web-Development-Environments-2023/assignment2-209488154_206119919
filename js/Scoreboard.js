@@ -2,8 +2,7 @@ function showScoreboard(game) {
     generateScoreHtml(game);
     showStatus(game);
     game.state = "gameover";
-    clearInterval(speedUpIntervalId);
-    game.stop();
+    // game.stop();
     setVisibility('scoreboard-container', 'flex');
     setVisibility('game-controls', 'none');
     hideHealthBar();
