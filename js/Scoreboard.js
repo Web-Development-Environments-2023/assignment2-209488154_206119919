@@ -5,13 +5,14 @@ function showScoreboard(game) {
     clearInterval(speedUpIntervalId);
     game.stop();
     setVisibility('scoreboard-container', 'flex');
-    setVisibility('game-score-container', 'none');
+    setVisibility('game-controls', 'none');
     setVisibility('return', 'block');
     hideHealthBar();
 };
 
 function generateScoreHtml(game) {
     var scoreboardList = document.getElementById("scoreboard-list");
+    scoreboardList.innerHTML = '';
     currentPlayer.records.forEach(function (score, index) {
         var newRow = document.createElement('li');
         newRow.classList.add('score-list-item');

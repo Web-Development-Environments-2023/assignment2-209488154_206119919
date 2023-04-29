@@ -99,6 +99,48 @@ body, html {
   cursor: pointer;
 }
 
+#game-controls {
+  display: none;
+  flex-direction: column;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 3%;
+  bottom: 5%;
+}
+
+#timer-container {
+  display: flex;
+  justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  color: #CCC;
+  text-shadow: 1px 1px 5px black;
+  z-index: 5;
+  font-size:1.5vw;
+  line-height: 2vw;
+}
+
+#timer {
+  width:4vw;
+}
+
+#pause-x-button {
+  display: none;
+  width: 4vw;
+  right: 1vw;
+  top: 1vw;
+  position: fixed;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  z-index: 15;
+  outline: none;
+  background: none;
+  border:none;
+}
+
 #text,
     #shadow {
         position: absolute;

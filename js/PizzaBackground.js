@@ -104,6 +104,10 @@ function Pizza(x, y, size, velocity) {
 }
 
 PizzaBackground.prototype.resizePizzaBackground = function() {
+	if(document.getElementById("pizza-background").style.display == 'none')
+	{
+		return;
+	}
 	this.width = window.innerWidth;
 	this.height = window.innerHeight;
 

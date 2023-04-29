@@ -62,7 +62,6 @@ function destroyGame() {
     gameCanvasContainer.removeChild(gameCanvas);
     var score = document.getElementById("score");
     score.innerHTML = '0';
-    // game = null;
     hideHealthBar()
 }
 
@@ -72,45 +71,13 @@ function restartGame(event) {
     destroyGame();
     initialiseGame(game);
     game.start();
-    // game.moveToState(new WelcomeState());
-    game.moveToState(new LevelIntroState(1));
+    game.moveToState(new IntroState());
     setVisibility('return', 'none');
     setVisibility('gameCanvas', 'block');
 }
 
 var restart = document.querySelector(".start-over");
 restart.addEventListener("click", function(event) {restartGame(event)} );
-
-// function returnHome(){
-//     console.log(game.stateStack);
-//     var state = game.state;
-//     setVisibility("playing-background", 'none');
-//     if(state == "pause"){
-//         console.log("pause");
-//         var container = document.getElementById("pizza-background-canvas");
-//         if(container){
-//             container.parentNode.removeChild(container);
-//         }
-//         game.popState();
-//         game.popState();
-//         var canvas = document.getElementById("gameCanvas");
-//         var ctx = canvas.getContext("2d");
-//         ctx.clearRect(0, 0, game.width, game.height);
-        
-//     }
-//     else{
-//         setVisibility(state, "none");
-//     }
-//     initialisePizzaBackground();
-        
-//     // if(state == "pause"){
-//     //     document.body.appendChild(pizzaBackground.canvas);
-//     // }
-
-//     setVisibility('menu', 'flex');
-//     setVisibility('header', "block");
-//     setVisibility('return', 'none');
-// }
 
 function returnHome() {
     setVisibility('pause-restart-container',  'none');
@@ -142,18 +109,14 @@ function returnHome() {
 
     startMenuMusic();
     game.moveToState(new WelcomeState());
-    // var canvas = document.getElementById("gameCanvas");
-    // var ctx = canvas.getContext("2d");
-    // ctx.clearRect(0, 0, game.width, game.height);
     destroyGame();
     game = null;
 
     setVisibility('pizza-background', 'block');
-    // setVisibility('gameCanvas', 'none');
     setVisibility('menu', 'block');
     setVisibility('header', "block");
     setVisibility('return', 'none');
-    setVisibility('game-score-container', 'none');
+    setVisibility('game-controls', 'none');
     setVisibility('pazza-footer', 'inline-flex');
     initialisePizzaBackground();
     initialiseGame();
@@ -166,11 +129,17 @@ function initialisePizzaBackground() {
     pizzaBackground.start();
 }
 initialisePizzaBackground();
-// initialiseCanvas();
 initialiseGame();
 
 
+function resizeGameCanvas(canvas) {
+    canvas.width = 0.7 * window.innerWidth;
+    canvas.height = 0.85 * window.innerHeight;
+};
+
+
 window.addEventListener('resize', () => pizzaBackground?.resizePizzaBackground());
+window.addEventListener('resize', () => resizeGameCanvas(document.getElementById("gameCanvas")));
 
 window.addEventListener("keydown", function keydown(e) {
     var keycode = e.which || window.event.keycode;

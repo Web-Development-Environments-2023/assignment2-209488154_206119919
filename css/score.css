@@ -1,14 +1,16 @@
 #game-score-container {
-    display: none;
+    display: flex;
     transform-style: flat;
     /* position: absolute; */
     /* top: 5%;
     left: 80%; */
-    transform: translateY(-50%) translateX(-50%);
+    /* transform: translateY(-50%) translateX(-50%); */
     font-family: 'Oswald', sans-serif;
     color: #CCC;
     text-shadow: 1px 1px 5px black;
     z-index: 5;
+    font-size:1.5vw;
+    line-height: 2vw;
   }
 
   #score-tags{
@@ -17,28 +19,28 @@
     position:fixed;
     top: 5%;
     left:35%;
-    transform: translateX(-50%);
-    font-size:2vw;
-    line-height: 2vw;
+    /* transform: translateX(-50%); */
+    /* font-size:2vw;
+    line-height: 2vw; */
   }
   #score-title{
     transform-style: flat;
-    position:fixed;
+    /* position:fixed; */
     color: azure;
-    top:5%;
-    left:35%;
-    transform: translateX(-50%);
-    font-size:2vw;
-    line-height: 2vw;
+    /* top:5%;
+    left:35%; */
+    /* transform: translateX(-50%); */
+    /* font-size:1.5vw;
+    line-height: 2vw; */
   }
   #score{
     color: azure;
-    position: fixed;
+    /* position: fixed;
     top: 5%;
-    left:43%;
-    transform: translateX(-50%);
-    font-size:2vw;
-    line-height: 2vw;
+    left:43%; */
+    /* transform: translateX(-50%); */
+    /* font-size:2vw;
+    line-height: 2vw; */
   }
 
   .score-animation {
@@ -47,7 +49,7 @@
     top: 60%;
     left: 5%;
     color: white;
-    transform: translateX(-50%);
-    font-size:2vw;
-    line-height: 2vw;
+    /* transform: translateX(-50%); */
+    /* font-size:2vw;
+    line-height: 2vw; */
   }
