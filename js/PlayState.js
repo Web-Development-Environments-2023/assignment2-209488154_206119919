@@ -15,7 +15,7 @@ function PlayState(config) {
     this.playerBullets = [];
     this.invaderBullets = [];
     this.canShoot = true;
-    this.shootDelay = 1000;
+    this.shootDelay = 800;
     GO_DOWN = true;
 }
 
