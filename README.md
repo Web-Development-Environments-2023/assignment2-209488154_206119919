@@ -16,6 +16,17 @@ Once you logged in, you need to choose your desired game's duration, shooting ke
 Every game start with 3 lives, which decreased with evey hit from the invadres bombs.
 You can pause the game in any time using the *ESC* button.
 By the end of the game, you need to have more then 100 points in order to win the game. GOOD LUCK!
+## How To Play
+* Move around using the arrows keys.
+* shoot using a shooting key of your choice. [space] is the default.
+* During the game, you can press [esc] to pause it.
+* Navigate between Main Menu, Signup, Login and About screens using the buttons above.
+* You can see how much time and lives are left in the top corner during the game.
+* Game finishes if you took 3 strikes, if the time is up or if you banished all the aliens.
+* For 4 times, every 5 seconds, the aliens will get a little bit faster.
+* Finishe the game to see your high scores and start a new one.
+* If you start a new game in the middle of one, your score won't be saved.
+* Make sure to unmute your computer! The sounds are part of the experience.
 ## Development
 ### Welcome Page
 The Welcome Page display the main menu for the game, as well as an marquee.
