@@ -89,6 +89,7 @@ function restartGame(event) {
     showHealthBar();
     setVisibility('scoreboard-container', 'none');
     setVisibilityByClass('.status-result', 'none');
+    setVisibility('pause-x-button', 'none');
     setVisibility('game-controls', 'flex');
     game.start();
     game.moveToState(new IntroState());
