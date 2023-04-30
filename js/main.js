@@ -174,6 +174,9 @@ window.addEventListener('resize', () => pizzaBackground?.resizePizzaBackground()
 window.addEventListener('resize', () => resizeGameCanvas(document.getElementById("gameCanvas")));
 
 window.addEventListener("keydown", function keydown(e) {
+    if (game.state == 'login' || game.state == 'signup')
+        return;
+        
     var keycode = e.which || window.event.keycode;
     if(keycode == 37 || keycode == 39 || keycode == 32) {
         e.preventDefault();

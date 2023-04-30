@@ -81,24 +81,24 @@
     box-shadow: 0 25px 50px black;
 }
 
-.character-option:nth-child(2) {
+.character-option:nth-child(3) {
     background-position: 50% 10%;
 }
-.character-option:nth-child(3) {
+.character-option:nth-child(4) {
     background-position: 50% 20%;
 }
-.character-option:nth-child(4) {
+.character-option:nth-child(5) {
     background-position: 60% 20%;
 }
-.character-option:nth-child(5) {
+.character-option:nth-child(6) {
     background-position: 50% 10%;
 }
 
-.character-option:nth-child(1):after,
 .character-option:nth-child(2):after,
 .character-option:nth-child(3):after,
 .character-option:nth-child(4):after,
-.character-option:nth-child(5):after {
+.character-option:nth-child(5):after,
+.character-option:nth-child(6):after {
 content: "NAME";
 position: absolute;
 bottom: 0;
@@ -110,18 +110,18 @@ font-weight: 900;
 color: white;
 text-shadow: 3px 3px #555;
 }
-.character-option:nth-child(1):after {
+.character-option:nth-child(2):after {
 content: "ROSETTA";
 }
-.character-option:nth-child(2):after {
+.character-option:nth-child(3):after {
 content: "ALFREDO";
 }
-.character-option:nth-child(3):after {
+.character-option:nth-child(4):after {
 content: "GINA";
 }
-.character-option:nth-child(4):after {
+.character-option:nth-child(5):after {
 content: "BILLIE";
 }
-.character-option:nth-child(5):after {
+.character-option:nth-child(6):after {
 content: "LUNA";
 }

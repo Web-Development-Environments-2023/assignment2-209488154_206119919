@@ -268,8 +268,11 @@ PlayState.prototype.update = async function(game, dt) {
             }
         }
         if (bang) {
-            this.invaders.splice(i--, 1);
             game.sounds.playSound('bang', 0.5);
+            this.invaders.splice(i--, 1);
+            if(this.invaders.length === 0) {
+                winGame(game);
+            }
         }
     }
 
@@ -303,9 +306,6 @@ PlayState.prototype.update = async function(game, dt) {
     }
     if (game.lives <= 0) {
         loseGame(game);
-    }
-    if (this.invaders.length === 0) {
-        winGame(game);
     }
 };
 
@@ -360,7 +360,6 @@ PlayState.prototype.draw = function(game, dt, ctx) {
 };
 
 PlayState.prototype.keyDown = function(game, keyCode) {
-
     if(keyCode == game.config.keyChoices.keyChoice) {
         this.firePlayerBullet();
     }
