@@ -112,6 +112,7 @@ function returnHome() {
     }
 
     if(state == "pause"){
+        setVisibility('pause-x-button', 'none');
         game.popState();
         game.popState();
     }
