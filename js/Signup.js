@@ -98,7 +98,7 @@ signupButton.addEventListener("click", function() {
     setVisibility('signup', 'none');
     game.state = "welcome";
     signupClearForm();
-    returnHome();
+    onLoginNav();
 });
 
 function verify(username) {
