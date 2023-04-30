@@ -1,5 +1,6 @@
 ![logo](https://github.com/Web-Development-Environments-2023/assignment2-209488154_206119919/blob/main/images/logo.png?raw=true) 
 # PAZZA! Pizza Invaders Game
+[PLAY NOW!](https://web-development-environments-2023.github.io/assignment2-209488154_206119919/)
 ### Default User
 * username: p
 * password: testuser
