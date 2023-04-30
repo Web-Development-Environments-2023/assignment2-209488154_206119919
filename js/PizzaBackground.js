@@ -20,7 +20,6 @@ PizzaBackground.prototype.initialise = function(div) {
 	self.width = window.innerWidth;
 	self.height = window.innerHeight;
 	var canvas = document.createElement('canvas');
-	// canvas.setAttribute("id", "pizza-background-canvas");
 	div.appendChild(canvas);
 	this.canvas = canvas;
 	this.canvas.width = this.width;

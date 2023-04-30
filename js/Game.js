@@ -112,7 +112,6 @@ Game.prototype.start = function() {
     this.intervalId = setInterval(function () {
         GameLoop(game);
     }, 1000 / this.config.fps);
-    
 };
 
 Game.prototype.currentState = function() {
@@ -126,7 +125,6 @@ Game.prototype.resizeBounds = function() {
         top: 0,
         bottom: 0.5 * this.height
     };
-
     this.playerBounds = {
         left: 0,
         right: 0.85 * this.width,
@@ -183,7 +181,6 @@ Game.prototype.popState = function() {
         if(this.currentState().leave) {
             this.currentState().leave(game);
         }
-
         this.stateStack.pop();
     }
 };

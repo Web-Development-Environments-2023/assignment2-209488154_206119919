@@ -29,7 +29,6 @@ IntroState.prototype.draw = function(game, dt, ctx) {
     ctx.fillStyle = '#ffffff';
     ctx.textBaseline="middle"; 
     ctx.textAlign="center"; 
-    // ctx.fillText("Level " + this.level, game.width / 2, game.height/2);
     ctx.font="18px Arial";
     ctx.fillText("Ready in " + this.countdownMessage, game.width / 2, game.height/2 + 36);      
     return;

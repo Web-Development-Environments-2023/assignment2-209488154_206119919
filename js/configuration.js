@@ -27,12 +27,12 @@ function onTimeChoiceBlur() {
 }
   
 function onConfigurationFinish() {
-    // if (game.config.timeLimit < 120) {
-    //     alert("Minimum game duration is 120 seconds.");
-    // }
-    // else {
+    if (game.config.timeLimit < 120) {
+        alert("Minimum game duration is 120 seconds.");
+    }
+    else {
         goToCharacterSelect();
-    // }
+    }
 }
 
 function goToCharacterSelect() {

@@ -16,6 +16,7 @@ function PlayState(config) {
     this.invaderBullets = [];
     this.canShoot = true;
     this.shootDelay = 1000;
+    GO_DOWN = true;
 }
 
 function speedUp(){
@@ -70,7 +71,6 @@ PlayState.prototype.enter = function(game) {
     this.invaders = invaders;
     this.invaderVelocity = {x: -this.config.invaderInitialVelocity, y:0};
     this.invaderNextVelocity = null;
-
 
     speedUpIntervalId = window.setInterval(speedUp, 5000);
 };
@@ -136,6 +136,8 @@ PlayState.prototype.update = async function(game, dt) {
         for (i=0; i<this.invaders.length; i++) 
         {
             var invader = this.invaders[i];
+            if (!this.invaderVelocity) {
+            }
             var newx = invader.x + (this.invaderVelocity.x * dt * this.config.invadersSpeed);
             var newy = invader.y + (this.invaderVelocity.y * dt * this.config.invadersSpeed);
             if (hitLeft == false && newx <= game.invaderBounds.left + 0.1 * game.width * invader.col) {
@@ -182,7 +184,9 @@ PlayState.prototype.update = async function(game, dt) {
         if (hitBottom) {
             GO_DOWN = false;
             this.invadersAreDropping = false;
-            this.invaderVelocity = this.invaderNextVelocity;
+            if (this.invaderNextVelocity) {
+                this.invaderVelocity = this.invaderNextVelocity;
+            }
             this.invaderCurrentDropDistance = 0;
         }
     }
@@ -191,6 +195,8 @@ PlayState.prototype.update = async function(game, dt) {
         for (i=0; i<this.invaders.length; i++) 
         {
             var invader = this.invaders[i];
+            if (!this.invaderVelocity) {
+            }
             var newx = invader.x + (this.invaderVelocity.x * dt * this.config.invadersSpeed);
             var newy = invader.y + (this.invaderVelocity.y * dt * this.config.invadersSpeed);
             if (hitLeft == false && newx <= game.invaderBounds.left + 0.1 * game.width * invader.col) {
@@ -236,7 +242,9 @@ PlayState.prototype.update = async function(game, dt) {
         if (hitTop) {
             GO_DOWN = true;
             this.invadersAreDropping = false;
-            this.invaderVelocity = this.invaderNextVelocity;
+            if (this.invaderNextVelocity) {
+                this.invaderVelocity = this.invaderNextVelocity;
+            }
             this.invaderCurrentDropDistance = 0;
         }
     }

@@ -58,6 +58,7 @@ function initialiseCanvas() {
 function initialiseGame(currentGame = null) {
     if (!currentGame) game = new Game();
     initialiseCanvas();
+
     game.initialise(canvas);
 }
 
@@ -158,6 +159,17 @@ function resizeGameCanvas(canvas) {
     game.resizeBounds();
 };
 
+function onLoginNav(){
+    returnHome();
+    onLoginMenuOption();
+}
+
+function onSignupNav(){
+    returnHome();
+    onSignupMenuOption();
+}
+
+
 window.addEventListener('resize', () => pizzaBackground?.resizePizzaBackground());
 window.addEventListener('resize', () => resizeGameCanvas(document.getElementById("gameCanvas")));
 
@@ -186,6 +198,10 @@ var aboutNavButton = document.getElementById("about-nav-button");
 aboutNavButton.addEventListener("click", onAboutOpen);
 var homeNavButton = document.getElementById("home-nav-button");
 homeNavButton.addEventListener("click", returnHome);
+var loginNavButton = document.getElementById("login-nav-button");
+loginNavButton.addEventListener("click", onLoginNav);
+var signupNavButton = document.getElementById("signup-nav-button");
+signupNavButton.addEventListener("click", onSignupNav);
 var instructionNavButton = document.getElementById("instruction-nav-button");
 instructionNavButton.addEventListener("click", onInstructionOpen);
 var restartNavButton = document.getElementById("restart-nav-button");
