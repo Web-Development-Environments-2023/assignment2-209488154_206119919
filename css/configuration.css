@@ -17,10 +17,13 @@
     height: 80%;
 }
 
-/* .configuration-choice-container, #configuration button {
-    margin-top: 2%;
-    width: 25%;
-} */
+#config-header {
+    margin-bottom: 10%;
+    font-size: 23px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    left: 45vw;
+}
 
 .configuration-choice-container {
     display: flex;

@@ -13,6 +13,16 @@
     top: 20vh;
 }
 
+#character-menu-header {
+    top:15%;
+    position: fixed;
+    font-size: 23px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    left: 40vw;
+    color: white;
+}
+
 .character-option {
 	width: 15vw;
 	height: 55vh;
