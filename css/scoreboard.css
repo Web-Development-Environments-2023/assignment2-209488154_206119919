@@ -16,8 +16,8 @@ html {
 }
   
 body {
-  background: var(--darkest);
-  color: var(--white);
+  background: var(--darkest) !important;
+  color: var(--white) !important;
   font-size: 1.6rem;
   font-family: "Overpass Mono", system-ui;
 }
@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #scoreboard {
   border-radius: 0.8rem;
-  background: var(--darker);
+  background: var(--darker) !important;
   width: 100%;
   margin-bottom: 1.6rem;
   box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.12);
@@ -96,8 +96,8 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   width: 3.2rem;
   height: 3.2rem;
-  background: var(--white);
-  color: var(--dark);
+  background: var(--white) !important;
+  color: var(--dark) !important;
   border-radius: 0.4rem;
 }
 
@@ -157,11 +157,11 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
   font-family: "Monoton", cursive;
   font-size: 30px;
-  color: #ffd5ff;
+  color: #ffd5ff !important;
   transform: translate(-50%, -50%);
   font-weight: 400;
   letter-spacing: 2px;
-  text-shadow: 1px 0px 4px #ffd5ff, 2px 0px 4px #ffd5ff, 3px 0px 4px #ffd5ff, 2px 0px 3px #d42cca, 2px 3px 15px #d42cca, 2px 0px 15px, 5px 0px 125px, 20px 0vw 200px #d42cca, 40px 0vw 200px #d42cca;
+  text-shadow: 1px 0px 4px #ffd5ff, 2px 0px 4px #ffd5ff, 3px 0px 4px #ffd5ff, 2px 0px 3px #d42cca, 2px 3px 15px #d42cca, 2px 0px 15px, 5px 0px 125px, 20px 0vw 200px #d42cca, 40px 0vw 200px #d42cca !important;
 }
 
 .start-over {

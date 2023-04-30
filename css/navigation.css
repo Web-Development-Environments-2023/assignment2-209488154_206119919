@@ -60,7 +60,7 @@
     width: 2.5vw;
     transform: rotate(-45deg);
     position: absolute;
-    left: 5vw;
+    left: 3vw;
   }
   
   div.nav-button:hover span.mLine-home {
@@ -68,12 +68,12 @@
     position: absolute;
     width: 4vw;
     top: 2.25vw;
-    left: 5.3vw;
+    left: 3.3vw;
   }
   
   div.nav-button:hover span.bLine-home {
     width: 2.5vw;
     transform: rotate(45deg);
     position: absolute;
-    left: 5vw;
+    left: 3vw;
   }

@@ -12,7 +12,8 @@
   padding: 2vh;
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  width: 50%
+  width: 50%;
+  line-height: 1.5;
 }
   
 #overlay {
@@ -70,19 +71,21 @@ body {
   background-color: rgba(0, 0, 0, 0.603);
   width: 25vw;
   height: 9vh;
-  font-size:x-large;
+  font-size:large;
   color: rgb(240, 248, 255);
   text-align: center;
   font-family: "Fantasy", Papyrus;
   margin-left: 20%;
+  margin-bottom: 0px;
 }
 #about h5{
   background-color: rgba(0, 0, 0, 0.603);
-  width: 30vw;
+  width: 50vw;
   height: 9vh;
   font-size:x-small;
   color: rgb(240, 248, 255);
   text-align: center;
   font-family: "Fantasy", Papyrus;
-  margin-left: 20%;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }

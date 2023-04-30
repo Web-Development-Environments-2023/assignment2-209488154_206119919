@@ -20,8 +20,11 @@ input.date {
 }
 
 .sign-up-button {
-    width: 22vw;
-    height: 3vw;
-    top: 95vh;
-    left: 0;
+  position: relative;
+  width: 22vw;
+  height: 3vw;
+  top: 0;
+  left: 1vw;
+  background: rgb(255, 115, 0);
+  ;
 }

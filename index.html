@@ -29,28 +29,35 @@
           <span class="label">Main Menu</span>
           <span class="line bLine-home"></span>
         </div>
+        <div id="login-nav-button" class="nav-button">
+          <span class="line tLine"></span>
+          <span class="label">Login</span>
+          <span class="line bLine"></span>
+        </div>
+        <div id="signup-nav-button" class="nav-button">
+          <span class="line tLine"></span>
+          <span class="label">Sign Up</span>
+          <span class="line bLine"></span>
+        </div>
         <div id="about-nav-button" class="nav-button">
           <span class="line tLine"></span>
-          <!-- <span class="line mLine"></span> -->
           <span class="label">About</span>
           <span class="line bLine"></span>
         </div>
         <div id="instruction-nav-button" class="nav-button">
           <span class="line tLine"></span>
-          <!-- <span class="line mLine"></span> -->
           <span class="label">Instructions</span>
           <span class="line bLine"></span>
         </div>
         <div id="restart-nav-button" class="nav-button">
           <span class="line tLine"></span>
-          <!-- <span class="line mLine"></span> -->
           <span class="label">Restart Game</span>
           <span class="line bLine"></span>
         </div>
       </header>
 
       <button id="pause-x-button">X</button>
-      <div id="menu">
+      <menu id="menu">
         <img class="logo" src="images/logo.png" alt="Image" height="250" width="250">
         <p id="text">PAZZA!</p>
         <p id="shadow">
@@ -73,7 +80,7 @@
             <span class="Mask"><span>About</span></span>
           </li>
         </ul>
-      </div>
+      </menu>
     </div>
 
     <div id="content">
@@ -215,8 +222,6 @@
       <div id="configuration">
         <form id='configuration-form' class="form" autocomplete="off">
           <div class="control box box-input">
-          <!-- //TODO: get min back -->
-          <!-- <input id="time-choice" type="number" value="120" min="120"/> -->
             <input id="time-choice" name="time-choice" type="number" placeholder="Game Duration" value="120" min="120"/><div class="upper-background">
               <div class="inner-background"></div>
             </div>
@@ -261,7 +266,7 @@
           <h1 id="about-title">About "Pizza Invaders"</h1>
           <!-- //TODO: add problems -->
           <p>
-            While Building this game we were having trouble (COMPLETE THE PROBLEMS WE HAD),
+            While developing this game we were having trouble (COMPLETE THE PROBLEMS WE HAD),
             We also implemented, using HTML5, jquery, JS and CSS, the option to move the character diagonal.
             we added sounds to everything, including bacgkround music and win or lose game sounds.
             All the characters, enemis, logo, backgrounds, shootings and icon is desigend by us using "Midjourney" v5
@@ -277,6 +282,7 @@
           <p>
             move around using the arrow keys.
             shoot using space.
+            press esc to pause the game.
           </p>
         </div>
       </div>
@@ -304,7 +310,7 @@
         <source src="sounds/menu-song.wav" type="audio/mpeg">
         <script>
           var menuAudioPlayer = document.getElementById("menu-audio-player");
-          menuAudioPlayer.volume = 0.2;
+          menuAudioPlayer.volume = 0;
         </script>
         Your browser does not support the audio element.
       </audio>

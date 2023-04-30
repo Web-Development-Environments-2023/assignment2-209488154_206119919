@@ -2,7 +2,7 @@ var exitPauseButton = document.getElementById("pause-x-button");
 exitPauseButton.addEventListener("click", function() {onPauseExit(game)});
 
 function PauseState() {
-
+    
 }
 
 PauseState.prototype.keyDown = function(game, keyCode) {
@@ -15,7 +15,6 @@ PauseState.prototype.keyDown = function(game, keyCode) {
 PauseState.prototype.draw = function(game, dt, ctx) {
     
     ctx.clearRect(0, 0, game.width, game.height);
-    
     var photo = new Image();
     photo.src = 'images/puase.png';
     ctx.drawImage(photo, game.width / 5, game.height / 25, 500, 500);

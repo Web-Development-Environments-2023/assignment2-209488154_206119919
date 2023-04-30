@@ -95,10 +95,10 @@ signupButton.addEventListener("click", function() {
     }
     players[u] = p;
 
-    currentPlayer.username = u;
     setVisibility('signup', 'none');
-    game.state = "configuration";
-    onConfigurationOpen();
+    game.state = "welcome";
+    signupClearForm();
+    returnHome();
 });
 
 function verify(username) {
@@ -127,7 +127,7 @@ function verify(username) {
         return false;
     }
     if (!varifyUsernameAvailable(username)){
-        alert("Username already taken, please choose another one.");
+        alert("This username is taken, please choose a different one.");
         return false;
     }
 

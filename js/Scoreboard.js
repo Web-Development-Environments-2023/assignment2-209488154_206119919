@@ -2,7 +2,6 @@ function showScoreboard(game) {
     generateScoreHtml(game);
     showStatus(game);
     game.state = "gameover";
-    // game.stop();
     setVisibility('scoreboard-container', 'flex');
     setVisibility('game-controls', 'none');
     hideHealthBar();

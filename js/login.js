@@ -4,15 +4,14 @@ loginButton.addEventListener("click", onLogin);
 
 
 function onLogin() {
-    if (validate()) {
+    if (!validate()) {
         alert("Wrong username or password.");
         return;
     }
-    //TODO: remove this
-    currentPlayer.username = document.getElementById("username").value;
     setVisibility('login', 'none');
     game.state = "configuration";
     onConfigurationOpen();
+    loginClearForm();
 };
 
 function validate() {
