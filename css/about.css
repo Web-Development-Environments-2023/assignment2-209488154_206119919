@@ -9,7 +9,7 @@
   overflow-y: hidden;
   background-image: url("/images/about_back.png");
   background-size: 100% 100%;
-  padding: 2vh;
+  padding: 3vh;
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   width: 50%;
@@ -59,12 +59,20 @@ body {
 }
 #about p{
   background-color: rgba(0, 0, 0, 0.639);
-  width: 45vw;
-  height: 25vh;
   font-family: "Fantasy", Papyrus;
   color: rgb(240, 248, 255);
   text-align: center;
   font-size: larger;
+  line-height: 1.5;
+}
+
+.about-ul li{
+  background-color: rgba(0, 0, 0, 0.639);
+  font-family: "Fantasy", Papyrus;
+  color: rgb(240, 248, 255);
+  text-align: left;
+  font-size: larger;
+  line-height: 1.5;
 }
 
 #about h1{
@@ -76,16 +84,5 @@ body {
   text-align: center;
   font-family: "Fantasy", Papyrus;
   margin-left: 20%;
-  margin-bottom: 0px;
-}
-#about h5{
-  background-color: rgba(0, 0, 0, 0.603);
-  width: 50vw;
-  height: 9vh;
-  font-size:x-small;
-  color: rgb(240, 248, 255);
-  text-align: center;
-  font-family: "Fantasy", Papyrus;
-  margin-top: 0px;
   margin-bottom: 0px;
 }
