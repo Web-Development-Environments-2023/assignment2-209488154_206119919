@@ -104,6 +104,7 @@ function returnHome() {
     var state = game.state;
     setVisibility("playing-background", 'none');
     setVisibility('restart-nav-button', 'none');
+    setVisibility('pause-x-button', 'none');
 
     if(state == "gameover"){
         game.popState();
@@ -112,7 +113,6 @@ function returnHome() {
     }
 
     if(state == "pause"){
-        setVisibility('pause-x-button', 'none');
         game.popState();
         game.popState();
     }
