@@ -20,7 +20,7 @@ By the end of the game, you need to have more then 100 points in order to win th
 ### Welcome Page
 The Welcome Page display the main menu for the game, as well as an marquee.
 The menu and the navigation bar are responsive to the mouse movement.
-![welcome](https://github.com/Web-Development-Environments-2023/assignment2-209488154_206119919/blob/main/images/Readme/Pause_page.png?raw=true)
+![welcome](https://github.com/Web-Development-Environments-2023/assignment2-209488154_206119919/blob/main/images/Readme/Welcome_page.png?raw=true)
 ### Configuration
 Every player can decide his/hers game duration, shooting key and his character.
 The duration must be more then 120 seconds.
