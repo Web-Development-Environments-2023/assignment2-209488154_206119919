@@ -22,13 +22,17 @@ function onKeyChoiceKeyDown(event) {
 
 function onTimeChoiceBlur() {
     var time = parseInt(timeChoice.value)
-    //todo: shift back to 120
-    time = isNaN(time) ? 30 : time;
+    time = isNaN(time) ? 120 : time;
     game.config.timeLimit = time;
 }
   
 function onConfigurationFinish() {
-    goToCharacterSelect();
+    // if (game.config.timeLimit < 120) {
+    //     alert("Minimum game duration is 120 seconds.");
+    // }
+    // else {
+        goToCharacterSelect();
+    // }
 }
 
 function goToCharacterSelect() {

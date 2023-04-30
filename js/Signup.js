@@ -99,6 +99,7 @@ signupButton.addEventListener("click", function() {
     setVisibility('signup', 'none');
     game.state = "configuration";
     onConfigurationOpen();
+    signupClearForm();
 });
 
 function verify(username) {

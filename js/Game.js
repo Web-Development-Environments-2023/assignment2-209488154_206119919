@@ -2,10 +2,10 @@ function Game() {
     this.config = {
         invaderInitialVelocity: 20,
         invaderDropDistance:1,
-        playerBulletVelocity: 120,
+        playerBulletVelocity: 200,
         invaderBulletVelocity: 120,
         fps: 50,
-        playerSpeed: 120,
+        playerSpeed: 200,
         invadersSpeed: 10,
         limitSpeedUp: 0,
         keyChoices: {
@@ -16,13 +16,10 @@ function Game() {
             downKey: 40,
             pKey: 27
         },
-        //todo: change back
-        // timeLimit: 120
-        timeLimit: 30
+        timeLimit: 120
     };
-    this.pauseStartTime = null;
     this.paused = false;
-    this.pausedTimeElapesed = 0;
+    this.timeElapsed = 0;
     this.width = 0;
     this.height = 0;
     this.playerBounds = {left: 0, top: 0, right: 0, bottom: 0};
@@ -30,7 +27,6 @@ function Game() {
     this.intervalId = 0;
     this.score = 0;
     this.lives;
-    this.finished;
     this.characters = {
         'rosetta': {
             characterWidth: 76,
@@ -112,8 +108,7 @@ Game.prototype.start = function() {
     this.moveToState(new WelcomeState());
     
     var game = this;
-    game.finished = false;
-    game.startTime = new Date();
+    game.timeElapsed = 0;
     this.intervalId = setInterval(function () {
         GameLoop(game);
     }, 1000 / this.config.fps);
@@ -152,38 +147,24 @@ Game.prototype.mute = function(mute) {
 };
 
 function GameLoop(game) {
-    if (game.paused) {
-        var currentTime = new Date();
-        game.pausedTimeElapesed = (currentTime - game.pauseStartTime) / 1000;
-    }
-    else {
-        var currentState = game.currentState();
-        if(currentState) {
-            var dt = 1 / game.config.fps;
+    var currentState = game.currentState();
+    if(currentState) {
+        var dt = 1 / game.config.fps;
 
-            var ctx = this.gameCanvas.getContext("2d");
-            
-            if(currentState.update) {
-                currentState.update(game, dt);
-            }
-            if(currentState.draw) {
-                currentState.draw(game, dt, ctx);
-            }
+        var ctx = this.gameCanvas.getContext("2d");
+        
+        if(currentState.update) {
+            currentState.update(game, dt);
         }
-
-        var currentTime = new Date();
-        var timeElapsed = (currentTime - game.startTime) / 1000 - game.pausedTimeElapesed;
-        document.getElementById("timer").value = (game.config.timeLimit - timeElapsed).toPrecision(3);
-        checkIsTimeUp();
+        if(currentState.draw) {
+            currentState.draw(game, dt, ctx);
+        }
     }
-    console.log(game.paused);
+    checkIsTimeUp(game);
 }
 
-function checkIsTimeUp() {
-    var currentTime = new Date();
-    var timeElapsed = (currentTime - game.startTime) / 1000 - game.pausedTimeElapesed;
-
-    if(timeElapsed >= game.config.timeLimit && !(game.finished)){
+function checkIsTimeUp(game) {
+    if(game.timeElapsed >= game.config.timeLimit){
         finishGame(game);
     }
 }

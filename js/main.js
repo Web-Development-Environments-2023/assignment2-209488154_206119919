@@ -71,10 +71,10 @@ function getHealthBarState(game){
 
 function destroyGame() {    
     resetSpeed();
+    clearInterval(timerIntervalId);
     var gameCanvas = document.getElementById("gameCanvas");
     var gameCanvasContainer = document.getElementById("game-canvas-container");
     gameCanvasContainer.removeChild(gameCanvas);
-    debugger;
     document.getElementById("score").innerHTML = '0';
     hideHealthBar();
 }
@@ -157,7 +157,6 @@ function resizeGameCanvas(canvas) {
     game.height = canvas.height;
     game.resizeBounds();
 };
-
 
 window.addEventListener('resize', () => pizzaBackground?.resizePizzaBackground());
 window.addEventListener('resize', () => resizeGameCanvas(document.getElementById("gameCanvas")));

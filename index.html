@@ -50,7 +50,7 @@
       </header>
 
       <button id="pause-x-button">X</button>
-      <div id="menu">
+      <menu id="menu">
         <img class="logo" src="images/logo.png" alt="Image" height="250" width="250">
         <p id="text">PAZZA!</p>
         <p id="shadow">
@@ -73,7 +73,7 @@
             <span class="Mask"><span>About</span></span>
           </li>
         </ul>
-      </div>
+      </menu>
     </div>
 
     <div id="content">
@@ -277,6 +277,7 @@
           <p>
             move around using the arrow keys.
             shoot using space.
+            press esc to pause the game.
           </p>
         </div>
       </div>
@@ -304,7 +305,7 @@
         <source src="sounds/menu-song.wav" type="audio/mpeg">
         <script>
           var menuAudioPlayer = document.getElementById("menu-audio-player");
-          menuAudioPlayer.volume = 0.2;
+          menuAudioPlayer.volume = 0;
         </script>
         Your browser does not support the audio element.
       </audio>

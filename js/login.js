@@ -13,6 +13,7 @@ function onLogin() {
     setVisibility('login', 'none');
     game.state = "configuration";
     onConfigurationOpen();
+    loginClearForm();
 };
 
 function validate() {

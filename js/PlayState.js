@@ -1,5 +1,6 @@
 GO_DOWN = true;
 var speedUpIntervalId;
+var timerIntervalId;
 
 function PlayState(config) {
     this.config = config;
@@ -7,20 +8,20 @@ function PlayState(config) {
 
     this.invaderCurrentDropDistance =  0;
     this.invadersAreDropping =  false;
-    this.lastPlayerBulletTime = null;
+    this.lastPlayerBulletTime = 0;
 
     this.player = null;
     this.invaders = [];
     this.playerBullets = [];
     this.invaderBullets = [];
     this.canShoot = true;
-    this.shootDelay = 0;
+    this.shootDelay = 1000;
 }
 
 function speedUp(){
     if(game.config.limitSpeedUp < 4){
         document.getElementById("game-audio-player").playbackRate *= 1.05;
-        game.config.invaderBulletVelocity *= 1.2;
+        game.config.invaderBulletVelocity *= 1.3;
         game.config.invadersSpeed += 3;
         game.config.limitSpeedUp += 1;
     }
@@ -34,7 +35,19 @@ function resetSpeed() {
     game.config.limitSpeedUp = 0;
 }
 
+function countDown(){
+    if (!game.paused) {
+        game.timeElapsed++;
+        var currentTime = game.config.timeLimit - game.timeElapsed;
+        if (currentTime < 0) {
+            currentTime = 0;
+        }
+        document.getElementById("timer").value = currentTime;
+    }
+}
+
 PlayState.prototype.enter = function(game) {
+    timerIntervalId = setInterval(countDown, 1000);
     go(0, 0);
     var playerImage = new Image();
     playerImage.src = game.selectedCharacterImage;
@@ -302,7 +315,6 @@ function winGame(game) {
 }
 
 function finishGame(game) {
-    game.finished = true;
     game.stop();
     clearInterval(speedUpIntervalId);
     saveRecord(game);
@@ -331,10 +343,9 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     }
 
     ctx.fillStyle = '#ff5555';
-    var playerBulletPhotos = ['images/bullets/bullet_1.png', 'images/bullets/bullet_2.png'];
     for(var i=0; i<this.playerBullets.length; i++) {
         var photo = new Image();
-        photo.src = playerBulletPhotos[i % 2];
+        photo.src = 'images/bullets/bullet_1.png';
         var playerBullet = this.playerBullets[i];
         ctx.drawImage(photo, playerBullet.x - 2, playerBullet.y - 2, 20, 20);
     }
@@ -346,7 +357,6 @@ PlayState.prototype.keyDown = function(game, keyCode) {
         this.firePlayerBullet();
     }
     if(keyCode == game.config.keyChoices.pKey) {
-        game.pauseStartTime = new Date();
         game.paused = true;
         game.state = "pause";
         var gameAudioPlayer = document.getElementById('game-audio-player');

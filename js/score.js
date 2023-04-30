@@ -22,8 +22,10 @@ function go(rank, score) {
             $("#score").html(score + rank); 
         },
         queue: false,
-        complete: function () {            
-            document.body.removeChild(scoreEl);
+        complete: function () {      
+            if (scoreEl instanceof Node) {      
+                document.body.removeChild(scoreEl);
+            }
         }
     });
     
