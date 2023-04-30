@@ -73,6 +73,7 @@ function getHealthBarState(game){
 function destroyGame() {    
     resetSpeed();
     clearInterval(timerIntervalId);
+    game.paused = false;
     var gameCanvas = document.getElementById("gameCanvas");
     var gameCanvasContainer = document.getElementById("game-canvas-container");
     gameCanvasContainer.removeChild(gameCanvas);
@@ -94,6 +95,8 @@ function restartGame(event) {
     game.start();
     game.moveToState(new IntroState());
     setVisibility('gameCanvas', 'block');
+    var gameAudioPlayer = document.getElementById('game-audio-player');
+    gameAudioPlayer.play();
 }
 
 var restart = document.querySelector(".start-over");
